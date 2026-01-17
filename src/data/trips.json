@@ -1,0 +1,74 @@
+{
+  "trips": [
+    {
+      "id": "patagonia-2024",
+      "title": "Patagonia Adventure",
+      "country": "Argentina",
+      "date": "2024-03",
+      "featured": true,
+      "categories": ["mountains", "nature", "landscape"],
+      "photos": [
+        {
+          "filename": "torres-del-paine.jpg",
+          "caption": "Torres del Paine at sunset",
+          "categories": ["mountains", "landscape"]
+        },
+        {
+          "filename": "glacier-perito-moreno.jpg",
+          "caption": "Perito Moreno Glacier",
+          "categories": ["nature", "landscape"]
+        },
+        {
+          "filename": "guanaco-patagonia.jpg",
+          "caption": "Wild guanaco in the steppe",
+          "categories": ["animals", "nature"]
+        }
+      ]
+    },
+    {
+      "id": "japan-spring-2024",
+      "title": "Japan in Spring",
+      "country": "Japan",
+      "date": "2024-04",
+      "featured": true,
+      "categories": ["city", "culture", "nature"],
+      "photos": [
+        {
+          "filename": "cherry-blossoms-kyoto.jpg",
+          "caption": "Cherry blossoms in Kyoto",
+          "categories": ["nature", "culture"]
+        },
+        {
+          "filename": "tokyo-shibuya.jpg",
+          "caption": "Shibuya crossing at night",
+          "categories": ["city", "culture"]
+        },
+        {
+          "filename": "mount-fuji.jpg",
+          "caption": "Mount Fuji at dawn",
+          "categories": ["mountains", "landscape"]
+        }
+      ]
+    },
+    {
+      "id": "iceland-2023",
+      "title": "Iceland Landscapes",
+      "country": "Iceland",
+      "date": "2023-09",
+      "featured": true,
+      "categories": ["landscape", "nature"],
+      "photos": [
+        {
+          "filename": "aurora-borealis.jpg",
+          "caption": "Northern lights over the lagoon",
+          "categories": ["landscape", "nature"]
+        },
+        {
+          "filename": "black-sand-beach.jpg",
+          "caption": "Reynisfjara black sand beach",
+          "categories": ["landscape", "nature"]
+        }
+      ]
+    }
+  ]
+}
