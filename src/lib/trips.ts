@@ -3,6 +3,16 @@ import type { Trip, TripsData, PhotoWithTrip, PhotoCategory } from "@/types";
 
 const data = tripsData as TripsData;
 
+/** Fisher-Yates shuffle algorithm */
+function shuffleArray<T>(array: T[]): T[] {
+  const shuffled = [...array];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled;
+}
+
 export function getAllTrips(): Trip[] {
   return data.trips;
 }
@@ -34,7 +44,7 @@ export function getAllPhotosWithTrip(): PhotoWithTrip[] {
   return photos;
 }
 
-export function getFeaturedPhotos(): PhotoWithTrip[] {
+export function getFeaturedPhotos(shuffle = true): PhotoWithTrip[] {
   const photos: PhotoWithTrip[] = [];
 
   for (const trip of data.trips.filter((t) => t.featured)) {
@@ -50,7 +60,7 @@ export function getFeaturedPhotos(): PhotoWithTrip[] {
     }
   }
 
-  return photos;
+  return shuffle ? shuffleArray(photos) : photos;
 }
 
 export function getPhotosByCategory(category: PhotoCategory): PhotoWithTrip[] {

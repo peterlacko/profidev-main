@@ -4,6 +4,9 @@ import { getFeaturedPhotos } from "@/lib/trips";
 import { PhotoGrid } from "@/components/photos/photo-grid";
 import { Button } from "@/components/ui/button";
 
+// Ensure photos are shuffled on each request
+export const dynamic = "force-dynamic";
+
 export default function Home() {
   const featuredPhotos = getFeaturedPhotos();
 
