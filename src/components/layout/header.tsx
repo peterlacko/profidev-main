@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Menu, X, Camera } from "lucide-react";
+import { Menu, X, Code2, Camera, BicepsFlexed } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
@@ -22,9 +22,24 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <nav className="container mx-auto flex h-16 items-center justify-between px-4">
-        <Link href="/" className="flex items-center gap-2 font-semibold">
-          <Camera className="h-5 w-5" />
-          <span className="text-lg">Travel Portfolio</span>
+        <Link
+          href="/"
+          className="flex gap-2 font-semibold text-m leading-tight"
+        >
+          <span className="flex items-center justify-end gap-1.5">
+            <span>build</span>
+            <Code2 className="h-4 w-4" />
+          </span>
+          <span>|</span>
+          <span className="flex items-center justify-end gap-1.5">
+            <span>capture</span>
+            <Camera className="h-4 w-4" />
+          </span>
+          <span>|</span>
+          <span className="flex items-center justify-end gap-1.5">
+            <span>move</span>
+            <BicepsFlexed className="h-4 w-4" />
+          </span>
         </Link>
 
         {/* Desktop Navigation */}
@@ -65,8 +80,8 @@ export function Header() {
       {/* Mobile Navigation */}
       <div
         className={cn(
-          "absolute left-0 right-0 top-16 border-b bg-background md:hidden",
-          mobileMenuOpen ? "block" : "hidden"
+          "absolute left-0 right-0 top-20 border-b bg-background md:hidden",
+          mobileMenuOpen ? "block" : "hidden",
         )}
       >
         <ul className="container mx-auto flex flex-col px-4 py-4">
