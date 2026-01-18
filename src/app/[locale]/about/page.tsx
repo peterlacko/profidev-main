@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Camera, MapPin, Heart } from "lucide-react";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 
 export async function generateMetadata({
@@ -46,7 +47,6 @@ export default async function AboutPage({
                   </p>
                 </div>
               </div>
-              {/* Uncomment when you have an actual photo:
               <Image
                 src="/about-photo.jpg"
                 alt="Photographer portrait"
@@ -54,7 +54,6 @@ export default async function AboutPage({
                 className="object-cover"
                 priority
               />
-              */}
             </div>
 
             {/* Bio */}
@@ -62,19 +61,17 @@ export default async function AboutPage({
               <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
                 {t("greeting")}
               </h1>
-              <p className="mt-6 text-lg text-muted-foreground">
-                {t("bio1")}
-              </p>
-              <p className="mt-4 text-muted-foreground">
-                {t("bio2")}
-              </p>
+              <p className="mt-6 text-lg text-muted-foreground">{t("bio1")}</p>
+              <p className="mt-4 text-muted-foreground">{t("bio2")}</p>
             </div>
           </div>
         </div>
 
         {/* Story Section */}
         <div className="mx-auto mt-20 max-w-3xl">
-          <h2 className="text-2xl font-bold tracking-tight">{t("storyTitle")}</h2>
+          <h2 className="text-2xl font-bold tracking-tight">
+            {t("storyTitle")}
+          </h2>
           <div className="mt-6 space-y-4 text-muted-foreground">
             <p>{t("story1")}</p>
             <p>{t("story2")}</p>
@@ -120,9 +117,7 @@ export default async function AboutPage({
 
         {/* CTA */}
         <div className="mt-20 text-center">
-          <p className="text-muted-foreground">
-            {t("ctaText")}
-          </p>
+          <p className="text-muted-foreground">{t("ctaText")}</p>
           <Button asChild className="mt-4" size="lg">
             <Link href="/contact">{t("getInTouch")}</Link>
           </Button>

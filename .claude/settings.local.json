@@ -4,7 +4,8 @@
       "Bash(node scripts/generate-placeholders.js:*)",
       "Bash(npm run build:*)",
       "Bash(npm run lint:*)",
-      "Bash(npm install:*)"
+      "Bash(npm install:*)",
+      "WebSearch"
     ]
   }
 }

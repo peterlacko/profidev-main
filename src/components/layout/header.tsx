@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 import { Menu, X, Code2, Camera, BicepsFlexed } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
@@ -10,7 +11,15 @@ import { LanguageSwitcher } from "./language-switcher";
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const pathname = usePathname();
   const t = useTranslations("navigation");
+
+  const isActive = (href: string) => {
+    if (href === "/") {
+      return pathname === "/" || pathname.match(/^\/[a-z]{2}\/?$/);
+    }
+    return pathname.includes(href);
+  };
 
   const navLinks = [
     { href: "/" as const, label: t("home") },
@@ -49,7 +58,10 @@ export function Header() {
               <li key={link.href}>
                 <Link
                   href={link.href}
-                  className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+                  className={cn(
+                    "text-sm font-medium text-muted-foreground transition-colors hover:text-foreground",
+                    isActive(link.href) && "font-bold text-foreground",
+                  )}
                 >
                   {link.label}
                 </Link>
@@ -89,7 +101,10 @@ export function Header() {
             <li key={link.href}>
               <Link
                 href={link.href}
-                className="block py-3 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+                className={cn(
+                  "block py-3 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground",
+                  isActive(link.href) && "font-bold text-foreground",
+                )}
                 onClick={() => setMobileMenuOpen(false)}
               >
                 {link.label}
