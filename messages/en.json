@@ -1,0 +1,125 @@
+{
+  "metadata": {
+    "title": "Travel Portfolio | Photography",
+    "titleTemplate": "%s | Travel Portfolio",
+    "description": "A personal travel photography portfolio showcasing stunning captures from around the world.",
+    "siteName": "Travel Portfolio"
+  },
+  "navigation": {
+    "home": "Home",
+    "gallery": "Gallery",
+    "about": "About",
+    "contact": "Contact",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu"
+  },
+  "home": {
+    "hero": {
+      "title": "Capturing the World,",
+      "titleHighlight": "One Frame at a Time",
+      "description": "Travel photography that tells stories. From the peaks of Patagonia to the streets of Tokyo, explore the beauty of our world through my lens.",
+      "browseGallery": "Browse Gallery",
+      "aboutMe": "About Me"
+    },
+    "featured": {
+      "title": "Featured Work",
+      "description": "A selection of my favorite captures from recent travels",
+      "viewAll": "View all photos"
+    },
+    "cta": {
+      "title": "Interested in a Photo?",
+      "description": "All displayed photos are available for purchase in full resolution without watermarks. Perfect for prints, personal use, or commercial projects.",
+      "getInTouch": "Get in Touch"
+    }
+  },
+  "gallery": {
+    "title": "Gallery",
+    "description": "Browse the complete collection of travel photography",
+    "filters": "Filters",
+    "country": "Country",
+    "category": "Category",
+    "sortBy": "Sort by",
+    "date": "Date",
+    "all": "All",
+    "clearFilters": "Clear filters",
+    "photos": "{count} photos",
+    "photosFiltered": "{count} photos (filtered)",
+    "noPhotos": "No photos match the selected filters."
+  },
+  "about": {
+    "title": "About",
+    "greeting": "Hello, I'm a Travel Photographer",
+    "bio1": "I believe that every destination has a story waiting to be told through images. My camera is my passport to documenting the raw beauty and unique moments I encounter around the world.",
+    "bio2": "From the misty peaks of Patagonia to the bustling streets of Tokyo, I seek out the extraordinary in everyday moments and the quiet beauty in grand landscapes.",
+    "storyTitle": "My Story",
+    "story1": "Photography found me during my first solo backpacking trip through Southeast Asia. What started as simple travel snapshots quickly evolved into a deep passion for capturing the essence of a place — its people, landscapes, and fleeting moments of beauty.",
+    "story2": "Over the years, I've developed a style that emphasizes natural light, authentic moments, and the raw emotions that make travel so transformative. I don't just want to show you where I've been; I want to make you feel like you're standing right there beside me.",
+    "story3": "When I'm not behind the camera, you'll find me planning the next adventure, learning about local cultures, or processing photos late into the night (fueled by too much coffee).",
+    "approachTitle": "My Approach",
+    "authentic": {
+      "title": "Authentic Moments",
+      "description": "I capture real, unposed moments that tell genuine stories. Nothing staged, everything felt."
+    },
+    "local": {
+      "title": "Local Perspective",
+      "description": "I immerse myself in local culture to find unique angles and hidden gems off the beaten path."
+    },
+    "passion": {
+      "title": "Passion-Driven",
+      "description": "Every photo is taken with love and intention. I shoot what moves me, hoping it moves you too."
+    },
+    "ctaText": "Want to work together or have questions about my photos?",
+    "getInTouch": "Get in Touch"
+  },
+  "contact": {
+    "title": "Get in Touch",
+    "description": "Interested in purchasing a photo or have a question? I'd love to hear from you.",
+    "email": "Email",
+    "emailDesc": "Direct inquiries",
+    "photoPurchases": "Photo Purchases",
+    "photoPurchasesDesc": "Full resolution available",
+    "responseTime": "Response Time",
+    "responseTimeDesc": "Within 24-48 hours",
+    "form": {
+      "name": "Name",
+      "email": "Email",
+      "subject": "Subject",
+      "subjectPlaceholder": "What's this about?",
+      "photoReference": "Photo Reference",
+      "photoReferencePlaceholder": "If requesting a specific photo, enter its name here",
+      "photoReferencePrefilled": "Pre-filled from gallery selection",
+      "message": "Message",
+      "messagePlaceholder": "Your message... If requesting a photo, please include details about intended use (personal, print, commercial).",
+      "required": "*",
+      "send": "Send Message",
+      "sending": "Sending..."
+    },
+    "success": {
+      "title": "Message Sent!",
+      "description": "Thank you for reaching out. I'll get back to you within 24-48 hours.",
+      "sendAnother": "Send Another Message"
+    },
+    "purchaseInfo": "Regarding photo purchases: All photos displayed on this site are available for purchase in full resolution without watermarks. Pricing depends on the intended use (personal, print, commercial). Please include details about your intended use in your message."
+  },
+  "footer": {
+    "tagline": "Capturing moments from around the world through the lens.",
+    "quickLinks": "Quick Links",
+    "aboutMe": "About Me",
+    "connect": "Connect",
+    "copyright": "© {year} Travel Portfolio. All rights reserved."
+  },
+  "lightbox": {
+    "close": "Close",
+    "previous": "Previous photo",
+    "next": "Next photo",
+    "requestFullRes": "Request Full Resolution"
+  },
+  "categories": {
+    "mountains": "Mountains",
+    "city": "City",
+    "animals": "Animals",
+    "nature": "Nature",
+    "landscape": "Landscape",
+    "culture": "Culture"
+  }
+}

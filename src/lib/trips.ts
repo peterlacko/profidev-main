@@ -1,5 +1,6 @@
 import tripsData from "@/data/trips.json";
-import type { Trip, TripsData, PhotoWithTrip, PhotoCategory } from "@/types";
+import type { Trip, TripsData, PhotoWithTrip, PhotoCategory, LocalizedString } from "@/types";
+import type { Locale } from "@/i18n/routing";
 
 const data = tripsData as TripsData;
 
@@ -11,6 +12,10 @@ function shuffleArray<T>(array: T[]): T[] {
     [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
   }
   return shuffled;
+}
+
+function getLocalizedString(obj: LocalizedString, locale: Locale): string {
+  return obj[locale] || obj['en'];
 }
 
 export function getAllTrips(): Trip[] {
@@ -25,15 +30,17 @@ export function getTripById(id: string): Trip | undefined {
   return data.trips.find((trip) => trip.id === id);
 }
 
-export function getAllPhotosWithTrip(): PhotoWithTrip[] {
+export function getAllPhotosWithTrip(locale: Locale): PhotoWithTrip[] {
   const photos: PhotoWithTrip[] = [];
 
   for (const trip of data.trips) {
     for (const photo of trip.photos) {
       photos.push({
-        ...photo,
+        filename: photo.filename,
+        categories: photo.categories,
+        caption: getLocalizedString(photo.caption, locale),
         tripId: trip.id,
-        tripTitle: trip.title,
+        tripTitle: getLocalizedString(trip.title, locale),
         country: trip.country,
         date: trip.date,
         src: `/photos/${trip.id}/${photo.filename}`,
@@ -44,15 +51,17 @@ export function getAllPhotosWithTrip(): PhotoWithTrip[] {
   return photos;
 }
 
-export function getFeaturedPhotos(shuffle = true): PhotoWithTrip[] {
+export function getFeaturedPhotos(locale: Locale, shuffle = true): PhotoWithTrip[] {
   const photos: PhotoWithTrip[] = [];
 
   for (const trip of data.trips.filter((t) => t.featured)) {
     for (const photo of trip.photos) {
       photos.push({
-        ...photo,
+        filename: photo.filename,
+        categories: photo.categories,
+        caption: getLocalizedString(photo.caption, locale),
         tripId: trip.id,
-        tripTitle: trip.title,
+        tripTitle: getLocalizedString(trip.title, locale),
         country: trip.country,
         date: trip.date,
         src: `/photos/${trip.id}/${photo.filename}`,
@@ -63,14 +72,14 @@ export function getFeaturedPhotos(shuffle = true): PhotoWithTrip[] {
   return shuffle ? shuffleArray(photos) : photos;
 }
 
-export function getPhotosByCategory(category: PhotoCategory): PhotoWithTrip[] {
-  return getAllPhotosWithTrip().filter((photo) =>
+export function getPhotosByCategory(locale: Locale, category: PhotoCategory): PhotoWithTrip[] {
+  return getAllPhotosWithTrip(locale).filter((photo) =>
     photo.categories.includes(category)
   );
 }
 
-export function getPhotosByCountry(country: string): PhotoWithTrip[] {
-  return getAllPhotosWithTrip().filter((photo) => photo.country === country);
+export function getPhotosByCountry(locale: Locale, country: string): PhotoWithTrip[] {
+  return getAllPhotosWithTrip(locale).filter((photo) => photo.country === country);
 }
 
 export function getAllCountries(): string[] {

@@ -1,15 +1,33 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { Camera, MapPin, Heart } from "lucide-react";
+import { getTranslations, setRequestLocale } from "next-intl/server";
+import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 
-export const metadata: Metadata = {
-  title: "About",
-  description:
-    "Learn more about the photographer behind the lens. Discover my story, approach, and passion for travel photography.",
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "about" });
 
-export default function AboutPage() {
+  return {
+    title: t("title"),
+    description: t("bio1"),
+  };
+}
+
+export default async function AboutPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+
+  const t = await getTranslations("about");
+
   return (
     <div className="py-12 md:py-16">
       <div className="container mx-auto px-4">
@@ -42,17 +60,13 @@ export default function AboutPage() {
             {/* Bio */}
             <div>
               <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
-                Hello, I&apos;m a Travel Photographer
+                {t("greeting")}
               </h1>
               <p className="mt-6 text-lg text-muted-foreground">
-                I believe that every destination has a story waiting to be told
-                through images. My camera is my passport to documenting the raw
-                beauty and unique moments I encounter around the world.
+                {t("bio1")}
               </p>
               <p className="mt-4 text-muted-foreground">
-                From the misty peaks of Patagonia to the bustling streets of
-                Tokyo, I seek out the extraordinary in everyday moments and the
-                quiet beauty in grand landscapes.
+                {t("bio2")}
               </p>
             </div>
           </div>
@@ -60,62 +74,45 @@ export default function AboutPage() {
 
         {/* Story Section */}
         <div className="mx-auto mt-20 max-w-3xl">
-          <h2 className="text-2xl font-bold tracking-tight">My Story</h2>
+          <h2 className="text-2xl font-bold tracking-tight">{t("storyTitle")}</h2>
           <div className="mt-6 space-y-4 text-muted-foreground">
-            <p>
-              Photography found me during my first solo backpacking trip through
-              Southeast Asia. What started as simple travel snapshots quickly
-              evolved into a deep passion for capturing the essence of a place —
-              its people, landscapes, and fleeting moments of beauty.
-            </p>
-            <p>
-              Over the years, I&apos;ve developed a style that emphasizes natural
-              light, authentic moments, and the raw emotions that make travel so
-              transformative. I don&apos;t just want to show you where I&apos;ve been; I
-              want to make you feel like you&apos;re standing right there beside me.
-            </p>
-            <p>
-              When I&apos;m not behind the camera, you&apos;ll find me planning the next
-              adventure, learning about local cultures, or processing photos
-              late into the night (fueled by too much coffee).
-            </p>
+            <p>{t("story1")}</p>
+            <p>{t("story2")}</p>
+            <p>{t("story3")}</p>
           </div>
         </div>
 
         {/* Values/Approach */}
         <div className="mx-auto mt-20 max-w-4xl">
           <h2 className="mb-10 text-center text-2xl font-bold tracking-tight">
-            My Approach
+            {t("approachTitle")}
           </h2>
           <div className="grid gap-8 md:grid-cols-3">
             <div className="text-center">
               <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10">
                 <Camera className="h-6 w-6 text-primary" />
               </div>
-              <h3 className="font-semibold">Authentic Moments</h3>
+              <h3 className="font-semibold">{t("authentic.title")}</h3>
               <p className="mt-2 text-sm text-muted-foreground">
-                I capture real, unposed moments that tell genuine stories.
-                Nothing staged, everything felt.
+                {t("authentic.description")}
               </p>
             </div>
             <div className="text-center">
               <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10">
                 <MapPin className="h-6 w-6 text-primary" />
               </div>
-              <h3 className="font-semibold">Local Perspective</h3>
+              <h3 className="font-semibold">{t("local.title")}</h3>
               <p className="mt-2 text-sm text-muted-foreground">
-                I immerse myself in local culture to find unique angles and
-                hidden gems off the beaten path.
+                {t("local.description")}
               </p>
             </div>
             <div className="text-center">
               <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10">
                 <Heart className="h-6 w-6 text-primary" />
               </div>
-              <h3 className="font-semibold">Passion-Driven</h3>
+              <h3 className="font-semibold">{t("passion.title")}</h3>
               <p className="mt-2 text-sm text-muted-foreground">
-                Every photo is taken with love and intention. I shoot what moves
-                me, hoping it moves you too.
+                {t("passion.description")}
               </p>
             </div>
           </div>
@@ -124,10 +121,10 @@ export default function AboutPage() {
         {/* CTA */}
         <div className="mt-20 text-center">
           <p className="text-muted-foreground">
-            Want to work together or have questions about my photos?
+            {t("ctaText")}
           </p>
           <Button asChild className="mt-4" size="lg">
-            <Link href="/contact">Get in Touch</Link>
+            <Link href="/contact">{t("getInTouch")}</Link>
           </Button>
         </div>
       </div>

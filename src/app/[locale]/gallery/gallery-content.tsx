@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from "react";
 import { SlidersHorizontal, X } from "lucide-react";
+import { useTranslations } from "next-intl";
 import type { PhotoWithTrip, PhotoCategory } from "@/types";
 import { filterPhotos } from "@/lib/trips";
 import { PhotoGrid } from "@/components/photos/photo-grid";
@@ -19,6 +20,9 @@ export function GalleryContent({
   countries,
   categories,
 }: GalleryContentProps) {
+  const t = useTranslations("gallery");
+  const tCategories = useTranslations("categories");
+
   const [selectedCountry, setSelectedCountry] = useState<string | undefined>();
   const [selectedCategory, setSelectedCategory] = useState<
     PhotoCategory | undefined
@@ -52,7 +56,7 @@ export function GalleryContent({
           className="gap-2"
         >
           <SlidersHorizontal className="h-4 w-4" />
-          Filters
+          {t("filters")}
           {hasActiveFilters && (
             <span className="ml-1 h-5 w-5 rounded-full bg-primary text-xs text-primary-foreground flex items-center justify-center">
               {(selectedCountry ? 1 : 0) + (selectedCategory ? 1 : 0)}
@@ -60,7 +64,7 @@ export function GalleryContent({
           )}
         </Button>
         <span className="text-sm text-muted-foreground">
-          {filteredPhotos.length} photos
+          {t("photos", { count: filteredPhotos.length })}
         </span>
       </div>
 
@@ -73,14 +77,14 @@ export function GalleryContent({
       >
         {/* Country Filter */}
         <div>
-          <label className="mb-2 block text-sm font-medium">Country</label>
+          <label className="mb-2 block text-sm font-medium">{t("country")}</label>
           <div className="flex flex-wrap gap-2">
             <Button
               variant={!selectedCountry ? "default" : "outline"}
               size="sm"
               onClick={() => setSelectedCountry(undefined)}
             >
-              All
+              {t("all")}
             </Button>
             {countries.map((country) => (
               <Button
@@ -97,14 +101,14 @@ export function GalleryContent({
 
         {/* Category Filter */}
         <div>
-          <label className="mb-2 block text-sm font-medium">Category</label>
+          <label className="mb-2 block text-sm font-medium">{t("category")}</label>
           <div className="flex flex-wrap gap-2">
             <Button
               variant={!selectedCategory ? "default" : "outline"}
               size="sm"
               onClick={() => setSelectedCategory(undefined)}
             >
-              All
+              {t("all")}
             </Button>
             {categories.map((category) => (
               <Button
@@ -112,9 +116,8 @@ export function GalleryContent({
                 variant={selectedCategory === category ? "default" : "outline"}
                 size="sm"
                 onClick={() => setSelectedCategory(category)}
-                className="capitalize"
               >
-                {category}
+                {tCategories(category)}
               </Button>
             ))}
           </div>
@@ -122,21 +125,21 @@ export function GalleryContent({
 
         {/* Sort */}
         <div>
-          <label className="mb-2 block text-sm font-medium">Sort by</label>
+          <label className="mb-2 block text-sm font-medium">{t("sortBy")}</label>
           <div className="flex gap-2">
             <Button
               variant={sortBy === "date" ? "default" : "outline"}
               size="sm"
               onClick={() => setSortBy("date")}
             >
-              Date
+              {t("date")}
             </Button>
             <Button
               variant={sortBy === "country" ? "default" : "outline"}
               size="sm"
               onClick={() => setSortBy("country")}
             >
-              Country
+              {t("country")}
             </Button>
           </div>
         </div>
@@ -150,7 +153,7 @@ export function GalleryContent({
             className="gap-2"
           >
             <X className="h-4 w-4" />
-            Clear filters
+            {t("clearFilters")}
           </Button>
         )}
       </div>
@@ -158,8 +161,9 @@ export function GalleryContent({
       {/* Results count (desktop) */}
       <div className="mb-6 hidden items-center justify-between md:flex">
         <span className="text-sm text-muted-foreground">
-          {filteredPhotos.length} photos
-          {hasActiveFilters && " (filtered)"}
+          {hasActiveFilters
+            ? t("photosFiltered", { count: filteredPhotos.length })
+            : t("photos", { count: filteredPhotos.length })}
         </span>
       </div>
 
@@ -169,10 +173,10 @@ export function GalleryContent({
       ) : (
         <div className="py-16 text-center">
           <p className="text-muted-foreground">
-            No photos match the selected filters.
+            {t("noPhotos")}
           </p>
           <Button variant="link" onClick={clearFilters} className="mt-2">
-            Clear filters
+            {t("clearFilters")}
           </Button>
         </div>
       )}

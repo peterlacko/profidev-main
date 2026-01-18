@@ -2,8 +2,9 @@
 
 import { useEffect, useCallback } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import { X, ChevronLeft, ChevronRight, Mail } from "lucide-react";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 import type { PhotoWithTrip } from "@/types";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -26,6 +27,9 @@ export function Lightbox({
   onClose,
   onNavigate,
 }: LightboxProps) {
+  const t = useTranslations("lightbox");
+  const tCategories = useTranslations("categories");
+
   const isOpen = currentIndex !== null;
   const currentPhoto = currentIndex !== null ? photos[currentIndex] : null;
 
@@ -83,7 +87,7 @@ export function Lightbox({
           onClick={onClose}
         >
           <X className="h-6 w-6" />
-          <span className="sr-only">Close</span>
+          <span className="sr-only">{t("close")}</span>
         </Button>
 
         {/* Navigation buttons */}
@@ -95,7 +99,7 @@ export function Lightbox({
             onClick={goToPrevious}
           >
             <ChevronLeft className="h-8 w-8" />
-            <span className="sr-only">Previous photo</span>
+            <span className="sr-only">{t("previous")}</span>
           </Button>
         )}
 
@@ -107,7 +111,7 @@ export function Lightbox({
             onClick={goToNext}
           >
             <ChevronRight className="h-8 w-8" />
-            <span className="sr-only">Next photo</span>
+            <span className="sr-only">{t("next")}</span>
           </Button>
         )}
 
@@ -136,9 +140,9 @@ export function Lightbox({
                 {currentPhoto.categories.map((category) => (
                   <span
                     key={category}
-                    className="px-2 py-0.5 text-xs bg-white/10 rounded-full capitalize"
+                    className="px-2 py-0.5 text-xs bg-white/10 rounded-full"
                   >
-                    {category}
+                    {tCategories(category)}
                   </span>
                 ))}
               </div>
@@ -152,7 +156,7 @@ export function Lightbox({
               )}
             >
               <Mail className="h-4 w-4" />
-              Request Full Resolution
+              {t("requestFullRes")}
             </Link>
           </div>
 

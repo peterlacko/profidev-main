@@ -1,7 +1,13 @@
-import Link from "next/link";
+"use client";
+
 import { Camera, Instagram, Mail } from "lucide-react";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 
 export function Footer() {
+  const t = useTranslations("footer");
+  const tNav = useTranslations("navigation");
+
   return (
     <footer className="border-t bg-muted/30">
       <div className="container mx-auto px-4 py-12">
@@ -13,27 +19,27 @@ export function Footer() {
               <span>Travel Portfolio</span>
             </Link>
             <p className="text-sm text-muted-foreground">
-              Capturing moments from around the world through the lens.
+              {t("tagline")}
             </p>
           </div>
 
           {/* Quick Links */}
           <div className="space-y-4">
-            <h3 className="font-semibold">Quick Links</h3>
+            <h3 className="font-semibold">{t("quickLinks")}</h3>
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li>
                 <Link href="/gallery" className="hover:text-foreground">
-                  Gallery
+                  {tNav("gallery")}
                 </Link>
               </li>
               <li>
                 <Link href="/about" className="hover:text-foreground">
-                  About Me
+                  {t("aboutMe")}
                 </Link>
               </li>
               <li>
                 <Link href="/contact" className="hover:text-foreground">
-                  Contact
+                  {tNav("contact")}
                 </Link>
               </li>
             </ul>
@@ -41,7 +47,7 @@ export function Footer() {
 
           {/* Connect */}
           <div className="space-y-4">
-            <h3 className="font-semibold">Connect</h3>
+            <h3 className="font-semibold">{t("connect")}</h3>
             <div className="flex gap-4">
               <a
                 href="mailto:hello@example.com"
@@ -65,8 +71,7 @@ export function Footer() {
 
         <div className="mt-12 border-t pt-6 text-center text-sm text-muted-foreground">
           <p>
-            &copy; {new Date().getFullYear()} Travel Portfolio. All rights
-            reserved.
+            {t("copyright", { year: new Date().getFullYear() })}
           </p>
         </div>
       </div>

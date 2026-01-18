@@ -2,6 +2,7 @@
 
 import { useState, use } from "react";
 import { Send, CheckCircle, AlertCircle, Loader2 } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -14,6 +15,8 @@ type FormStatus = "idle" | "submitting" | "success" | "error";
 export function ContactForm({ searchParamsPromise }: ContactFormProps) {
   const searchParams = use(searchParamsPromise);
   const photoRef = searchParams.photo;
+  const t = useTranslations("contact.form");
+  const tSuccess = useTranslations("contact.success");
 
   const [status, setStatus] = useState<FormStatus>("idle");
   const [errorMessage, setErrorMessage] = useState<string>("");
@@ -59,16 +62,16 @@ export function ContactForm({ searchParamsPromise }: ContactFormProps) {
     return (
       <div className="py-8 text-center">
         <CheckCircle className="mx-auto h-12 w-12 text-green-500" />
-        <h3 className="mt-4 text-lg font-semibold">Message Sent!</h3>
+        <h3 className="mt-4 text-lg font-semibold">{tSuccess("title")}</h3>
         <p className="mt-2 text-muted-foreground">
-          Thank you for reaching out. I&apos;ll get back to you within 24-48 hours.
+          {tSuccess("description")}
         </p>
         <Button
           variant="outline"
           className="mt-6"
           onClick={() => setStatus("idle")}
         >
-          Send Another Message
+          {tSuccess("sendAnother")}
         </Button>
       </div>
     );
@@ -79,7 +82,7 @@ export function ContactForm({ searchParamsPromise }: ContactFormProps) {
       {/* Name */}
       <div>
         <label htmlFor="name" className="mb-2 block text-sm font-medium">
-          Name <span className="text-destructive">*</span>
+          {t("name")} <span className="text-destructive">{t("required")}</span>
         </label>
         <input
           type="text"
@@ -91,14 +94,14 @@ export function ContactForm({ searchParamsPromise }: ContactFormProps) {
             "focus:border-ring focus:outline-none focus:ring-2 focus:ring-ring/20",
             "placeholder:text-muted-foreground"
           )}
-          placeholder="Your name"
+          placeholder={t("name")}
         />
       </div>
 
       {/* Email */}
       <div>
         <label htmlFor="email" className="mb-2 block text-sm font-medium">
-          Email <span className="text-destructive">*</span>
+          {t("email")} <span className="text-destructive">{t("required")}</span>
         </label>
         <input
           type="email"
@@ -117,7 +120,7 @@ export function ContactForm({ searchParamsPromise }: ContactFormProps) {
       {/* Subject */}
       <div>
         <label htmlFor="subject" className="mb-2 block text-sm font-medium">
-          Subject
+          {t("subject")}
         </label>
         <input
           type="text"
@@ -128,7 +131,7 @@ export function ContactForm({ searchParamsPromise }: ContactFormProps) {
             "focus:border-ring focus:outline-none focus:ring-2 focus:ring-ring/20",
             "placeholder:text-muted-foreground"
           )}
-          placeholder="What's this about?"
+          placeholder={t("subjectPlaceholder")}
         />
       </div>
 
@@ -138,7 +141,7 @@ export function ContactForm({ searchParamsPromise }: ContactFormProps) {
           htmlFor="photoReference"
           className="mb-2 block text-sm font-medium"
         >
-          Photo Reference
+          {t("photoReference")}
         </label>
         <input
           type="text"
@@ -150,11 +153,11 @@ export function ContactForm({ searchParamsPromise }: ContactFormProps) {
             "focus:border-ring focus:outline-none focus:ring-2 focus:ring-ring/20",
             "placeholder:text-muted-foreground"
           )}
-          placeholder="If requesting a specific photo, enter its name here"
+          placeholder={t("photoReferencePlaceholder")}
         />
         {photoRef && (
           <p className="mt-1 text-xs text-muted-foreground">
-            Pre-filled from gallery selection
+            {t("photoReferencePrefilled")}
           </p>
         )}
       </div>
@@ -162,7 +165,7 @@ export function ContactForm({ searchParamsPromise }: ContactFormProps) {
       {/* Message */}
       <div>
         <label htmlFor="message" className="mb-2 block text-sm font-medium">
-          Message <span className="text-destructive">*</span>
+          {t("message")} <span className="text-destructive">{t("required")}</span>
         </label>
         <textarea
           id="message"
@@ -174,7 +177,7 @@ export function ContactForm({ searchParamsPromise }: ContactFormProps) {
             "focus:border-ring focus:outline-none focus:ring-2 focus:ring-ring/20",
             "placeholder:text-muted-foreground"
           )}
-          placeholder="Your message... If requesting a photo, please include details about intended use (personal, print, commercial)."
+          placeholder={t("messagePlaceholder")}
         />
       </div>
 
@@ -195,12 +198,12 @@ export function ContactForm({ searchParamsPromise }: ContactFormProps) {
         {status === "submitting" ? (
           <>
             <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-            Sending...
+            {t("sending")}
           </>
         ) : (
           <>
             <Send className="mr-2 h-4 w-4" />
-            Send Message
+            {t("send")}
           </>
         )}
       </Button>

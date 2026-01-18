@@ -1,15 +1,33 @@
 import type { Metadata } from "next";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { GalleryContent } from "./gallery-content";
 import { getAllPhotosWithTrip, getAllCountries, getAllCategories } from "@/lib/trips";
+import type { Locale } from "@/i18n/routing";
 
-export const metadata: Metadata = {
-  title: "Gallery",
-  description:
-    "Browse the complete collection of travel photography. Filter by country, category, or date.",
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "gallery" });
 
-export default function GalleryPage() {
-  const photos = getAllPhotosWithTrip();
+  return {
+    title: t("title"),
+    description: t("description"),
+  };
+}
+
+export default async function GalleryPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+
+  const t = await getTranslations("gallery");
+  const photos = getAllPhotosWithTrip(locale as Locale);
   const countries = getAllCountries();
   const categories = getAllCategories();
 
@@ -19,10 +37,10 @@ export default function GalleryPage() {
         {/* Header */}
         <div className="mb-10">
           <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
-            Gallery
+            {t("title")}
           </h1>
           <p className="mt-2 text-muted-foreground">
-            Browse the complete collection of travel photography
+            {t("description")}
           </p>
         </div>
 

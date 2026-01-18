@@ -1,12 +1,18 @@
+import type { Locale } from '@/i18n/routing';
+
+export type LocalizedString = {
+  [key in Locale]: string;
+};
+
 export interface Photo {
   filename: string;
-  caption: string;
+  caption: LocalizedString;
   categories: PhotoCategory[];
 }
 
 export interface Trip {
   id: string;
-  title: string;
+  title: LocalizedString;
   country: string;
   date: string;
   featured: boolean;
@@ -26,7 +32,8 @@ export type PhotoCategory =
   | "landscape"
   | "culture";
 
-export interface PhotoWithTrip extends Photo {
+export interface PhotoWithTrip extends Omit<Photo, 'caption'> {
+  caption: string;
   tripId: string;
   tripTitle: string;
   country: string;

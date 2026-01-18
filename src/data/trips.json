@@ -2,7 +2,10 @@
   "trips": [
     {
       "id": "uganda-2025",
-      "title": "Uganda Adventure",
+      "title": {
+        "en": "Uganda Adventure",
+        "sk": "Ugandské dobrodružstvo"
+      },
       "country": "Uganda",
       "date": "2025-07",
       "featured": true,
@@ -10,39 +13,60 @@
       "photos": [
         {
           "filename": "elephant.jpg",
-          "caption": "Elephant in Uganda's rainforest",
+          "caption": {
+            "en": "Elephant in Uganda's rainforest",
+            "sk": "Slon v ugandskom dažďovom pralese"
+          },
           "categories": ["animals", "nature"]
         },
         {
           "filename": "bird.jpg",
-          "caption": "Colorful bird in Uganda's rainforest",
+          "caption": {
+            "en": "Colorful bird in Uganda's rainforest",
+            "sk": "Farebný vták v ugandskom dažďovom pralese"
+          },
           "categories": ["animals", "nature"]
         },
         {
           "filename": "chimp.jpg",
-          "caption": "Chimpanzee in natural habitat",
+          "caption": {
+            "en": "Chimpanzee in natural habitat",
+            "sk": "Šimpanz v prirodzenom prostredí"
+          },
           "categories": ["animals", "nature"]
         },
         {
           "filename": "lake.jpg",
-          "caption": "Serene lake landscape",
+          "caption": {
+            "en": "Serene lake landscape",
+            "sk": "Pokojná jazerná krajina"
+          },
           "categories": ["nature", "landscape"]
         },
         {
           "filename": "mud.jpg",
-          "caption": "Muddy terrain after tropical rain",
+          "caption": {
+            "en": "Muddy terrain after tropical rain",
+            "sk": "Bahnitý terén po tropickom daždi"
+          },
           "categories": ["nature", "landscape"]
         },
         {
           "filename": "mountain.jpg",
-          "caption": "Mountain vista in Uganda",
+          "caption": {
+            "en": "Mountain vista in Uganda",
+            "sk": "Horský výhľad v Ugande"
+          },
           "categories": ["mountains", "landscape"]
         }
       ]
     },
     {
       "id": "indonesia-2023",
-      "title": "Indonesia Explorer",
+      "title": {
+        "en": "Indonesia Explorer",
+        "sk": "Objavovanie Indonézie"
+      },
       "country": "Indonesia",
       "date": "2023-02",
       "featured": true,
@@ -50,34 +74,52 @@
       "photos": [
         {
           "filename": "waterfall.jpg",
-          "caption": "Tropical waterfall in Javanese jungle",
+          "caption": {
+            "en": "Tropical waterfall in Javanese jungle",
+            "sk": "Tropický vodopád v jávskej džungli"
+          },
           "categories": ["nature", "landscape"]
         },
         {
           "filename": "borobudur.jpg",
-          "caption": "Borobudur Temple detail",
+          "caption": {
+            "en": "Borobudur Temple detail",
+            "sk": "Detail chrámu Borobudur"
+          },
           "categories": ["culture", "landscape"]
         },
         {
           "filename": "fisherman.jpg",
-          "caption": "Traditional fisherman at work",
+          "caption": {
+            "en": "Traditional fisherman at work",
+            "sk": "Tradičný rybár pri práci"
+          },
           "categories": ["culture", "nature"]
         },
         {
           "filename": "volcano.jpg",
-          "caption": "Active volcano landscape",
+          "caption": {
+            "en": "Active volcano landscape",
+            "sk": "Krajina s aktívnou sopkou"
+          },
           "categories": ["mountains", "landscape"]
         },
         {
           "filename": "worker.jpg",
-          "caption": "Local worker in mine",
+          "caption": {
+            "en": "Local worker in mine",
+            "sk": "Miestny pracovník v bani"
+          },
           "categories": ["culture", "landscape"]
         }
       ]
     },
     {
       "id": "thailand-2023",
-      "title": "Thailand Journey",
+      "title": {
+        "en": "Thailand Journey",
+        "sk": "Cesta po Thajsku"
+      },
       "country": "Thailand",
       "date": "2023-03",
       "featured": true,
@@ -85,27 +127,42 @@
       "photos": [
         {
           "filename": "blonde.jpg",
-          "caption": "Visitor at golden temple",
+          "caption": {
+            "en": "Visitor at golden temple",
+            "sk": "Návštevníčka pri zlatom chráme"
+          },
           "categories": ["culture", "landscape"]
         },
         {
           "filename": "boat.jpg",
-          "caption": "Traditional longtail boat",
+          "caption": {
+            "en": "Traditional longtail boat",
+            "sk": "Tradičná loď s dlhým chvostom"
+          },
           "categories": ["nature", "culture"]
         },
         {
           "filename": "temple.jpg",
-          "caption": "Ancient Buddhist temple",
+          "caption": {
+            "en": "Ancient Buddhist temple",
+            "sk": "Staroveký budhistický chrám"
+          },
           "categories": ["culture", "landscape"]
         },
         {
           "filename": "monkey.jpg",
-          "caption": "Macaque monkey in temple grounds",
+          "caption": {
+            "en": "Macaque monkey in temple grounds",
+            "sk": "Makak v areáli chrámu"
+          },
           "categories": ["animals", "nature"]
         },
         {
           "filename": "nature.jpg",
-          "caption": "Lush tropical landscape",
+          "caption": {
+            "en": "Lush tropical landscape",
+            "sk": "Bujná tropická krajina"
+          },
           "categories": ["nature", "landscape"]
         }
       ]

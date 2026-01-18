@@ -1,0 +1,125 @@
+{
+  "metadata": {
+    "title": "Cestovateľské portfólio | Fotografia",
+    "titleTemplate": "%s | Cestovateľské portfólio",
+    "description": "Osobné portfólio cestovateľskej fotografie prezentujúce úžasné zábery z celého sveta.",
+    "siteName": "Cestovateľské portfólio"
+  },
+  "navigation": {
+    "home": "Domov",
+    "gallery": "Galéria",
+    "about": "O mne",
+    "contact": "Kontakt",
+    "openMenu": "Otvoriť menu",
+    "closeMenu": "Zavrieť menu"
+  },
+  "home": {
+    "hero": {
+      "title": "Zachytávam svet,",
+      "titleHighlight": "Jeden záber po druhom",
+      "description": "Cestovateľská fotografia, ktorá rozpráva príbehy. Od vrcholov Patagónie po ulice Tokia, objavte krásu nášho sveta cez môj objektív.",
+      "browseGallery": "Prezerať galériu",
+      "aboutMe": "O mne"
+    },
+    "featured": {
+      "title": "Vybrané práce",
+      "description": "Výber mojich obľúbených záberov z nedávnych ciest",
+      "viewAll": "Zobraziť všetky fotky"
+    },
+    "cta": {
+      "title": "Máte záujem o fotku?",
+      "description": "Všetky zobrazené fotografie sú dostupné na zakúpenie v plnom rozlíšení bez vodoznaku. Ideálne pre tlač, osobné použitie alebo komerčné projekty.",
+      "getInTouch": "Kontaktujte ma"
+    }
+  },
+  "gallery": {
+    "title": "Galéria",
+    "description": "Prehliadajte kompletnú zbierku cestovateľskej fotografie",
+    "filters": "Filtre",
+    "country": "Krajina",
+    "category": "Kategória",
+    "sortBy": "Zoradiť podľa",
+    "date": "Dátum",
+    "all": "Všetko",
+    "clearFilters": "Zrušiť filtre",
+    "photos": "{count} fotografií",
+    "photosFiltered": "{count} fotografií (filtrované)",
+    "noPhotos": "Žiadne fotografie nezodpovedajú vybraným filtrom."
+  },
+  "about": {
+    "title": "O mne",
+    "greeting": "Ahoj, som cestovateľský fotograf",
+    "bio1": "Verím, že každá destinácia má príbeh, ktorý čaká na to, aby bol vyrozprávaný prostredníctvom fotografií. Môj fotoaparát je môj pas na dokumentovanie surovej krásy a jedinečných momentov, ktoré stretávam po celom svete.",
+    "bio2": "Od hmlistých vrcholov Patagónie po rušné ulice Tokia hľadám výnimočné v každodenných momentoch a tichú krásu vo veľkolepých krajinách.",
+    "storyTitle": "Môj príbeh",
+    "story1": "Fotografia si ma našla počas mojej prvej samostatnej cesty s batohom po juhovýchodnej Ázii. To, čo začalo ako jednoduché cestovateľské zábery, sa rýchlo vyvinulo v hlbokú vášeň pre zachytávanie podstaty miesta — jeho ľudí, krajín a prchavých momentov krásy.",
+    "story2": "V priebehu rokov som si vyvinul štýl, ktorý kladie dôraz na prirodzené svetlo, autentické momenty a surové emócie, ktoré robia cestovanie tak transformatívnym. Nechcem vám len ukázať, kde som bol; chcem, aby ste mali pocit, že stojíte priamo vedľa mňa.",
+    "story3": "Keď nie som za fotoaparátom, nájdete ma pri plánovaní ďalšieho dobrodružstva, učení sa o miestnych kultúrach alebo spracovávaní fotografií až do noci (poháňaný priveľkým množstvom kávy).",
+    "approachTitle": "Môj prístup",
+    "authentic": {
+      "title": "Autentické momenty",
+      "description": "Zachytávam skutočné, nepózované momenty, ktoré rozprávajú pravdivé príbehy. Nič inscenované, všetko prežité."
+    },
+    "local": {
+      "title": "Miestna perspektíva",
+      "description": "Ponáram sa do miestnej kultúry, aby som našiel jedinečné uhly a skryté poklady mimo vychodených ciest."
+    },
+    "passion": {
+      "title": "Vášeň v srdci",
+      "description": "Každá fotografia je urobená s láskou a zámerom. Fotím to, čo mnou pohne, v nádeji, že to pohne aj vami."
+    },
+    "ctaText": "Chcete spolupracovať alebo máte otázky o mojich fotografiách?",
+    "getInTouch": "Kontaktujte ma"
+  },
+  "contact": {
+    "title": "Kontaktujte ma",
+    "description": "Máte záujem o kúpu fotografie alebo máte otázku? Rád od vás budem počuť.",
+    "email": "Email",
+    "emailDesc": "Priame otázky",
+    "photoPurchases": "Nákup fotografií",
+    "photoPurchasesDesc": "Dostupné v plnom rozlíšení",
+    "responseTime": "Čas odpovede",
+    "responseTimeDesc": "Do 24-48 hodín",
+    "form": {
+      "name": "Meno",
+      "email": "Email",
+      "subject": "Predmet",
+      "subjectPlaceholder": "O čo ide?",
+      "photoReference": "Referencia fotografie",
+      "photoReferencePlaceholder": "Ak žiadate o konkrétnu fotografiu, zadajte tu jej názov",
+      "photoReferencePrefilled": "Predvyplnené z výberu v galérii",
+      "message": "Správa",
+      "messagePlaceholder": "Vaša správa... Ak žiadate o fotografiu, uveďte prosím podrobnosti o zamýšľanom použití (osobné, tlač, komerčné).",
+      "required": "*",
+      "send": "Odoslať správu",
+      "sending": "Odosielam..."
+    },
+    "success": {
+      "title": "Správa odoslaná!",
+      "description": "Ďakujem za kontaktovanie. Ozvem sa vám do 24-48 hodín.",
+      "sendAnother": "Odoslať ďalšiu správu"
+    },
+    "purchaseInfo": "Ohľadom nákupu fotografií: Všetky fotografie zobrazené na tejto stránke sú dostupné na zakúpenie v plnom rozlíšení bez vodoznaku. Cena závisí od zamýšľaného použitia (osobné, tlač, komerčné). Prosím, uveďte podrobnosti o vašom zamýšľanom použití vo vašej správe."
+  },
+  "footer": {
+    "tagline": "Zachytávam momenty z celého sveta cez objektív.",
+    "quickLinks": "Rýchle odkazy",
+    "aboutMe": "O mne",
+    "connect": "Spojte sa so mnou",
+    "copyright": "© {year} Cestovateľské portfólio. Všetky práva vyhradené."
+  },
+  "lightbox": {
+    "close": "Zavrieť",
+    "previous": "Predchádzajúca fotografia",
+    "next": "Nasledujúca fotografia",
+    "requestFullRes": "Vyžiadať plné rozlíšenie"
+  },
+  "categories": {
+    "mountains": "Hory",
+    "city": "Mesto",
+    "animals": "Zvieratá",
+    "nature": "Príroda",
+    "landscape": "Krajina",
+    "culture": "Kultúra"
+  }
+}
