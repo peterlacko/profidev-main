@@ -8,9 +8,9 @@ import {
 } from "next-intl/server"
 import { Geist, Geist_Mono } from "next/font/google"
 import { routing } from "@/i18n/routing"
-import { Footer } from "@/components/layout/footer"
+import { Footer } from "@/components/layout/Footer"
 import "../globals.css"
-import { Header } from "@/components/layout/header"
+import { Header } from "@/components/layout/Header"
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

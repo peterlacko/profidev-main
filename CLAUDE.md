@@ -95,10 +95,13 @@ Photos are managed via `src/data/trips.json`:
 
 **Path Alias**: Use `@/*` to import from `src/*` (e.g., `import { cn } from "@/lib/utils"`)
 
+- prefer arrow functions
+
 **UI Components**: Components in `src/components/ui/` follow shadcn/ui conventions:
 - Use `cva` (class-variance-authority) for variant-based styling
 - Use `cn()` utility for merging Tailwind classes
 - Support `asChild` prop via Radix UI's `Slot` component
+- React components and files exporting react components start with capital letter
 
 **Styling**: Tailwind CSS v4 with CSS-based theming:
 - Theme variables defined in `src/app/globals.css` using CSS custom properties
