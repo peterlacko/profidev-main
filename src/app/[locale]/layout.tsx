@@ -10,7 +10,7 @@ import { Geist, Geist_Mono } from "next/font/google"
 import { routing } from "@/i18n/routing"
 import { Footer } from "@/components/layout/footer"
 import "../globals.css"
-import { Header } from "@/components/layout/Header"
+import { Header } from "@/components/layout/header"
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,7 +29,7 @@ export function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ locale: string }>;
+  params: Promise<{ locale: string }>
 }): Promise<Metadata> {
   const { locale } = await params
   const t = await getTranslations({ locale, namespace: "metadata" })
@@ -71,8 +71,8 @@ export default async function LocaleLayout({
   children,
   params,
 }: {
-  children: React.ReactNode;
-  params: Promise<{ locale: string }>;
+  children: React.ReactNode
+  params: Promise<{ locale: string }>
 }) {
   const { locale } = await params
 
