@@ -1,10 +1,10 @@
-"use client";
+"use client"
 
-import { useState, use } from "react";
-import { Send, CheckCircle, AlertCircle, Loader2 } from "lucide-react";
-import { useTranslations } from "next-intl";
-import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import { useState, use } from "react"
+import { Send, CheckCircle, AlertCircle, Loader2 } from "lucide-react"
+import { useTranslations } from "next-intl"
+import { Button } from "@/components/ui/button"
+import { cn } from "@/lib/utils"
 
 interface ContactFormProps {
   searchParamsPromise: Promise<{ photo?: string }>;
@@ -13,27 +13,27 @@ interface ContactFormProps {
 type FormStatus = "idle" | "submitting" | "success" | "error";
 
 export function ContactForm({ searchParamsPromise }: ContactFormProps) {
-  const searchParams = use(searchParamsPromise);
-  const photoRef = searchParams.photo;
-  const t = useTranslations("contact.form");
-  const tSuccess = useTranslations("contact.success");
+  const searchParams = use(searchParamsPromise)
+  const photoRef = searchParams.photo
+  const t = useTranslations("contact.form")
+  const tSuccess = useTranslations("contact.success")
 
-  const [status, setStatus] = useState<FormStatus>("idle");
-  const [errorMessage, setErrorMessage] = useState<string>("");
+  const [status, setStatus] = useState<FormStatus>("idle")
+  const [errorMessage, setErrorMessage] = useState<string>("")
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setStatus("submitting");
-    setErrorMessage("");
+    e.preventDefault()
+    setStatus("submitting")
+    setErrorMessage("")
 
-    const formData = new FormData(e.currentTarget);
+    const formData = new FormData(e.currentTarget)
     const data = {
       name: formData.get("name") as string,
       email: formData.get("email") as string,
       subject: formData.get("subject") as string,
       photoReference: formData.get("photoReference") as string,
       message: formData.get("message") as string,
-    };
+    }
 
     try {
       const response = await fetch("/api/contact", {
@@ -42,21 +42,21 @@ export function ContactForm({ searchParamsPromise }: ContactFormProps) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(data),
-      });
+      })
 
       if (!response.ok) {
-        const result = await response.json();
-        throw new Error(result.error || "Failed to send message");
+        const result = await response.json()
+        throw new Error(result.error || "Failed to send message")
       }
 
-      setStatus("success");
+      setStatus("success")
     } catch (error) {
-      setStatus("error");
+      setStatus("error")
       setErrorMessage(
         error instanceof Error ? error.message : "Something went wrong"
-      );
+      )
     }
-  };
+  }
 
   if (status === "success") {
     return (
@@ -74,7 +74,7 @@ export function ContactForm({ searchParamsPromise }: ContactFormProps) {
           {tSuccess("sendAnother")}
         </Button>
       </div>
-    );
+    )
   }
 
   return (
@@ -208,5 +208,5 @@ export function ContactForm({ searchParamsPromise }: ContactFormProps) {
         )}
       </Button>
     </form>
-  );
+  )
 }

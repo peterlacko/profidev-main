@@ -1,20 +1,20 @@
-"use client";
+"use client"
 
-import { useLocale } from "next-intl";
-import { usePathname, useRouter } from "@/i18n/navigation";
-import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
-import type { Locale } from "@/i18n/routing";
+import { useLocale } from "next-intl"
+import { usePathname, useRouter } from "@/i18n/navigation"
+import { Button } from "@/components/ui/button"
+import { cn } from "@/lib/utils"
+import type { Locale } from "@/i18n/routing"
 
 export function LanguageSwitcher() {
-  const locale = useLocale() as Locale;
-  const router = useRouter();
-  const pathname = usePathname();
+  const locale = useLocale() as Locale
+  const router = useRouter()
+  const pathname = usePathname()
 
   const toggleLocale = () => {
-    const newLocale: Locale = locale === "en" ? "sk" : "en";
-    router.replace(pathname, { locale: newLocale });
-  };
+    const newLocale: Locale = locale === "en" ? "sk" : "en"
+    router.replace(pathname, { locale: newLocale })
+  }
 
   return (
     <Button
@@ -32,5 +32,5 @@ export function LanguageSwitcher() {
         SK
       </span>
     </Button>
-  );
+  )
 }

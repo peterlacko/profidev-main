@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import type { ReactNode } from "react"
 
 type Props = {
   children: ReactNode;
@@ -6,5 +6,5 @@ type Props = {
 
 // This is a pass-through layout since the [locale] layout handles everything
 export default function RootLayout({ children }: Props) {
-  return children;
+  return children
 }

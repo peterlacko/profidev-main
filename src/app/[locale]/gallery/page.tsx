@@ -1,21 +1,21 @@
-import type { Metadata } from "next";
-import { getTranslations, setRequestLocale } from "next-intl/server";
-import { GalleryContent } from "./gallery-content";
-import { getAllPhotosWithTrip, getAllCountries, getAllCategories } from "@/lib/trips";
-import type { Locale } from "@/i18n/routing";
+import type { Metadata } from "next"
+import { getTranslations, setRequestLocale } from "next-intl/server"
+import { GalleryContent } from "./gallery-content"
+import { getAllPhotosWithTrip, getAllCountries, getAllCategories } from "@/lib/trips"
+import type { Locale } from "@/i18n/routing"
 
 export async function generateMetadata({
   params,
 }: {
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
-  const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "gallery" });
+  const { locale } = await params
+  const t = await getTranslations({ locale, namespace: "gallery" })
 
   return {
     title: t("title"),
     description: t("description"),
-  };
+  }
 }
 
 export default async function GalleryPage({
@@ -23,13 +23,13 @@ export default async function GalleryPage({
 }: {
   params: Promise<{ locale: string }>;
 }) {
-  const { locale } = await params;
-  setRequestLocale(locale);
+  const { locale } = await params
+  setRequestLocale(locale)
 
-  const t = await getTranslations("gallery");
-  const photos = getAllPhotosWithTrip(locale as Locale);
-  const countries = getAllCountries();
-  const categories = getAllCategories();
+  const t = await getTranslations("gallery")
+  const photos = getAllPhotosWithTrip(locale as Locale)
+  const countries = getAllCountries()
+  const categories = getAllCategories()
 
   return (
     <div className="py-12 md:py-16">
@@ -52,5 +52,5 @@ export default async function GalleryPage({
         />
       </div>
     </div>
-  );
+  )
 }

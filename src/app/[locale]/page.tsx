@@ -1,23 +1,23 @@
-import { ArrowRight } from "lucide-react";
-import { getTranslations, setRequestLocale } from "next-intl/server";
-import { Link } from "@/i18n/navigation";
-import { getFeaturedPhotos } from "@/lib/trips";
-import { PhotoGrid } from "@/components/photos/photo-grid";
-import { Button } from "@/components/ui/button";
-import type { Locale } from "@/i18n/routing";
+import { ArrowRight } from "lucide-react"
+import { getTranslations, setRequestLocale } from "next-intl/server"
+import { Link } from "@/i18n/navigation"
+import { getFeaturedPhotos } from "@/lib/trips"
+import { PhotoGrid } from "@/components/photos/photo-grid"
+import { Button } from "@/components/ui/button"
+import type { Locale } from "@/i18n/routing"
 
-export const dynamic = "force-dynamic";
+export const dynamic = "force-dynamic"
 
 export default async function Home({
   params,
 }: {
   params: Promise<{ locale: string }>;
 }) {
-  const { locale } = await params;
-  setRequestLocale(locale);
+  const { locale } = await params
+  setRequestLocale(locale)
 
-  const t = await getTranslations("home");
-  const featuredPhotos = getFeaturedPhotos(locale as Locale);
+  const t = await getTranslations("home")
+  const featuredPhotos = getFeaturedPhotos(locale as Locale)
 
   return (
     <div className="flex flex-col">
@@ -93,5 +93,5 @@ export default async function Home({
         </div>
       </section>
     </div>
-  );
+  )
 }

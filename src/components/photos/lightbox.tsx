@@ -1,18 +1,18 @@
-"use client";
+"use client"
 
-import { useEffect, useCallback } from "react";
-import Image from "next/image";
-import { X, ChevronLeft, ChevronRight, Mail } from "lucide-react";
-import { useTranslations } from "next-intl";
-import { Link } from "@/i18n/navigation";
-import type { PhotoWithTrip } from "@/types";
-import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
+import { useEffect, useCallback } from "react"
+import Image from "next/image"
+import { X, ChevronLeft, ChevronRight, Mail } from "lucide-react"
+import { useTranslations } from "next-intl"
+import { Link } from "@/i18n/navigation"
+import type { PhotoWithTrip } from "@/types"
+import { cn } from "@/lib/utils"
+import { Button } from "@/components/ui/button"
 import {
   Dialog,
   DialogContent,
   DialogTitle,
-} from "@/components/ui/dialog";
+} from "@/components/ui/dialog"
 
 interface LightboxProps {
   photos: PhotoWithTrip[];
@@ -27,49 +27,49 @@ export function Lightbox({
   onClose,
   onNavigate,
 }: LightboxProps) {
-  const t = useTranslations("lightbox");
-  const tCategories = useTranslations("categories");
+  const t = useTranslations("lightbox")
+  const tCategories = useTranslations("categories")
 
-  const isOpen = currentIndex !== null;
-  const currentPhoto = currentIndex !== null ? photos[currentIndex] : null;
+  const isOpen = currentIndex !== null
+  const currentPhoto = currentIndex !== null ? photos[currentIndex] : null
 
   const goToPrevious = useCallback(() => {
     if (currentIndex !== null && currentIndex > 0) {
-      onNavigate(currentIndex - 1);
+      onNavigate(currentIndex - 1)
     }
-  }, [currentIndex, onNavigate]);
+  }, [currentIndex, onNavigate])
 
   const goToNext = useCallback(() => {
     if (currentIndex !== null && currentIndex < photos.length - 1) {
-      onNavigate(currentIndex + 1);
+      onNavigate(currentIndex + 1)
     }
-  }, [currentIndex, photos.length, onNavigate]);
+  }, [currentIndex, photos.length, onNavigate])
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (!isOpen) return;
+      if (!isOpen) return
 
       switch (e.key) {
         case "ArrowLeft":
-          goToPrevious();
-          break;
+          goToPrevious()
+          break
         case "ArrowRight":
-          goToNext();
-          break;
+          goToNext()
+          break
         case "Escape":
-          onClose();
-          break;
+          onClose()
+          break
       }
-    };
+    }
 
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [isOpen, goToPrevious, goToNext, onClose]);
+    window.addEventListener("keydown", handleKeyDown)
+    return () => window.removeEventListener("keydown", handleKeyDown)
+  }, [isOpen, goToPrevious, goToNext, onClose])
 
-  if (!currentPhoto) return null;
+  if (!currentPhoto) return null
 
-  const hasPrevious = currentIndex !== null && currentIndex > 0;
-  const hasNext = currentIndex !== null && currentIndex < photos.length - 1;
+  const hasPrevious = currentIndex !== null && currentIndex > 0
+  const hasNext = currentIndex !== null && currentIndex < photos.length - 1
 
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
@@ -167,5 +167,5 @@ export function Lightbox({
         </div>
       </DialogContent>
     </Dialog>
-  );
+  )
 }

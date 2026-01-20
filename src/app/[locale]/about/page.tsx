@@ -1,22 +1,22 @@
-import type { Metadata } from "next";
-import { Camera, MapPin, Heart } from "lucide-react";
-import { getTranslations, setRequestLocale } from "next-intl/server";
-import { Link } from "@/i18n/navigation";
-import Image from "next/image";
-import { Button } from "@/components/ui/button";
+import type { Metadata } from "next"
+import { Camera, MapPin, Heart } from "lucide-react"
+import { getTranslations, setRequestLocale } from "next-intl/server"
+import { Link } from "@/i18n/navigation"
+import Image from "next/image"
+import { Button } from "@/components/ui/button"
 
 export async function generateMetadata({
   params,
 }: {
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
-  const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "about" });
+  const { locale } = await params
+  const t = await getTranslations({ locale, namespace: "about" })
 
   return {
     title: t("title"),
     description: t("bio1"),
-  };
+  }
 }
 
 export default async function AboutPage({
@@ -24,10 +24,10 @@ export default async function AboutPage({
 }: {
   params: Promise<{ locale: string }>;
 }) {
-  const { locale } = await params;
-  setRequestLocale(locale);
+  const { locale } = await params
+  setRequestLocale(locale)
 
-  const t = await getTranslations("about");
+  const t = await getTranslations("about")
 
   return (
     <div className="py-12 md:py-16">
@@ -124,5 +124,5 @@ export default async function AboutPage({
         </div>
       </div>
     </div>
-  );
+  )
 }

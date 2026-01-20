@@ -1,12 +1,12 @@
-"use client";
+"use client"
 
-import { Camera, Instagram, Mail } from "lucide-react";
-import { useTranslations } from "next-intl";
-import { Link } from "@/i18n/navigation";
+import { Camera, Instagram, Mail } from "lucide-react"
+import { useTranslations } from "next-intl"
+import { Link } from "@/i18n/navigation"
 
 export function Footer() {
-  const t = useTranslations("footer");
-  const tNav = useTranslations("navigation");
+  const t = useTranslations("footer")
+  const tNav = useTranslations("navigation")
 
   return (
     <footer className="border-t bg-muted/30">
@@ -76,5 +76,5 @@ export function Footer() {
         </div>
       </div>
     </footer>
-  );
+  )
 }

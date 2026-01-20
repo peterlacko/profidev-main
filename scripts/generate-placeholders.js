@@ -7,9 +7,9 @@
  * Usage: node scripts/generate-placeholders.js
  */
 
-const sharp = require("sharp");
-const path = require("path");
-const fs = require("fs");
+const sharp = require("sharp")
+const path = require("path")
+const fs = require("fs")
 
 const photos = [
   // Patagonia
@@ -55,7 +55,7 @@ const photos = [
     color: { r: 40, g: 40, b: 45 },
     text: "Black Sand",
   },
-];
+]
 
 async function createPlaceholder(photo) {
   const outputPath = path.join(
@@ -63,11 +63,11 @@ async function createPlaceholder(photo) {
     "public",
     "photos",
     photo.path
-  );
+  )
 
   // Create SVG with text
-  const width = 1200;
-  const height = 800;
+  const width = 1200
+  const height = 800
 
   const svg = `
     <svg width="${width}" height="${height}" xmlns="http://www.w3.org/2000/svg">
@@ -91,24 +91,24 @@ async function createPlaceholder(photo) {
         dominant-baseline="middle"
       >Placeholder Image</text>
     </svg>
-  `;
+  `
 
   await sharp(Buffer.from(svg))
     .jpeg({ quality: 85 })
-    .toFile(outputPath);
+    .toFile(outputPath)
 
-  console.log(`Created: ${photo.path}`);
+  console.log(`Created: ${photo.path}`)
 }
 
 async function main() {
-  console.log("Generating placeholder images...\n");
+  console.log("Generating placeholder images...\n")
 
   for (const photo of photos) {
-    await createPlaceholder(photo);
+    await createPlaceholder(photo)
   }
 
-  console.log("\nDone! Placeholder images created.");
-  console.log("\nNote: Replace these with real photos when ready.");
+  console.log("\nDone! Placeholder images created.")
+  console.log("\nNote: Replace these with real photos when ready.")
 }
 
-main().catch(console.error);
+main().catch(console.error)

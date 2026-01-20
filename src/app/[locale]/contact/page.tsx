@@ -1,20 +1,20 @@
-import type { Metadata } from "next";
-import { Mail, MessageSquare, Image as ImageIcon } from "lucide-react";
-import { getTranslations, setRequestLocale } from "next-intl/server";
-import { ContactForm } from "./contact-form";
+import type { Metadata } from "next"
+import { Mail, MessageSquare, Image as ImageIcon } from "lucide-react"
+import { getTranslations, setRequestLocale } from "next-intl/server"
+import { ContactForm } from "./contact-form"
 
 export async function generateMetadata({
   params,
 }: {
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
-  const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "contact" });
+  const { locale } = await params
+  const t = await getTranslations({ locale, namespace: "contact" })
 
   return {
     title: t("title"),
     description: t("description"),
-  };
+  }
 }
 
 export default async function ContactPage({
@@ -24,10 +24,10 @@ export default async function ContactPage({
   params: Promise<{ locale: string }>;
   searchParams: Promise<{ photo?: string }>;
 }) {
-  const { locale } = await params;
-  setRequestLocale(locale);
+  const { locale } = await params
+  setRequestLocale(locale)
 
-  const t = await getTranslations("contact");
+  const t = await getTranslations("contact")
 
   return (
     <div className="py-12 md:py-16">
@@ -82,5 +82,5 @@ export default async function ContactPage({
         </div>
       </div>
     </div>
-  );
+  )
 }

@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+import { NextResponse } from "next/server"
 
 interface ContactFormData {
   name: string;
@@ -10,23 +10,23 @@ interface ContactFormData {
 
 export async function POST(request: Request) {
   try {
-    const data: ContactFormData = await request.json();
+    const data: ContactFormData = await request.json()
 
     // Validate required fields
     if (!data.name || !data.email || !data.message) {
       return NextResponse.json(
         { error: "Name, email, and message are required" },
         { status: 400 }
-      );
+      )
     }
 
     // Validate email format
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     if (!emailRegex.test(data.email)) {
       return NextResponse.json(
         { error: "Invalid email address" },
         { status: 400 }
-      );
+      )
     }
 
     // Here you would typically:
@@ -43,7 +43,7 @@ export async function POST(request: Request) {
       photoReference: data.photoReference || "None",
       message: data.message,
       timestamp: new Date().toISOString(),
-    });
+    })
 
     // Example: Using Resend (uncomment and add your API key)
     // import { Resend } from 'resend';
@@ -65,12 +65,12 @@ export async function POST(request: Request) {
     return NextResponse.json(
       { message: "Message sent successfully" },
       { status: 200 }
-    );
+    )
   } catch (error) {
-    console.error("Contact form error:", error);
+    console.error("Contact form error:", error)
     return NextResponse.json(
       { error: "Failed to process request" },
       { status: 500 }
-    );
+    )
   }
 }

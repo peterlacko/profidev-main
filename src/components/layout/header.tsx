@@ -1,53 +1,53 @@
-"use client";
+"use client"
 
-import { useState } from "react";
-import { usePathname } from "next/navigation";
-import { Menu, X, Code2, Camera, BicepsFlexed } from "lucide-react";
-import { useTranslations } from "next-intl";
-import { Link } from "@/i18n/navigation";
-import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
-import { LanguageSwitcher } from "./language-switcher";
+import { useState } from "react"
+import { usePathname } from "next/navigation"
+import { Menu, X, Code2, Camera, Mountain } from "lucide-react"
+import { useTranslations } from "next-intl"
+import { Link } from "@/i18n/navigation"
+import { cn } from "@/lib/utils"
+import { Button } from "@/components/ui/button"
+import { LanguageSwitcher } from "./language-switcher"
 
 export function Header() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const pathname = usePathname();
-  const t = useTranslations("navigation");
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const pathname = usePathname()
+  const t = useTranslations("navigation")
 
   const isActive = (href: string) => {
     if (href === "/") {
-      return pathname === "/" || pathname.match(/^\/[a-z]{2}\/?$/);
+      return pathname === "/" || pathname.match(/^\/[a-z]{2}\/?$/)
     }
-    return pathname.includes(href);
-  };
+    return pathname.includes(href)
+  }
 
   const navLinks = [
     { href: "/" as const, label: t("home") },
     { href: "/gallery" as const, label: t("gallery") },
     { href: "/about" as const, label: t("about") },
     { href: "/contact" as const, label: t("contact") },
-  ];
+  ]
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <nav className="container mx-auto flex h-16 items-center justify-between px-4">
         <Link
           href="/"
-          className="flex gap-2 font-semibold text-m leading-tight"
+          className="flex items-center gap-2.5 text-sm tracking-wide hover:backdrop-brightness-95 px-4 py-2 rounded-md transition-colors"
         >
-          <span className="flex items-center justify-end gap-1.5">
-            <span>build</span>
-            <Code2 className="h-4 w-4" />
+          <span className="flex items-center gap-1 text-muted-foreground/80 transition-colors">
+            <Code2 className="h-3.5 w-3.5" strokeWidth={1.75} />
+            <span className="font-light">build</span>
           </span>
-          <span>|</span>
-          <span className="flex items-center justify-end gap-1.5">
-            <span>capture</span>
-            <Camera className="h-4 w-4" />
+          <span className="text-muted-foreground/30">·</span>
+          <span className="flex items-center gap-1 text-muted-foreground/80 transition-colors">
+            <Mountain className="h-3.5 w-3.5" strokeWidth={1.75} />
+            <span className="font-light">explore</span>
           </span>
-          <span>|</span>
-          <span className="flex items-center justify-end gap-1.5">
-            <span>move</span>
-            <BicepsFlexed className="h-4 w-4" />
+          <span className="text-muted-foreground/30">·</span>
+          <span className="flex items-center gap-1 text-muted-foreground/80 transition-colors">
+            <Camera className="h-3.5 w-3.5" strokeWidth={1.75} />
+            <span className="font-light">capture</span>
           </span>
         </Link>
 
@@ -114,5 +114,5 @@ export function Header() {
         </ul>
       </div>
     </header>
-  );
+  )
 }

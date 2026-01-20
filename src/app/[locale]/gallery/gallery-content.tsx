@@ -1,13 +1,13 @@
-"use client";
+"use client"
 
-import { useState, useMemo } from "react";
-import { SlidersHorizontal, X } from "lucide-react";
-import { useTranslations } from "next-intl";
-import type { PhotoWithTrip, PhotoCategory } from "@/types";
-import { filterPhotos } from "@/lib/trips";
-import { PhotoGrid } from "@/components/photos/photo-grid";
-import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import { useState, useMemo } from "react"
+import { SlidersHorizontal, X } from "lucide-react"
+import { useTranslations } from "next-intl"
+import type { PhotoWithTrip, PhotoCategory } from "@/types"
+import { filterPhotos } from "@/lib/trips"
+import { PhotoGrid } from "@/components/photos/photo-grid"
+import { Button } from "@/components/ui/button"
+import { cn } from "@/lib/utils"
 
 interface GalleryContentProps {
   initialPhotos: PhotoWithTrip[];
@@ -20,30 +20,30 @@ export function GalleryContent({
   countries,
   categories,
 }: GalleryContentProps) {
-  const t = useTranslations("gallery");
-  const tCategories = useTranslations("categories");
+  const t = useTranslations("gallery")
+  const tCategories = useTranslations("categories")
 
-  const [selectedCountry, setSelectedCountry] = useState<string | undefined>();
+  const [selectedCountry, setSelectedCountry] = useState<string | undefined>()
   const [selectedCategory, setSelectedCategory] = useState<
     PhotoCategory | undefined
-  >();
-  const [sortBy, setSortBy] = useState<"date" | "country">("date");
-  const [showFilters, setShowFilters] = useState(false);
+  >()
+  const [sortBy, setSortBy] = useState<"date" | "country">("date")
+  const [showFilters, setShowFilters] = useState(false)
 
   const filteredPhotos = useMemo(() => {
     return filterPhotos(initialPhotos, {
       country: selectedCountry,
       category: selectedCategory,
       sortBy,
-    });
-  }, [initialPhotos, selectedCountry, selectedCategory, sortBy]);
+    })
+  }, [initialPhotos, selectedCountry, selectedCategory, sortBy])
 
-  const hasActiveFilters = selectedCountry || selectedCategory;
+  const hasActiveFilters = selectedCountry || selectedCategory
 
   const clearFilters = () => {
-    setSelectedCountry(undefined);
-    setSelectedCategory(undefined);
-  };
+    setSelectedCountry(undefined)
+    setSelectedCategory(undefined)
+  }
 
   return (
     <div>
@@ -181,5 +181,5 @@ export function GalleryContent({
         </div>
       )}
     </div>
-  );
+  )
 }
