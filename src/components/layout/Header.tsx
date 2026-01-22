@@ -1,18 +1,37 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { usePathname } from "next/navigation"
-import { Menu, X, Code2, Camera, Mountain } from "lucide-react"
+import { Menu, X, Code2, Camera, Mountain, type LucideIcon } from "lucide-react"
 import { useTranslations } from "next-intl"
 import { Link } from "@/i18n/navigation"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { LanguageSwitcher } from "./language-switcher"
 
+const logoItems: { icon: LucideIcon; label: string }[] = [
+  { icon: Code2, label: "build" },
+  { icon: Mountain, label: "explore" },
+  { icon: Camera, label: "capture" },
+]
+
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [activeLogoIndex, setActiveLogoIndex] = useState(0)
+  const [isFading, setIsFading] = useState(false)
   const pathname = usePathname()
   const t = useTranslations("navigation")
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIsFading(true)
+      setTimeout(() => {
+        setActiveLogoIndex((prev) => (prev + 1) % logoItems.length)
+        setIsFading(false)
+      }, 1000)
+    }, 3000)
+    return () => clearInterval(interval)
+  }, [])
 
   const isActive = (href: string) => {
     if (href === "/") {
@@ -35,19 +54,31 @@ export function Header() {
           href="/"
           className="flex items-center gap-2.5 text-sm tracking-wide hover:backdrop-brightness-95 px-4 py-2 rounded-md transition-colors"
         >
-          <span className="flex items-center gap-1 text-muted-foreground/80 transition-colors">
-            <Code2 className="h-3.5 w-3.5" strokeWidth={1.75} />
-            <span className="font-light">build</span>
+          {/* Mobile: cycling single icon */}
+          <span
+            className={cn(
+              "flex items-center gap-1 text-muted-foreground/80 transition-opacity duration-600 sm:hidden",
+              isFading ? "opacity-0" : "opacity-100"
+            )}
+          >
+            {(() => {
+              const ActiveIcon = logoItems[activeLogoIndex].icon
+              return <ActiveIcon className="h-3.5 w-3.5" strokeWidth={1.75} />
+            })()}
+            <span className="font-light">{logoItems[activeLogoIndex].label}</span>
           </span>
-          <span className="text-muted-foreground/30">·</span>
-          <span className="flex items-center gap-1 text-muted-foreground/80 transition-colors">
-            <Mountain className="h-3.5 w-3.5" strokeWidth={1.75} />
-            <span className="font-light">explore</span>
-          </span>
-          <span className="text-muted-foreground/30">·</span>
-          <span className="flex items-center gap-1 text-muted-foreground/80 transition-colors">
-            <Camera className="h-3.5 w-3.5" strokeWidth={1.75} />
-            <span className="font-light">capture</span>
+
+          {/* Desktop: full logo */}
+          <span className="hidden sm:flex items-center gap-2.5">
+            {logoItems.map((item, index) => (
+              <span key={item.label} className="flex items-center gap-1">
+                {index > 0 && <span className="text-muted-foreground/30 mr-2.5">·</span>}
+                <span className="flex items-center gap-1 text-muted-foreground/80">
+                  <item.icon className="h-3.5 w-3.5" strokeWidth={1.75} />
+                  <span className="font-light">{item.label}</span>
+                </span>
+              </span>
+            ))}
           </span>
         </Link>
 
