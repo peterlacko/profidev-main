@@ -16,8 +16,9 @@ npm run start    # Run production server
 npm run lint     # Run ESLint
 
 # Photo processing
-node scripts/watermark.js [trip-name]       # Process photos with watermark
-node scripts/generate-placeholders.js       # Generate dev placeholder images
+npm run add-trip [trip-name] [country] [date]  # Full workflow: watermark + trips.json
+npm run watermark [trip-name]                  # Process photos with watermark only
+node scripts/generate-placeholders.js          # Generate dev placeholder images
 ```
 
 ## Architecture
@@ -87,9 +88,12 @@ Photos are managed via `src/data/trips.json`:
 ### Adding New Photos Workflow
 
 1. Create folder: `public/photos/[trip-name]/originals/`
-2. Copy selected photos to originals folder
-3. Run: `node scripts/watermark.js [trip-name]`
-4. Add trip entry to `src/data/trips.json`
+2. Copy photos with descriptive names (e.g., `mountain-sunset.jpg`, `elephant.jpg`)
+3. Run: `npm run add-trip [trip-name] [country] [date]`
+   - Processes images with watermark
+   - Auto-generates trips.json entries from filenames
+   - Categories auto-detected from keywords (mountain, city, animal, temple, etc.)
+4. Edit `src/data/trips.json` to refine captions and Slovak translations
 5. Commit and push (Vercel auto-deploys)
 
 ### Key Patterns

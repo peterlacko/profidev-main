@@ -1,6 +1,102 @@
 {
   "trips": [
     {
+      "id": "morocco-2019",
+      "title": {
+        "en": "Morocco 2019",
+        "sk": "[SK] Morocco 2019"
+      },
+      "country": "morocco",
+      "date": "2019",
+      "featured": false,
+      "categories": [
+        "landscape",
+        "culture"
+      ],
+      "photos": [
+        {
+          "filename": "arriving_to_todra.jpg",
+          "caption": {
+            "en": "Arriving To Todra",
+            "sk": "[SK] Arriving To Todra"
+          },
+          "categories": [
+            "landscape"
+          ]
+        },
+        {
+          "filename": "beware_camel.jpg",
+          "caption": {
+            "en": "Beware Camel",
+            "sk": "[SK] Beware Camel"
+          },
+          "categories": [
+            "landscape"
+          ]
+        },
+        {
+          "filename": "marrakesh_night_market.jpg",
+          "caption": {
+            "en": "Marrakesh Night Market",
+            "sk": "[SK] Marrakesh Night Market"
+          },
+          "categories": [
+            "culture"
+          ]
+        },
+        {
+          "filename": "steps_in_sand.jpg",
+          "caption": {
+            "en": "Steps In Sand",
+            "sk": "[SK] Steps In Sand"
+          },
+          "categories": [
+            "landscape"
+          ]
+        },
+        {
+          "filename": "sun_at_jebel_toubkal.jpg",
+          "caption": {
+            "en": "Sun At Jebel Toubkal",
+            "sk": "[SK] Sun At Jebel Toubkal"
+          },
+          "categories": [
+            "landscape"
+          ]
+        },
+        {
+          "filename": "todra_from_top.jpg",
+          "caption": {
+            "en": "Todra From Top",
+            "sk": "[SK] Todra From Top"
+          },
+          "categories": [
+            "landscape"
+          ]
+        },
+        {
+          "filename": "toubkal_gorge.jpg",
+          "caption": {
+            "en": "Toubkal Gorge",
+            "sk": "[SK] Toubkal Gorge"
+          },
+          "categories": [
+            "landscape"
+          ]
+        },
+        {
+          "filename": "way_to_toubkal.jpg",
+          "caption": {
+            "en": "Way To Toubkal",
+            "sk": "[SK] Way To Toubkal"
+          },
+          "categories": [
+            "landscape"
+          ]
+        }
+      ]
+    },
+    {
       "id": "uganda-2025",
       "title": {
         "en": "Uganda Adventure",
@@ -9,7 +105,12 @@
       "country": "Uganda",
       "date": "2025-07",
       "featured": true,
-      "categories": ["mountains", "nature", "landscape", "animals"],
+      "categories": [
+        "mountains",
+        "nature",
+        "landscape",
+        "animals"
+      ],
       "photos": [
         {
           "filename": "elephant.jpg",
@@ -17,7 +118,10 @@
             "en": "Elephant in Uganda's rainforest",
             "sk": "Slon v ugandskom dažďovom pralese"
           },
-          "categories": ["animals", "nature"]
+          "categories": [
+            "animals",
+            "nature"
+          ]
         },
         {
           "filename": "bird.jpg",
@@ -25,7 +129,10 @@
             "en": "Colorful bird in Uganda's rainforest",
             "sk": "Farebný vták v ugandskom dažďovom pralese"
           },
-          "categories": ["animals", "nature"]
+          "categories": [
+            "animals",
+            "nature"
+          ]
         },
         {
           "filename": "chimp.jpg",
@@ -33,7 +140,10 @@
             "en": "Chimpanzee in natural habitat",
             "sk": "Šimpanz v prirodzenom prostredí"
           },
-          "categories": ["animals", "nature"]
+          "categories": [
+            "animals",
+            "nature"
+          ]
         },
         {
           "filename": "lake.jpg",
@@ -41,7 +151,10 @@
             "en": "Serene lake landscape",
             "sk": "Pokojná jazerná krajina"
           },
-          "categories": ["nature", "landscape"]
+          "categories": [
+            "nature",
+            "landscape"
+          ]
         },
         {
           "filename": "mud.jpg",
@@ -49,7 +162,10 @@
             "en": "Muddy terrain after tropical rain",
             "sk": "Bahnitý terén po tropickom daždi"
           },
-          "categories": ["nature", "landscape"]
+          "categories": [
+            "nature",
+            "landscape"
+          ]
         },
         {
           "filename": "mountain.jpg",
@@ -57,7 +173,10 @@
             "en": "Mountain vista in Uganda",
             "sk": "Horský výhľad v Ugande"
           },
-          "categories": ["mountains", "landscape"]
+          "categories": [
+            "mountains",
+            "landscape"
+          ]
         }
       ]
     },
@@ -70,7 +189,12 @@
       "country": "Indonesia",
       "date": "2023-02",
       "featured": true,
-      "categories": ["culture", "nature", "landscape", "mountains"],
+      "categories": [
+        "culture",
+        "nature",
+        "landscape",
+        "mountains"
+      ],
       "photos": [
         {
           "filename": "waterfall.jpg",
@@ -78,7 +202,10 @@
             "en": "Tropical waterfall in Javanese jungle",
             "sk": "Tropický vodopád v jávskej džungli"
           },
-          "categories": ["nature", "landscape"]
+          "categories": [
+            "nature",
+            "landscape"
+          ]
         },
         {
           "filename": "borobudur.jpg",
@@ -86,7 +213,10 @@
             "en": "Borobudur Temple detail",
             "sk": "Detail chrámu Borobudur"
           },
-          "categories": ["culture", "landscape"]
+          "categories": [
+            "culture",
+            "landscape"
+          ]
         },
         {
           "filename": "fisherman.jpg",
@@ -94,7 +224,10 @@
             "en": "Traditional fisherman at work",
             "sk": "Tradičný rybár pri práci"
           },
-          "categories": ["culture", "nature"]
+          "categories": [
+            "culture",
+            "nature"
+          ]
         },
         {
           "filename": "volcano.jpg",
@@ -102,7 +235,10 @@
             "en": "Active volcano landscape",
             "sk": "Krajina s aktívnou sopkou"
           },
-          "categories": ["mountains", "landscape"]
+          "categories": [
+            "mountains",
+            "landscape"
+          ]
         },
         {
           "filename": "worker.jpg",
@@ -110,7 +246,10 @@
             "en": "Local worker in mine",
             "sk": "Miestny pracovník v bani"
           },
-          "categories": ["culture", "landscape"]
+          "categories": [
+            "culture",
+            "landscape"
+          ]
         }
       ]
     },
@@ -123,7 +262,11 @@
       "country": "Thailand",
       "date": "2023-03",
       "featured": true,
-      "categories": ["culture", "nature", "landscape"],
+      "categories": [
+        "culture",
+        "nature",
+        "landscape"
+      ],
       "photos": [
         {
           "filename": "blonde.jpg",
@@ -131,7 +274,10 @@
             "en": "Visitor at golden temple",
             "sk": "Návštevníčka pri zlatom chráme"
           },
-          "categories": ["culture", "landscape"]
+          "categories": [
+            "culture",
+            "landscape"
+          ]
         },
         {
           "filename": "boat.jpg",
@@ -139,7 +285,10 @@
             "en": "Traditional longtail boat",
             "sk": "Tradičná loď s dlhým chvostom"
           },
-          "categories": ["nature", "culture"]
+          "categories": [
+            "nature",
+            "culture"
+          ]
         },
         {
           "filename": "temple.jpg",
@@ -147,7 +296,10 @@
             "en": "Ancient Buddhist temple",
             "sk": "Staroveký budhistický chrám"
           },
-          "categories": ["culture", "landscape"]
+          "categories": [
+            "culture",
+            "landscape"
+          ]
         },
         {
           "filename": "monkey.jpg",
@@ -155,7 +307,10 @@
             "en": "Macaque monkey in temple grounds",
             "sk": "Makak v areáli chrámu"
           },
-          "categories": ["animals", "nature"]
+          "categories": [
+            "animals",
+            "nature"
+          ]
         },
         {
           "filename": "nature.jpg",
@@ -163,7 +318,10 @@
             "en": "Lush tropical landscape",
             "sk": "Bujná tropická krajina"
           },
-          "categories": ["nature", "landscape"]
+          "categories": [
+            "nature",
+            "landscape"
+          ]
         }
       ]
     }

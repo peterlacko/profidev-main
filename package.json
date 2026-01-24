@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "add-trip": "node scripts/add-trip.js",
+    "watermark": "node scripts/watermark.js"
   },
   "dependencies": {
     "@radix-ui/react-collapsible": "^1.1.12",
