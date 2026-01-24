@@ -9,8 +9,9 @@ import {
 import { Geist, Geist_Mono } from "next/font/google"
 import { routing } from "@/i18n/routing"
 import { Footer } from "@/components/layout/Footer"
-import "../globals.css"
 import { Header } from "@/components/layout/Header"
+import { ThemeProvider } from "@/components/theme-provider"
+import "../globals.css"
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -84,17 +85,24 @@ export default async function LocaleLayout({
   const messages = await getMessages()
 
   return (
-    <html lang={locale}>
+    <html lang={locale} suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased`}
       >
-        <NextIntlClientProvider messages={messages}>
-          <div className="flex min-h-screen flex-col">
-            <Header />
-            <main className="flex-1">{children}</main>
-            <Footer />
-          </div>
-        </NextIntlClientProvider>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <NextIntlClientProvider messages={messages}>
+            <div className="flex min-h-screen flex-col">
+              <Header />
+              <main className="flex-1">{children}</main>
+              <Footer />
+            </div>
+          </NextIntlClientProvider>
+        </ThemeProvider>
       </body>
     </html>
   )

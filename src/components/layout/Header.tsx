@@ -8,6 +8,7 @@ import { Link } from "@/i18n/navigation"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { LanguageSwitcher } from "./language-switcher"
+import { ThemeToggle } from "./ThemeToggle"
 
 const logoItems: { icon: LucideIcon; label: string }[] = [
   { icon: Code2, label: "build" },
@@ -100,10 +101,12 @@ export function Header() {
             ))}
           </ul>
           <LanguageSwitcher />
+          <ThemeToggle />
         </div>
 
         {/* Mobile: Language Switcher + Menu Button */}
         <div className="flex items-center gap-2 md:hidden">
+          <ThemeToggle />
           <LanguageSwitcher />
           <Button
             variant="ghost"
