@@ -42,3 +42,7 @@ next-env.d.ts
 
 # Original photos (not committed to repo)
 **/originals/
+
+# Claude
+/PRPS
+/INIT

@@ -1,1 +1,0 @@
-Update main page, so that Hero section will be displayed over gallery on the top as a semi-transparent overlay. When user scrolls down, Hero section will be scrolled away and user will then see Featured work section and scrolling will continue as it is now until end of the page
