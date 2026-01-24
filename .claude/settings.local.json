@@ -6,7 +6,8 @@
       "Bash(npm run lint:*)",
       "Bash(npm install:*)",
       "WebSearch",
-      "Bash(git mv:*)"
+      "Bash(git mv:*)",
+      "Bash(dir \"C:\\\\Users\\\\lacko\\\\websites\\\\travel-portfolio\\\\public\\\\photos\" /s)"
     ]
   }
 }

@@ -48,28 +48,41 @@
   },
   "about": {
     "title": "About",
-    "greeting": "Hello, I'm a Travel Photographer",
-    "bio1": "I believe that every destination has a story waiting to be told through images. My camera is my passport to documenting the raw beauty and unique moments I encounter around the world.",
-    "bio2": "From the misty peaks of Patagonia to the bustling streets of Tokyo, I seek out the extraordinary in everyday moments and the quiet beauty in grand landscapes.",
-    "storyTitle": "My Story",
-    "story1": "Photography found me during my first solo backpacking trip through Southeast Asia. What started as simple travel snapshots quickly evolved into a deep passion for capturing the essence of a place — its people, landscapes, and fleeting moments of beauty.",
-    "story2": "Over the years, I've developed a style that emphasizes natural light, authentic moments, and the raw emotions that make travel so transformative. I don't just want to show you where I've been; I want to make you feel like you're standing right there beside me.",
-    "story3": "When I'm not behind the camera, you'll find me planning the next adventure, learning about local cultures, or processing photos late into the night (fueled by too much coffee).",
-    "approachTitle": "My Approach",
-    "authentic": {
-      "title": "Authentic Moments",
-      "description": "I capture real, unposed moments that tell genuine stories. Nothing staged, everything felt."
+    "greeting": "Hi, I'm Peter",
+    "professional": {
+      "intro": "I'm a software developer with 10+ years of experience specializing in React, TypeScript, and Next.js development. Based in Slovakia (Central European Time), I work with international teams building complex web applications.",
+      "experience": "I've been a core developer on analytics dashboards and data visualization tools, currently working on enterprise applications with extensive filtering systems and large-scale data handling.",
+      "whatIDoTitle": "What I do",
+      "whatIDo1": "Build React/Next.js applications (dashboards, SaaS platforms, data-heavy interfaces)",
+      "whatIDo2": "SEO & performance optimization (recently improved load times 10x, scaled indexing from 10k to 1M pages)",
+      "whatIDo3": "Mobile responsiveness & accessibility improvements",
+      "approachTitle": "My approach",
+      "approach": "I leverage AI tools to accelerate development while maintaining security best practices. I work with modern tooling (Next.js LTS, TypeScript, Tailwind, TanStack Query, Git workflows) and can scale projects with trusted development partners when needed.",
+      "languagesTitle": "Languages",
+      "languages": "English (fluent), Spanish (intermediate), Slovak (native)"
     },
-    "local": {
-      "title": "Local Perspective",
-      "description": "I immerse myself in local culture to find unique angles and hidden gems off the beaten path."
+    "knowMeBetter": "Want to know me better?",
+    "personal": {
+      "hobbies": "When I'm not coding, you'll find me climbing, hiking, skiing, or traveling with my camera. I've explored 40+ countries and regularly give talks at outdoor and travel festivals.",
+      "home": "At home, I play guitar, read, and spend time with Kocurenko (my cat has his own page).",
+      "prints": "I also sell travel photography prints from my adventures around the world."
     },
-    "passion": {
-      "title": "Passion-Driven",
-      "description": "Every photo is taken with love and intention. I shoot what moves me, hoping it moves you too."
-    },
-    "ctaText": "Want to work together or have questions about my photos?",
-    "getInTouch": "Get in Touch"
+    "contact": {
+      "title": "Get in Touch",
+      "description": "Have a project in mind or want to collaborate? Drop me a message at peter@profidev.sk",
+      "name": "Name",
+      "email": "Email",
+      "message": "Message",
+      "messagePlaceholder": "Tell me about your project...",
+      "required": "*",
+      "send": "Send Message",
+      "sending": "Sending...",
+      "success": {
+        "title": "Message Sent!",
+        "description": "Thanks for reaching out. I'll get back to you soon.",
+        "sendAnother": "Send Another Message"
+      }
+    }
   },
   "contact": {
     "title": "Get in Touch",

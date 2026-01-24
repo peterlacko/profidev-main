@@ -48,28 +48,41 @@
   },
   "about": {
     "title": "O mne",
-    "greeting": "Ahoj, som cestovateľský fotograf",
-    "bio1": "Verím, že každá destinácia má príbeh, ktorý čaká na to, aby bol vyrozprávaný prostredníctvom fotografií. Môj fotoaparát je môj pas na dokumentovanie surovej krásy a jedinečných momentov, ktoré stretávam po celom svete.",
-    "bio2": "Od hmlistých vrcholov Patagónie po rušné ulice Tokia hľadám výnimočné v každodenných momentoch a tichú krásu vo veľkolepých krajinách.",
-    "storyTitle": "Môj príbeh",
-    "story1": "Fotografia si ma našla počas mojej prvej samostatnej cesty s batohom po juhovýchodnej Ázii. To, čo začalo ako jednoduché cestovateľské zábery, sa rýchlo vyvinulo v hlbokú vášeň pre zachytávanie podstaty miesta — jeho ľudí, krajín a prchavých momentov krásy.",
-    "story2": "V priebehu rokov som si vyvinul štýl, ktorý kladie dôraz na prirodzené svetlo, autentické momenty a surové emócie, ktoré robia cestovanie tak transformatívnym. Nechcem vám len ukázať, kde som bol; chcem, aby ste mali pocit, že stojíte priamo vedľa mňa.",
-    "story3": "Keď nie som za fotoaparátom, nájdete ma pri plánovaní ďalšieho dobrodružstva, učení sa o miestnych kultúrach alebo spracovávaní fotografií až do noci (poháňaný priveľkým množstvom kávy).",
-    "approachTitle": "Môj prístup",
-    "authentic": {
-      "title": "Autentické momenty",
-      "description": "Zachytávam skutočné, nepózované momenty, ktoré rozprávajú pravdivé príbehy. Nič inscenované, všetko prežité."
+    "greeting": "Ahoj, som Peter",
+    "professional": {
+      "intro": "Som softvérový vývojár s 10+ rokmi skúseností so špecializáciou na React, TypeScript a Next.js vývoj. Sídlim na Slovensku (stredoeurópsky čas) a spolupracujem s medzinárodnými tímami na komplexných webových aplikáciách.",
+      "experience": "Bol som hlavným vývojárom analytických dashboardov a nástrojov na vizualizáciu dát, momentálne pracujem na enterprise aplikáciách s rozsiahlymi filtračnými systémami a spracovaním veľkého množstva dát.",
+      "whatIDoTitle": "Čo robím",
+      "whatIDo1": "Vývoj React/Next.js aplikácií (dashboardy, SaaS platformy, dátovo náročné rozhrania)",
+      "whatIDo2": "SEO a optimalizácia výkonu (nedávno som zlepšil časy načítania 10x, škáloval indexáciu z 10k na 1M stránok)",
+      "whatIDo3": "Mobilná responzívnosť a vylepšenia prístupnosti",
+      "approachTitle": "Môj prístup",
+      "approach": "Využívam AI nástroje na zrýchlenie vývoja pri zachovaní bezpečnostných postupov. Pracujem s modernými nástrojmi (Next.js LTS, TypeScript, Tailwind, TanStack Query, Git workflows) a viem škálovať projekty s dôveryhodnými vývojárskymi partnermi.",
+      "languagesTitle": "Jazyky",
+      "languages": "Angličtina (plynulo), Španielčina (stredne), Slovenčina (rodný)"
     },
-    "local": {
-      "title": "Miestna perspektíva",
-      "description": "Ponáram sa do miestnej kultúry, aby som našiel jedinečné uhly a skryté poklady mimo vychodených ciest."
+    "knowMeBetter": "Chcete ma spoznať lepšie?",
+    "personal": {
+      "hobbies": "Keď nekódujem, nájdete ma pri lezení, turistike, lyžovaní alebo cestovaní s fotoaparátom. Preskúmal som 40+ krajín a pravidelne prednášam na outdoorových a cestovateľských festivaloch.",
+      "home": "Doma hrám na gitare, čítam a trávim čas s Kocúrenkom (moja mačka má vlastnú stránku).",
+      "prints": "Tiež predávam fotografické tlače z mojich ciest po celom svete."
     },
-    "passion": {
-      "title": "Vášeň v srdci",
-      "description": "Každá fotografia je urobená s láskou a zámerom. Fotím to, čo mnou pohne, v nádeji, že to pohne aj vami."
-    },
-    "ctaText": "Chcete spolupracovať alebo máte otázky o mojich fotografiách?",
-    "getInTouch": "Kontaktujte ma"
+    "contact": {
+      "title": "Kontaktujte ma",
+      "description": "Máte projekt na mysli alebo chcete spolupracovať? Napíšte mi na peter@profidev.sk",
+      "name": "Meno",
+      "email": "Email",
+      "message": "Správa",
+      "messagePlaceholder": "Povedzte mi o vašom projekte...",
+      "required": "*",
+      "send": "Odoslať správu",
+      "sending": "Odosielam...",
+      "success": {
+        "title": "Správa odoslaná!",
+        "description": "Ďakujem za kontaktovanie. Čoskoro sa ozvem.",
+        "sendAnother": "Odoslať ďalšiu správu"
+      }
+    }
   },
   "contact": {
     "title": "Kontaktujte ma",

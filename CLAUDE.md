@@ -1,4 +1,5 @@
 # CLAUDE.md
+Always be extremely concise. Sacrifice grammar for the sake of concision.
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
