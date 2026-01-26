@@ -14,6 +14,7 @@ export interface Trip {
   id: string;
   title: LocalizedString;
   country: string;
+  region?: string;
   date: string;
   featured: boolean;
   categories: PhotoCategory[];
@@ -37,6 +38,7 @@ export interface PhotoWithTrip extends Omit<Photo, 'caption'> {
   tripId: string;
   tripTitle: string;
   country: string;
+  region?: string;
   date: string;
   src: string;
 }

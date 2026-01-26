@@ -42,6 +42,7 @@ export function getAllPhotosWithTrip(locale: Locale): PhotoWithTrip[] {
         tripId: trip.id,
         tripTitle: getLocalizedString(trip.title, locale),
         country: trip.country,
+        region: trip.region,
         date: trip.date,
         src: `/photos/${trip.id}/${photo.filename}`,
       })
@@ -63,6 +64,7 @@ export function getFeaturedPhotos(locale: Locale, shuffle = true): PhotoWithTrip
         tripId: trip.id,
         tripTitle: getLocalizedString(trip.title, locale),
         country: trip.country,
+        region: trip.region,
         date: trip.date,
         src: `/photos/${trip.id}/${photo.filename}`,
       })

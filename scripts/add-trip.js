@@ -4,9 +4,11 @@
 /**
  * Add Trip Script - Automates photo processing and trips.json update
  *
- * Usage: node scripts/add-trip.js [trip-name] [country] [date]
+ * Usage: node scripts/add-trip.js <trip-name> --country <country> [--region <region>] [--date <YYYY-MM>]
  *
- * Example: node scripts/add-trip.js peru-2024 Peru 2024-06
+ * Examples:
+ *   node scripts/add-trip.js svalbard-2024 --country Norway --region Svalbard --date 2024-06
+ *   node scripts/add-trip.js peru-2024 --country Peru --date 2024-03
  *
  * This script:
  * 1. Runs watermark.js on the trip's originals folder
@@ -80,6 +82,33 @@ const CATEGORY_KEYWORDS = {
 }
 
 /**
+ * Parse command line arguments with named flags
+ */
+function parseArgs(args) {
+  const result = {
+    tripName: null,
+    country: null,
+    region: null,
+    date: null,
+  }
+
+  for (let i = 0; i < args.length; i++) {
+    const arg = args[i]
+    if (arg === "--country" && args[i + 1]) {
+      result.country = args[++i]
+    } else if (arg === "--region" && args[i + 1]) {
+      result.region = args[++i]
+    } else if (arg === "--date" && args[i + 1]) {
+      result.date = args[++i]
+    } else if (!arg.startsWith("--") && !result.tripName) {
+      result.tripName = arg
+    }
+  }
+
+  return result
+}
+
+/**
  * Convert filename to readable caption
  * e.g., "mountain_sunset" -> "Mountain sunset"
  */
@@ -122,7 +151,7 @@ function tripNameToTitle(tripName) {
     .replace(/\b\w/g, (c) => c.toUpperCase())
 }
 
-async function addTrip(tripName, country, date) {
+async function addTrip({ tripName, country, region, date }) {
   const publicDir = path.join(process.cwd(), "public", "photos", tripName)
   const originalsDir = path.join(publicDir, "originals")
   const tripsJsonPath = path.join(process.cwd(), "src", "data", "trips.json")
@@ -187,6 +216,7 @@ async function addTrip(tripName, country, date) {
       sk: `[SK] ${tripNameToTitle(tripName)}`, // Placeholder for Slovak translation
     },
     country: country || "Unknown",
+    ...(region && { region }), // Only include if provided
     date: date || new Date().toISOString().slice(0, 7), // YYYY-MM
     featured: false,
     categories: Array.from(allCategories),
@@ -220,6 +250,10 @@ async function addTrip(tripName, country, date) {
   console.log("Done!")
   console.log(`${"=".repeat(50)}`)
   console.log(`\nTrip: ${tripName}`)
+  console.log(`Country: ${country || "Unknown"}`)
+  if (region) {
+    console.log(`Region: ${region}`)
+  }
   console.log(`Photos: ${photos.length}`)
   console.log(`Categories: ${Array.from(allCategories).join(", ")}`)
   console.log(`\nGenerated entries in: src/data/trips.json`)
@@ -234,19 +268,23 @@ async function addTrip(tripName, country, date) {
 
 // Main execution
 const args = process.argv.slice(2)
-const tripName = args[0]
-const country = args[1]
-const date = args[2]
+const parsed = parseArgs(args)
 
-if (!tripName) {
+if (!parsed.tripName) {
   console.log("Add Trip Script - Automate photo processing")
-  console.log("=".repeat(45))
-  console.log("\nUsage: node scripts/add-trip.js [trip-name] [country] [date]")
-  console.log("\nExample: node scripts/add-trip.js peru-2024 Peru 2024-06")
+  console.log("=".repeat(50))
+  console.log("\nUsage: node scripts/add-trip.js <trip-name> --country <country> [--region <region>] [--date <YYYY-MM>]")
+  console.log("\nExamples:")
+  console.log("  node scripts/add-trip.js svalbard-2024 --country Norway --region Svalbard --date 2024-06")
+  console.log("  node scripts/add-trip.js peru-2024 --country Peru --date 2024-03")
   console.log("\nThis will:")
-  console.log("  1. Process images from /public/photos/peru-2024/originals/")
-  console.log("  2. Apply watermarks and save to /public/photos/peru-2024/")
+  console.log("  1. Process images from /public/photos/<trip-name>/originals/")
+  console.log("  2. Apply watermarks and save to /public/photos/<trip-name>/")
   console.log("  3. Generate trip entry in src/data/trips.json")
+  console.log("\nOptions:")
+  console.log("  --country <country>  Required. Country name (e.g., Norway, Peru)")
+  console.log("  --region <region>    Optional. Region within country (e.g., Svalbard)")
+  console.log("  --date <YYYY-MM>     Optional. Trip date (defaults to current month)")
   console.log("\nPhoto naming tips:")
   console.log("  - Name photos descriptively: mountain-sunset.jpg, elephant.jpg")
   console.log("  - Categories are auto-detected from filenames")
@@ -254,7 +292,7 @@ if (!tripName) {
   process.exit(0)
 }
 
-addTrip(tripName, country, date).catch((error) => {
+addTrip(parsed).catch((error) => {
   console.error("Fatal error:", error)
   process.exit(1)
 })
