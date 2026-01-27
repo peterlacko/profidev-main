@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 import { getTranslations, setRequestLocale } from "next-intl/server"
 import { GalleryContent } from "./gallery-content"
-import { getAllPhotosWithTrip, getAllCountries, getAllCategories } from "@/lib/trips"
+import { getAllPhotosWithTrip, getAllCountries, getAllCategories, getRegionsByCountry } from "@/lib/trips"
 import type { Locale } from "@/i18n/routing"
 
 export async function generateMetadata({
@@ -30,6 +30,7 @@ export default async function GalleryPage({
   const photos = getAllPhotosWithTrip(locale as Locale)
   const countries = getAllCountries()
   const categories = getAllCategories()
+  const regionsByCountry = getRegionsByCountry()
 
   return (
     <div className="py-12 md:py-16">
@@ -49,6 +50,7 @@ export default async function GalleryPage({
           initialPhotos={photos}
           countries={countries}
           categories={categories}
+          regionsByCountry={regionsByCountry}
         />
       </div>
     </div>

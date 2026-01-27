@@ -1,36 +1,90 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Travel Photography Portfolio
+
+Personal travel photography portfolio built with Next.js 16, TypeScript, and Tailwind CSS v4. Features i18n support (EN/SK), dark mode, and git-based content management.
+
+## Features
+
+- Photo gallery with filtering by country, category, and date
+- Fullscreen lightbox with keyboard navigation
+- Responsive design with dark mode support
+- Bilingual (English/Slovak) with next-intl
+- Automated photo processing with watermarks
+- Contact form
+
+## Tech Stack
+
+- **Framework**: Next.js 16 (App Router)
+- **Styling**: Tailwind CSS v4, shadcn/ui components
+- **i18n**: next-intl
+- **Theming**: next-themes (dark mode)
+- **Image Processing**: Sharp
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Adding Photos
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. Create folder: `public/photos/[trip-name]/originals/`
+2. Add photos with descriptive filenames (e.g., `mountain-sunset.jpg`, `elephant.jpg`)
+3. Run the add-trip script:
 
-## Learn More
+```bash
+npm run add-trip <trip-name> --country <country> [--region <region>] [--date <YYYY-MM>]
 
-To learn more about Next.js, take a look at the following resources:
+# Examples:
+npm run add-trip svalbard-2024 --country Norway --region Svalbard --date 2024-06
+npm run add-trip peru-2024 --country Peru --date 2024-03
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+This will:
+- Process images with watermarks (resize to 1920px max)
+- Generate entries in `src/data/trips.json`
+- Auto-detect categories from filenames
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+4. Edit `src/data/trips.json` to refine captions and translations
+5. Commit and deploy
 
-## Deploy on Vercel
+## Scripts
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+npm run dev       # Development server
+npm run build     # Production build
+npm run start     # Production server
+npm run lint      # ESLint
+npm run add-trip  # Process photos and update trips.json
+npm run watermark # Watermark photos only
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Project Structure
+
+```
+src/
+├── app/[locale]/     # Pages (home, gallery, about, contact)
+├── components/       # React components
+│   ├── ui/           # shadcn/ui components
+│   ├── layout/       # Header, Footer, ThemeToggle
+│   └── photos/       # PhotoGrid, Lightbox
+├── data/trips.json   # Photo metadata
+├── lib/              # Utilities and data fetching
+└── types/            # TypeScript interfaces
+
+public/photos/        # Processed photos by trip
+messages/             # i18n translations (en.json, sk.json)
+scripts/              # Photo processing scripts
+```
+
+## Photo Categories
+
+`mountains` | `city` | `animals` | `nature` | `landscape` | `culture`
+
+Categories are auto-detected from filenames using keywords like: mountain, city, elephant, temple, forest, etc.
+
+## Deployment
+
+Deployed on Vercel. Push to main branch triggers automatic deployment.

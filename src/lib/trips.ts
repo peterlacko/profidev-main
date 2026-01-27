@@ -107,10 +107,32 @@ export function getAllCategories(): PhotoCategory[] {
   return Array.from(categories).sort()
 }
 
+export function getRegionsByCountry(): Record<string, string[]> {
+  const regionsByCountry: Record<string, string[]> = {}
+
+  for (const trip of data.trips) {
+    if (trip.region) {
+      if (!regionsByCountry[trip.country]) {
+        regionsByCountry[trip.country] = []
+      }
+      if (!regionsByCountry[trip.country].includes(trip.region)) {
+        regionsByCountry[trip.country].push(trip.region)
+      }
+    }
+  }
+
+  for (const country of Object.keys(regionsByCountry)) {
+    regionsByCountry[country].sort()
+  }
+
+  return regionsByCountry
+}
+
 export function filterPhotos(
   photos: PhotoWithTrip[],
   filters: {
     country?: string;
+    region?: string;
     category?: PhotoCategory;
     sortBy?: "date" | "country";
   }
@@ -119,6 +141,10 @@ export function filterPhotos(
 
   if (filters.country) {
     filtered = filtered.filter((p) => p.country === filters.country)
+  }
+
+  if (filters.region) {
+    filtered = filtered.filter((p) => p.region === filters.region)
   }
 
   if (filters.category) {
