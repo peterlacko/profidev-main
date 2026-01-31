@@ -3,6 +3,13 @@ import type { Trip, TripsData, PhotoWithTrip, PhotoCategory, LocalizedString } f
 import type { Locale } from "@/i18n/routing"
 
 const data = tripsData as TripsData
+const R2_PUBLIC_URL = process.env.NEXT_PUBLIC_R2_URL || ""
+
+/** Get photo URL - uses R2 if configured, otherwise local path */
+const getPhotoSrc = (tripId: string, filename: string): string =>
+  R2_PUBLIC_URL
+    ? `${R2_PUBLIC_URL}/${tripId}/${filename}`
+    : `/photos/${tripId}/${filename}`
 
 /** Fisher-Yates shuffle algorithm */
 function shuffleArray<T>(array: T[]): T[] {
@@ -44,7 +51,7 @@ export function getAllPhotosWithTrip(locale: Locale): PhotoWithTrip[] {
         country: trip.country,
         region: trip.region,
         date: trip.date,
-        src: `/photos/${trip.id}/${photo.filename}`,
+        src: getPhotoSrc(trip.id, photo.filename),
       })
     }
   }
@@ -66,7 +73,7 @@ export function getFeaturedPhotos(locale: Locale, shuffle = true): PhotoWithTrip
         country: trip.country,
         region: trip.region,
         date: trip.date,
-        src: `/photos/${trip.id}/${photo.filename}`,
+        src: getPhotoSrc(trip.id, photo.filename),
       })
     }
   }

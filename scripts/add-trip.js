@@ -187,8 +187,28 @@ async function addTrip({ tripName, country, region, date }) {
     process.exit(1)
   }
 
-  // Step 2: Generate trip entry
-  console.log("\nStep 2: Generating trips.json entry...\n")
+  // Step 2: Upload to R2
+  console.log("\nStep 2: Uploading to R2...\n")
+  const { uploadTrip } = require("./r2-upload")
+  const { failed } = await uploadTrip(tripName, true)
+
+  if (failed.length > 0) {
+    console.error("\nSome uploads failed. Fix issues and retry with: npm run r2-upload " + tripName)
+    process.exit(1)
+  }
+
+  // Step 3: Clean up local watermarked files (keep originals)
+  console.log("\nStep 3: Cleaning up local files...\n")
+  const watermarkedFiles = fs.readdirSync(publicDir).filter(f =>
+    f.endsWith(".jpg") && !fs.statSync(path.join(publicDir, f)).isDirectory()
+  )
+  for (const file of watermarkedFiles) {
+    fs.unlinkSync(path.join(publicDir, file))
+    console.log(`  Deleted: ${file}`)
+  }
+
+  // Step 4: Generate trip entry
+  console.log("\nStep 4: Generating trips.json entry...\n")
 
   // Collect all categories from photos
   const allCategories = new Set()
@@ -223,7 +243,7 @@ async function addTrip({ tripName, country, region, date }) {
     photos,
   }
 
-  // Step 3: Update trips.json
+  // Step 5: Update trips.json
   let tripsData = { trips: [] }
   if (fs.existsSync(tripsJsonPath)) {
     tripsData = JSON.parse(fs.readFileSync(tripsJsonPath, "utf8"))
@@ -263,7 +283,8 @@ async function addTrip({ tripName, country, region, date }) {
   console.log(`     - Refine English captions`)
   console.log(`     - Adjust categories if needed`)
   console.log(`     - Set featured: true if desired`)
-  console.log(`  2. Commit and push to deploy`)
+  console.log(`  2. Commit trips.json and push to deploy`)
+  console.log(`     (Photos are already uploaded to R2)`)
 }
 
 // Main execution

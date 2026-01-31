@@ -43,6 +43,10 @@ next-env.d.ts
 # Original photos (not committed to repo)
 **/originals/
 
+# Processed photos (now stored in R2)
+public/photos/**/*.jpg
+!public/photos/.gitkeep
+
 # Claude
 /PRPS
 /INIT

@@ -7,7 +7,8 @@
       "Bash(npm install:*)",
       "WebSearch",
       "Bash(git mv:*)",
-      "Bash(dir \"C:\\\\Users\\\\lacko\\\\websites\\\\travel-portfolio\\\\public\\\\photos\" /s)"
+      "Bash(dir \"C:\\\\Users\\\\lacko\\\\websites\\\\travel-portfolio\\\\public\\\\photos\" /s)",
+      "WebFetch(domain:developers.cloudflare.com)"
     ]
   }
 }

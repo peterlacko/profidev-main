@@ -21,7 +21,7 @@ const fs = require("fs")
 const CONFIG = {
   maxWidth: 1920,
   maxHeight: 1080,
-  watermarkText: "© Your Name | yourwebsite.com",
+  watermarkText: "© Peter Lacko | profidev.sk",
   watermarkOpacity: 0.7,
   watermarkFontSize: 24,
   watermarkPadding: 20,
