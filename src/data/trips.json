@@ -1,6 +1,91 @@
 {
   "trips": [
     {
+      "id": "uganda-2025",
+      "title": {
+        "en": "Uganda 2025",
+        "sk": "[SK] Uganda 2025"
+      },
+      "country": "Uganda",
+      "date": "2025",
+      "featured": false,
+      "categories": [
+        "landscape"
+      ],
+      "photos": [
+        {
+          "filename": "DSC00050.jpg",
+          "caption": {
+            "en": "DSC00050",
+            "sk": "[SK] DSC00050"
+          },
+          "categories": [
+            "landscape"
+          ]
+        },
+        {
+          "filename": "DSC00117.jpg",
+          "caption": {
+            "en": "DSC00117",
+            "sk": "[SK] DSC00117"
+          },
+          "categories": [
+            "landscape"
+          ]
+        },
+        {
+          "filename": "DSC09293.jpg",
+          "caption": {
+            "en": "DSC09293",
+            "sk": "[SK] DSC09293"
+          },
+          "categories": [
+            "landscape"
+          ]
+        },
+        {
+          "filename": "DSC09478.jpg",
+          "caption": {
+            "en": "DSC09478",
+            "sk": "[SK] DSC09478"
+          },
+          "categories": [
+            "landscape"
+          ]
+        },
+        {
+          "filename": "DSC09592.jpg",
+          "caption": {
+            "en": "DSC09592",
+            "sk": "[SK] DSC09592"
+          },
+          "categories": [
+            "landscape"
+          ]
+        },
+        {
+          "filename": "DSC09686.jpg",
+          "caption": {
+            "en": "DSC09686",
+            "sk": "[SK] DSC09686"
+          },
+          "categories": [
+            "landscape"
+          ]
+        },
+        {
+          "filename": "DSC09883.jpg",
+          "caption": {
+            "en": "DSC09883",
+            "sk": "[SK] DSC09883"
+          },
+          "categories": [
+            "landscape"
+          ]
+        }
+      ]
+    },
+    {
       "id": "morocco-2019",
       "title": {
         "en": "Morocco 2019",
