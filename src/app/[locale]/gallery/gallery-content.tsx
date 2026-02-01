@@ -1,8 +1,10 @@
 "use client"
 
 import { useState, useMemo } from "react"
+import { useSearchParams } from "next/navigation"
 import { ChevronDown, X } from "lucide-react"
 import { useTranslations } from "next-intl"
+import { useRouter, usePathname } from "@/i18n/navigation"
 import type { PhotoWithTrip, PhotoCategory, Trip } from "@/types"
 import { filterPhotos, getTripCoverSrc } from "@/lib/trips"
 import { PhotoGrid } from "@/components/photos/photo-grid"
@@ -30,8 +32,11 @@ export function GalleryContent({
 }: GalleryContentProps) {
   const t = useTranslations("gallery")
   const tCategories = useTranslations("categories")
+  const router = useRouter()
+  const pathname = usePathname()
+  const searchParams = useSearchParams()
 
-  const [viewMode, setViewMode] = useState<"filters" | "trips">("filters")
+  const viewMode = searchParams.get("view") === "trips" ? "trips" : "filters"
   const [selectedCountry, setSelectedCountry] = useState<string | undefined>()
   const [selectedRegion, setSelectedRegion] = useState<string | undefined>()
   const [selectedCategory, setSelectedCategory] = useState<PhotoCategory | undefined>()
@@ -67,6 +72,17 @@ export function GalleryContent({
     setSelectedCategory(undefined)
   }
 
+  const handleViewModeChange = (mode: "filters" | "trips") => {
+    const params = new URLSearchParams(searchParams.toString())
+    if (mode === "trips") {
+      params.set("view", "trips")
+    } else {
+      params.delete("view")
+    }
+    const queryString = params.toString()
+    router.replace(queryString ? `${pathname}?${queryString}` : pathname, { scroll: false })
+  }
+
   return (
     <div>
       {/* View Mode Toggle */}
@@ -74,14 +90,14 @@ export function GalleryContent({
         <Button
           variant={viewMode === "filters" ? "default" : "outline"}
           size="sm"
-          onClick={() => setViewMode("filters")}
+          onClick={() => handleViewModeChange("filters")}
         >
           {t("filterView")}
         </Button>
         <Button
           variant={viewMode === "trips" ? "default" : "outline"}
           size="sm"
-          onClick={() => setViewMode("trips")}
+          onClick={() => handleViewModeChange("trips")}
         >
           {t("tripView")}
         </Button>

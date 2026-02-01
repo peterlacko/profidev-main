@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import { Suspense } from "react"
 import { getTranslations, setRequestLocale } from "next-intl/server"
 import { GalleryContent } from "./gallery-content"
 import { getAllPhotosWithTrip, getAllCountries, getAllCategories, getRegionsByCountry, getAllTrips } from "@/lib/trips"
@@ -43,14 +44,16 @@ export default async function GalleryPage({
         </div>
 
         {/* Gallery with filters */}
-        <GalleryContent
-          initialPhotos={photos}
-          countries={countries}
-          categories={categories}
-          regionsByCountry={regionsByCountry}
-          trips={trips}
-          locale={locale}
-        />
+        <Suspense fallback={<div className="animate-pulse h-96 bg-muted rounded-lg" />}>
+          <GalleryContent
+            initialPhotos={photos}
+            countries={countries}
+            categories={categories}
+            regionsByCountry={regionsByCountry}
+            trips={trips}
+            locale={locale}
+          />
+        </Suspense>
       </div>
     </div>
   )
