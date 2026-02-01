@@ -15,10 +15,10 @@ import {
 } from "@/components/ui/dialog"
 
 interface LightboxProps {
-  photos: PhotoWithTrip[];
-  currentIndex: number | null;
-  onClose: () => void;
-  onNavigate: (index: number) => void;
+  photos: PhotoWithTrip[]
+  currentIndex: number | null
+  onClose: () => void
+  onNavigate: (index: number) => void
 }
 
 export function Lightbox({
@@ -74,7 +74,7 @@ export function Lightbox({
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
       <DialogContent
-        className="max-w-[95vw] max-h-[95vh] p-0 bg-black/95 border-none overflow-hidden"
+        className="w-[66vw] max-h-[95vh] p-0 bg-black/95 border-none overflow-hidden sm:max-w-[66vw]"
         showCloseButton={false}
       >
         <DialogTitle className="sr-only">{currentPhoto.caption}</DialogTitle>
@@ -122,7 +122,7 @@ export function Lightbox({
             alt={currentPhoto.caption}
             fill
             className="object-contain"
-            sizes="95vw"
+            sizes="66vw"
             priority
           />
         </div>

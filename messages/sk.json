@@ -2,7 +2,7 @@
   "metadata": {
     "title": "Cestovateľské portfólio | Fotografia",
     "titleTemplate": "%s | Cestovateľské portfólio",
-    "description": "Osobné portfólio cestovateľskej fotografie prezentujúce úžasné zábery z celého sveta.",
+    "description": "Osobné portfólio cestovateľskej fotografie prezentujúce zábery z celého sveta.",
     "siteName": "Cestovateľské portfólio"
   },
   "navigation": {
@@ -15,15 +15,15 @@
   },
   "home": {
     "hero": {
-      "title": "Zachytávam svet,",
-      "titleHighlight": "Jeden záber po druhom",
-      "description": "Cestovateľská fotografia, ktorá rozpráva príbehy. Od vrcholov Patagónie po ulice Tokia, objavte krásu nášho sveta cez môj objektív.",
+      "title": "Desiatky krajín,",
+      "titleHighlight": "tisíce záberov",
+      "description": "Fotografia, ktorá rozpráva príbehy. Od vrcholkov Ánd po ulice Karakolu, autentické momenty z ciest po celom svete.",
       "browseGallery": "Prezerať galériu",
       "aboutMe": "O mne"
     },
     "featured": {
-      "title": "Vybrané práce",
-      "description": "Výber mojich obľúbených záberov z nedávnych ciest",
+      "title": "Mini galéria",
+      "description": "Náhodný výber záberov z ciest dávnych i nedávnych",
       "viewAll": "Zobraziť všetky fotky"
     },
     "cta": {
@@ -59,22 +59,23 @@
       "experience": "Bol som hlavným vývojárom analytických dashboardov a nástrojov na vizualizáciu dát, momentálne pracujem na enterprise aplikáciách s rozsiahlymi filtračnými systémami a spracovaním veľkého množstva dát.",
       "whatIDoTitle": "Čo robím",
       "whatIDo1": "Vývoj React/Next.js aplikácií (dashboardy, SaaS platformy, dátovo náročné rozhrania)",
-      "whatIDo2": "SEO a optimalizácia výkonu (nedávno som zlepšil časy načítania 10x, škáloval indexáciu z 10k na 1M stránok)",
-      "whatIDo3": "Mobilná responzívnosť a vylepšenia prístupnosti",
+      "whatIDo2": "SEO a optimalizácia výkonu",
+      "whatIDo3": "Mobilná responzivita a vylepšenia prístupnosti",
       "approachTitle": "Môj prístup",
-      "approach": "Využívam AI nástroje na zrýchlenie vývoja pri zachovaní bezpečnostných postupov. Pracujem s modernými nástrojmi (Next.js LTS, TypeScript, Tailwind, TanStack Query, Git workflows) a viem škálovať projekty s dôveryhodnými vývojárskymi partnermi.",
+      "approach": "Využívam AI nástroje na zrýchlenie vývoja pri zachovaní bezpečnostných postupov. Pracujem s modernými nástrojmi (Next.js, TypeScript, Tailwind, TanStack Query, Git workflows) a viem škálovať projekty s dôveryhodnými vývojárskymi partnermi.",
       "languagesTitle": "Jazyky",
-      "languages": "Angličtina (plynulo), Španielčina (stredne), Slovenčina (rodný)"
+      "languages": "Angličtina (plynulo), Španielčina (komunikačná), Slovenčina (rodný)"
     },
-    "knowMeBetter": "Chcete ma spoznať lepšie?",
+    "knowMeBetter": "Viac o mne",
     "personal": {
-      "hobbies": "Keď nekódujem, nájdete ma pri lezení, turistike, lyžovaní alebo cestovaní s fotoaparátom. Preskúmal som 40+ krajín a pravidelne prednášam na outdoorových a cestovateľských festivaloch.",
-      "home": "Doma hrám na gitare, čítam a trávim čas s Kocúrenkom (moja mačka má vlastnú stránku).",
-      "prints": "Tiež predávam fotografické tlače z mojich ciest po celom svete."
+      "hobbies": "Keď neprogramujem, nájdete ma pod skalami, na turistike, lyžovaní alebo na cestách s fotoaparátom v ruke. Navštíviil som 40+ krajín a prednášam na outdoorových a cestovateľských festivaloch.",
+      "home": "Keď som doma, zvyčajne hrám na gitare alebo čítam",
+      "toRemove": "ka trávim čas s Kocúrenkom (moja mačka má vlastnú stránku).",
+      "prints": "Tiež poskytujem tlačené fotografie z mojich ciest."
     },
     "contact": {
       "title": "Kontaktujte ma",
-      "description": "Máte projekt na mysli alebo chcete spolupracovať? Napíšte mi na peter@profidev.sk",
+      "description": "Premýšľate nad projektom alebo zvažujete spoluprácu? Napíšte mi na info@profidev.sk",
       "name": "Meno",
       "email": "Email",
       "message": "Správa",
@@ -91,7 +92,7 @@
   },
   "contact": {
     "title": "Kontaktujte ma",
-    "description": "Máte záujem o kúpu fotografie alebo máte otázku? Rád od vás budem počuť.",
+    "description": "Máte záujem o kúpu fotografie alebo máte nejkú otázku? Ozvite sa mi, rád odpoviem.",
     "email": "Email",
     "emailDesc": "Priame otázky",
     "photoPurchases": "Nákup fotografií",
@@ -104,7 +105,7 @@
       "subject": "Predmet",
       "subjectPlaceholder": "O čo ide?",
       "photoReference": "Referencia fotografie",
-      "photoReferencePlaceholder": "Ak žiadate o konkrétnu fotografiu, zadajte tu jej názov",
+      "photoReferencePlaceholder": "Ak žiadate o konkrétnu fotografiu, zadajte jej názov",
       "photoReferencePrefilled": "Predvyplnené z výberu v galérii",
       "message": "Správa",
       "messagePlaceholder": "Vaša správa... Ak žiadate o fotografiu, uveďte prosím podrobnosti o zamýšľanom použití (osobné, tlač, komerčné).",

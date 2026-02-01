@@ -99,7 +99,8 @@ export function getFeaturedPhotos(locale: Locale, shuffle = true): PhotoWithTrip
     }
   }
 
-  return shuffle ? shuffleArray(photos) : photos
+  const result = shuffle ? shuffleArray(photos) : photos
+  return result.slice(0, 18)
 }
 
 export function getPhotosByCategory(locale: Locale, category: PhotoCategory): PhotoWithTrip[] {
@@ -159,10 +160,10 @@ export function getRegionsByCountry(): Record<string, string[]> {
 export function filterPhotos(
   photos: PhotoWithTrip[],
   filters: {
-    country?: string;
-    region?: string;
-    category?: PhotoCategory;
-    sortBy?: "date" | "country";
+    country?: string
+    region?: string
+    category?: PhotoCategory
+    sortBy?: "date" | "country"
   }
 ): PhotoWithTrip[] {
   let filtered = [...photos]

@@ -17,13 +17,13 @@
     "hero": {
       "title": "Capturing the World,",
       "titleHighlight": "One Frame at a Time",
-      "description": "Travel photography that tells stories. From the peaks of Patagonia to the streets of Tokyo, explore the beauty of our world through my lens.",
+      "description": "Photography that tells stories. From Andean peaks to the streets of Karakol, explore the beauty of our world through my lens.",
       "browseGallery": "Browse Gallery",
       "aboutMe": "About Me"
     },
     "featured": {
       "title": "Featured Work",
-      "description": "A selection of my favorite captures from recent travels",
+      "description": "A selection of my photos from more or less recent travels",
       "viewAll": "View all photos"
     },
     "cta": {
@@ -59,7 +59,7 @@
       "experience": "I've been a core developer on analytics dashboards and data visualization tools, currently working on enterprise applications with extensive filtering systems and large-scale data handling.",
       "whatIDoTitle": "What I do",
       "whatIDo1": "Build React/Next.js applications (dashboards, SaaS platforms, data-heavy interfaces)",
-      "whatIDo2": "SEO & performance optimization (recently improved load times 10x, scaled indexing from 10k to 1M pages)",
+      "whatIDo2": "SEO & performance optimization",
       "whatIDo3": "Mobile responsiveness & accessibility improvements",
       "approachTitle": "My approach",
       "approach": "I leverage AI tools to accelerate development while maintaining security best practices. I work with modern tooling (Next.js LTS, TypeScript, Tailwind, TanStack Query, Git workflows) and can scale projects with trusted development partners when needed.",
@@ -69,12 +69,13 @@
     "knowMeBetter": "Want to know me better?",
     "personal": {
       "hobbies": "When I'm not coding, you'll find me climbing, hiking, skiing, or traveling with my camera. I've explored 40+ countries and regularly give talks at outdoor and travel festivals.",
-      "home": "At home, I play guitar, read, and spend time with Kocurenko (my cat has his own page).",
+      "home": "At home, I usually play guitar, or read",
+      "toRemove": "and spend time with Kocurenko (my cat has his own page).",
       "prints": "I also sell travel photography prints from my adventures around the world."
     },
     "contact": {
       "title": "Get in Touch",
-      "description": "Have a project in mind or want to collaborate? Drop me a message at peter@profidev.sk",
+      "description": "Have a project in mind or want to collaborate? Drop me a message at info@profidev.sk",
       "name": "Name",
       "email": "Email",
       "message": "Message",
