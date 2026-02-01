@@ -1,6 +1,111 @@
 {
   "trips": [
     {
+      "id": "thailand-2023",
+      "title": {
+        "en": "Thailand 2023",
+        "sk": "[SK] Thailand 2023"
+      },
+      "country": "Thailand",
+      "date": "2023-03",
+      "featured": false,
+      "categories": [
+        "landscape"
+      ],
+      "photos": [
+        {
+          "filename": "ao_nang_cliffs.jpg",
+          "caption": {
+            "en": "Ao Nang Cliffs",
+            "sk": "Útesy pri Ao Nang"
+          },
+          "categories": [
+            "landscape", "nature"
+          ]
+        },
+        {
+          "filename": "blonde_on_hong_island.jpg",
+          "caption": {
+            "en": "Blonde On Hong Island",
+            "sk": "Blondína na ostrove Hong"
+          },
+          "categories": [
+            "people"
+          ]
+        },
+        {
+          "filename": "boat.jpg",
+          "caption": {
+            "en": "Boat",
+            "sk": "Loď"
+          },
+          "categories": [
+            "landscape", "nature"
+          ]
+        },
+        {
+          "filename": "climbing_near_ao_nang.jpg",
+          "caption": {
+            "en": "Climbing Near Ao Nang",
+            "sk": "Lezenie pri Ao Nang"
+          },
+          "categories": [
+            "landscape", "climbing"
+          ]
+        },
+        {
+          "filename": "dont_burn_yourself.jpg",
+          "caption": {
+            "en": "Don't Burn Yourself!",
+            "sk": "Nespáľ sa!"
+          },
+          "categories": [
+            "people", "culture"
+          ]
+        },
+        {
+          "filename": "hmm_that_looks_nice.jpg",
+          "caption": {
+            "en": "Hmm That Looks Nice",
+            "sk": "Hmm, to vyzerá pekne"
+          },
+          "categories": [
+            "animals"
+          ]
+        },
+        {
+          "filename": "so_many_islands.jpg",
+          "caption": {
+            "en": "So Many Islands",
+            "sk": "Toľko ostrovov"
+          },
+          "categories": [
+            "landscape", "nature"
+          ]
+        },
+        {
+          "filename": "sunny_on_ko_hong.jpg",
+          "caption": {
+            "en": "Sunny On Ko Hong",
+            "sk": "Slnečno na Ko Hong"
+          },
+          "categories": [
+            "landscape", "nature"
+          ]
+        },
+        {
+          "filename": "want_some_pineapple.jpg",
+          "caption": {
+            "en": "Want Some Pineapple?",
+            "sk": "Chceš ananás?"
+          },
+          "categories": [
+            "food"
+          ]
+        }
+      ]
+    },
+    {
       "id": "laos-2023",
       "title": {
         "en": "Laos 2023",
@@ -25,7 +130,8 @@
             "sk": "Smäd prichádza rýchlo"
           },
           "categories": [
-            "landscape", "food"
+            "landscape",
+            "food"
           ]
         },
         {
@@ -45,7 +151,8 @@
             "sk": "Chill s kokosom"
           },
           "categories": [
-            "mountains", "food"
+            "mountains",
+            "food"
           ]
         },
         {
@@ -65,7 +172,8 @@
             "sk": "Dámy na telefónoch"
           },
           "categories": [
-            "landscape", "culture"
+            "landscape",
+            "culture"
           ]
         },
         {
@@ -85,7 +193,8 @@
             "sk": "Jašterica pri rieke Mekong"
           },
           "categories": [
-            "nature", "animals"
+            "nature",
+            "animals"
           ]
         },
         {
@@ -106,7 +215,8 @@
             "sk": "Hory pri Thakheku"
           },
           "categories": [
-            "mountains", "landscape"
+            "mountains",
+            "landscape"
           ]
         },
         {
@@ -116,7 +226,8 @@
             "sk": "Múzeum vojny"
           },
           "categories": [
-            "landscape", "buildings"
+            "landscape",
+            "buildings"
           ]
         },
         {
@@ -136,7 +247,8 @@
             "sk": "Osady pri rieke Mekong"
           },
           "categories": [
-            "nature", "buildings"
+            "nature",
+            "buildings"
           ]
         },
         {
@@ -146,7 +258,9 @@
             "sk": "Chrám v Luang Prabang"
           },
           "categories": [
-            "landscape", "culture", "buildings"
+            "landscape",
+            "culture",
+            "buildings"
           ]
         },
         {
@@ -156,7 +270,8 @@
             "sk": "Stánok s jedlom v Luang Prabang"
           },
           "categories": [
-            "landscape", "food"
+            "landscape",
+            "food"
           ]
         }
       ]
