@@ -1,6 +1,167 @@
 {
   "trips": [
     {
+      "id": "laos-2023",
+      "title": {
+        "en": "Laos 2023",
+        "sk": "Laos 2023"
+      },
+      "country": "Laos",
+      "date": "2023-03",
+      "featured": false,
+      "categories": [
+        "landscape",
+        "mountains",
+        "culture",
+        "nature",
+        "animals",
+        "food"
+      ],
+      "photos": [
+        {
+          "filename": "already_thirsty.jpg",
+          "caption": {
+            "en": "Already Thirsty",
+            "sk": "Smäd prichádza rýchlo"
+          },
+          "categories": [
+            "landscape", "food"
+          ]
+        },
+        {
+          "filename": "chilling_buddha.jpg",
+          "caption": {
+            "en": "Chilling Buddha",
+            "sk": "Chillujúci Buddha"
+          },
+          "categories": [
+            "culture"
+          ]
+        },
+        {
+          "filename": "chill_with_coconut.jpg",
+          "caption": {
+            "en": "Chill With Coconut",
+            "sk": "Chill s kokosom"
+          },
+          "categories": [
+            "mountains", "food"
+          ]
+        },
+        {
+          "filename": "food_market_in_luang_prabang.jpg",
+          "caption": {
+            "en": "Food Market In Luang Prabang",
+            "sk": "Trh s jedlom v Luang Prabang"
+          },
+          "categories": [
+            "culture"
+          ]
+        },
+        {
+          "filename": "ladies_on_phones.jpg",
+          "caption": {
+            "en": "Ladies On Phones",
+            "sk": "Dámy na telefónoch"
+          },
+          "categories": [
+            "landscape", "culture"
+          ]
+        },
+        {
+          "filename": "laos_countryside.jpg",
+          "caption": {
+            "en": "Laos Countryside",
+            "sk": "Vidiek Laosu"
+          },
+          "categories": [
+            "landscape"
+          ]
+        },
+        {
+          "filename": "lizard_near_mekong_river.jpg",
+          "caption": {
+            "en": "Lizard Near Mekong River",
+            "sk": "Jašterica pri rieke Mekong"
+          },
+          "categories": [
+            "nature", "animals"
+          ]
+        },
+        {
+          "filename": "mekong_river_view.jpg",
+          "caption": {
+            "en": "Mekong River View",
+            "sk": "Výhľad na rieku Mekong"
+          },
+          "categories": [
+            "nature",
+            "landscape"
+          ]
+        },
+        {
+          "filename": "mountains_near_thakhek.jpg",
+          "caption": {
+            "en": "Mountains Near Thakhek",
+            "sk": "Hory pri Thakheku"
+          },
+          "categories": [
+            "mountains", "landscape"
+          ]
+        },
+        {
+          "filename": "museum_of_war.jpg",
+          "caption": {
+            "en": "Museum Of War",
+            "sk": "Múzeum vojny"
+          },
+          "categories": [
+            "landscape", "buildings"
+          ]
+        },
+        {
+          "filename": "rowing_boat_in_temple.jpg",
+          "caption": {
+            "en": "Rowing Boat In Temple",
+            "sk": "Loďka na veslovanie v chráme"
+          },
+          "categories": [
+            "culture"
+          ]
+        },
+        {
+          "filename": "settlements_near_mekong_river.jpg",
+          "caption": {
+            "en": "Settlements Near Mekong River",
+            "sk": "Osady pri rieke Mekong"
+          },
+          "categories": [
+            "nature", "buildings"
+          ]
+        },
+        {
+          "filename": "tample_in_luang_prabang.jpg",
+          "caption": {
+            "en": "Tample In Luang Prabang",
+            "sk": "Chrám v Luang Prabang"
+          },
+          "categories": [
+            "landscape", "culture", "buildings"
+          ]
+        },
+        {
+          "filename": "_in_luang_prabang.jpg",
+          "caption": {
+            "en": "Food Stall In Luang Prabang",
+            "sk": "Stánok s jedlom v Luang Prabang"
+          },
+          "categories": [
+            "landscape", "food"
+          ]
+        }
+      ]
+    },
+    {
       "id": "svalbard-2026",
       "title": {
         "en": "Svalbard 2026",
