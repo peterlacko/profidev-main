@@ -1,83 +1,170 @@
 {
   "trips": [
     {
-      "id": "uganda-2025",
+      "id": "svalbard-2026",
       "title": {
-        "en": "Uganda 2025",
-        "sk": "[SK] Uganda 2025"
+        "en": "Svalbard 2026",
+        "sk": "[SK] Svalbard 2026"
       },
-      "country": "Uganda",
-      "date": "2025",
+      "country": "Norway",
+      "region": "Svalbard",
+      "date": "2026-01",
       "featured": false,
       "categories": [
-        "landscape"
+        "animals",
+        "mountains",
+        "landscape",
+        "culture",
+        "nature"
       ],
       "photos": [
         {
-          "filename": "DSC00050.jpg",
+          "filename": "aurora_above_bear_sign.jpg",
           "caption": {
-            "en": "DSC00050",
-            "sk": "[SK] DSC00050"
+            "en": "Polar Bear Sign",
+            "sk": "Pozor medveď"
+          },
+          "categories": [
+            "animals"
+          ]
+        },
+        {
+          "filename": "aurora_over_mountains.jpg",
+          "caption": {
+            "en": "Aurora Over Mountains",
+            "sk": "Aurora nad horami"
+          },
+          "categories": [
+            "mountains"
+          ]
+        },
+        {
+          "filename": "coal_middle_station.jpg",
+          "caption": {
+            "en": "Coal Mine Middle Station",
+            "sk": "Stredná stanica uhoľnej bane"
+          },
+          "categories": [
+            "landscape",
+            "buildings"
+          ]
+        },
+        {
+          "filename": "houses_of_longyearbean.jpg",
+          "caption": {
+            "en": "Houses Of Longyearbean",
+            "sk": "Domy v Longyearbeene"
           },
           "categories": [
             "landscape"
           ]
         },
         {
-          "filename": "DSC00117.jpg",
+          "filename": "ice_cave_visit.jpg",
           "caption": {
-            "en": "DSC00117",
-            "sk": "[SK] DSC00117"
+            "en": "Ice Cave Visit",
+            "sk": "Návšteva ľadovej jaskyne"
           },
           "categories": [
             "landscape"
           ]
         },
         {
-          "filename": "DSC09293.jpg",
+          "filename": "krasny_medved_restaurant.jpg",
           "caption": {
-            "en": "DSC09293",
-            "sk": "[SK] DSC09293"
+            "en": "Krasny Medved Restaurant",
+            "sk": "Reštaurácia Krasny Medved"
           },
           "categories": [
             "landscape"
           ]
         },
         {
-          "filename": "DSC09478.jpg",
+          "filename": "lenin_statue_in_barentsburg.jpg",
           "caption": {
-            "en": "DSC09478",
-            "sk": "[SK] DSC09478"
+            "en": "Lenin Statue In Barentsburg",
+            "sk": "Socha Lenina v Barentsburgu"
           },
           "categories": [
             "landscape"
           ]
         },
         {
-          "filename": "DSC09592.jpg",
+          "filename": "longyearbean_church_with_view.jpg",
           "caption": {
-            "en": "DSC09592",
-            "sk": "[SK] DSC09592"
+            "en": "Longyearbean Church With View",
+            "sk": "Kostol v Longyearbeene"
+          },
+          "categories": [
+            "landscape",
+            "culture"
+          ]
+        },
+        {
+          "filename": "longyearbean_valley.jpg",
+          "caption": {
+            "en": "Longyearbean Valley",
+            "sk": "Údolie Longyearbeenu"
           },
           "categories": [
             "landscape"
           ]
         },
         {
-          "filename": "DSC09686.jpg",
+          "filename": "longyerbean_from_longyerbreen.jpg",
           "caption": {
-            "en": "DSC09686",
-            "sk": "[SK] DSC09686"
+            "en": "Longyerbean From Longyerbreen",
+            "sk": "Longyerbean z ľadovca Longyerbreen"
           },
           "categories": [
             "landscape"
           ]
         },
         {
-          "filename": "DSC09883.jpg",
+          "filename": "magnificant_aurora.jpg",
           "caption": {
-            "en": "DSC09883",
-            "sk": "[SK] DSC09883"
+            "en": "Magnificant Aurora",
+            "sk": "Nádherná Aurora"
+          },
+          "categories": [
+            "landscape"
+          ]
+        },
+        {
+          "filename": "polar_night_on_svalbard.jpg",
+          "caption": {
+            "en": "Polar Night On Svalbard",
+            "sk": "Polárna noc na Svalbarde"
+          },
+          "categories": [
+            "landscape"
+          ]
+        },
+        {
+          "filename": "polar_night_over_sea.jpg",
+          "caption": {
+            "en": "Polar Night Over Sea",
+            "sk": "Polárna noc nad morom"
+          },
+          "categories": [
+            "nature"
+          ]
+        },
+        {
+          "filename": "school_in_barntsburg.jpg",
+          "caption": {
+            "en": "School In Barntsburg",
+            "sk": "Škola v Barentsburgu"
+          },
+          "categories": [
+            "landscape"
+          ]
+        },
+        {
+          "filename": "snowmobile_trip.jpg",
+          "caption": {
+            "en": "Snowmobile Trip",
+            "sk": "Výlet na snežnom skútri"
           },
           "categories": [
             "landscape"
@@ -89,21 +176,22 @@
       "id": "morocco-2019",
       "title": {
         "en": "Morocco 2019",
-        "sk": "[SK] Morocco 2019"
+        "sk": "Maroko 2019"
       },
-      "country": "Unknown",
+      "country": "Morocco",
       "date": "2026-01",
       "featured": false,
       "categories": [
         "landscape",
-        "culture"
+        "culture",
+        "climbing"
       ],
       "photos": [
         {
           "filename": "arriving_to_todra.jpg",
           "caption": {
             "en": "Arriving To Todra",
-            "sk": "[SK] Arriving To Todra"
+            "sk": "Príchod do Todry"
           },
           "categories": [
             "landscape"
@@ -113,7 +201,7 @@
           "filename": "beware_camel.jpg",
           "caption": {
             "en": "Beware Camel",
-            "sk": "[SK] Beware Camel"
+            "sk": "Pozor na ťavu"
           },
           "categories": [
             "landscape"
@@ -123,7 +211,7 @@
           "filename": "marrakesh_night_market.jpg",
           "caption": {
             "en": "Marrakesh Night Market",
-            "sk": "[SK] Marrakesh Night Market"
+            "sk": "Nočný trh v Marrakeshi"
           },
           "categories": [
             "culture"
@@ -133,7 +221,7 @@
           "filename": "steps_in_sand.jpg",
           "caption": {
             "en": "Steps In Sand",
-            "sk": "[SK] Steps In Sand"
+            "sk": "Kroky v piesku"
           },
           "categories": [
             "landscape"
@@ -143,7 +231,7 @@
           "filename": "sun_at_jebel_toubkal.jpg",
           "caption": {
             "en": "Sun At Jebel Toubkal",
-            "sk": "[SK] Sun At Jebel Toubkal"
+            "sk": "Slnko na Jebel Toubkal"
           },
           "categories": [
             "landscape"
@@ -153,7 +241,7 @@
           "filename": "todra_from_top.jpg",
           "caption": {
             "en": "Todra From Top",
-            "sk": "[SK] Todra From Top"
+            "sk": "Todra z vrchu"
           },
           "categories": [
             "landscape"
@@ -163,7 +251,7 @@
           "filename": "toubkal_gorge.jpg",
           "caption": {
             "en": "Toubkal Gorge",
-            "sk": "[SK] Toubkal Gorge"
+            "sk": "Roklina Toubkalu"
           },
           "categories": [
             "landscape"
@@ -173,7 +261,7 @@
           "filename": "way_to_toubkal.jpg",
           "caption": {
             "en": "Way To Toubkal",
-            "sk": "[SK] Way To Toubkal"
+            "sk": "Cesta na Toubkal"
           },
           "categories": [
             "landscape"

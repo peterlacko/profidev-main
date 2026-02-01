@@ -57,32 +57,22 @@ async function createWatermarkSvg(width, height) {
 
 async function processImage(inputPath, outputPath) {
   try {
-    // Get image metadata
-    const metadata = await sharp(inputPath).metadata()
-
-    // Calculate new dimensions (maintaining aspect ratio)
-    let width = metadata.width
-    let height = metadata.height
-
-    if (width > CONFIG.maxWidth) {
-      height = Math.round(height * (CONFIG.maxWidth / width))
-      width = CONFIG.maxWidth
-    }
-
-    if (height > CONFIG.maxHeight) {
-      width = Math.round(width * (CONFIG.maxHeight / height))
-      height = CONFIG.maxHeight
-    }
-
-    // Create watermark SVG
-    const watermarkSvg = await createWatermarkSvg(width, height)
-
-    // Process image
-    await sharp(inputPath)
-      .resize(width, height, {
+    // Step 1: Resize image first and get actual dimensions
+    const resizedBuffer = await sharp(inputPath)
+      .resize(CONFIG.maxWidth, CONFIG.maxHeight, {
         fit: "inside",
         withoutEnlargement: true,
       })
+      .toBuffer()
+
+    // Get actual dimensions of resized image
+    const { width, height } = await sharp(resizedBuffer).metadata()
+
+    // Step 2: Create watermark with exact dimensions
+    const watermarkSvg = await createWatermarkSvg(width, height)
+
+    // Step 3: Apply watermark and save
+    await sharp(resizedBuffer)
       .composite([
         {
           input: watermarkSvg,
