@@ -1,6 +1,203 @@
 {
   "trips": [
     {
+      "id": "uganda-2025",
+      "title": {
+        "en": "Uganda 2025",
+        "sk": "[SK] Uganda 2025"
+      },
+      "country": "Uganda",
+      "date": "2025-07",
+      "featured": false,
+      "categories": [
+        "landscape",
+        "animals",
+        "nature"
+      ],
+      "photos": [
+        {
+          "filename": "buffalo_herd.jpg",
+          "caption": {
+            "en": "Buffalo Herd",
+            "sk": "Stádo byvolov"
+          },
+          "categories": [
+            "animals"
+          ]
+        },
+        {
+          "filename": "chameleon_husband.jpg",
+          "caption": {
+            "en": "Chameleon Husband",
+            "sk": "Samček chameleóna"
+          },
+          "categories": [
+            "animals"
+          ]
+        },
+        {
+          "filename": "chameleon_wife.jpg",
+          "caption": {
+            "en": "Chameleon Wife",
+            "sk": "Samica chameleóna"
+          },
+          "categories": [
+            "animals"
+          ]
+        },
+        {
+          "filename": "elephant_in_queen_elizabeth_national_park.jpg",
+          "caption": {
+            "en": "Elephant In Queen Elizabeth National Park",
+            "sk": "Slon v národnom parku Kráľovná Alžbeta"
+          },
+          "categories": [
+            "animals"
+          ]
+        },
+        {
+          "filename": "forgot_to_buy_eggs.jpg",
+          "caption": {
+            "en": "Forgot To Buy Eggs?",
+            "sk": "Zabudol som kúpiť vajcia?"
+          },
+          "categories": [
+            "animals"
+          ]
+        },
+        {
+          "filename": "hello_tiny_one.jpg",
+          "caption": {
+            "en": "Hello Tiny One",
+            "sk": "Ahoj maličký"
+          },
+          "categories": [
+            "animals"
+          ]
+        },
+        {
+          "filename": "lizard.jpg",
+          "caption": {
+            "en": "Lizard",
+            "sk": "Jašterica"
+          },
+          "categories": [
+            "animals"
+          ]
+        },
+        {
+          "filename": "mahoma_lake.jpg",
+          "caption": {
+            "en": "Mahoma Lake",
+            "sk": "Jazero Mahoma"
+          },
+          "categories": [
+            "nature", "landscape"
+          ]
+        },
+        {
+          "filename": "nyinambuga_lake.jpg",
+          "caption": {
+            "en": "Nyinambuga Lake",
+            "sk": "Jazero Nyinambuga"
+          },
+          "categories": [
+            "nature", "landscape"
+          ]
+        },
+        {
+          "filename": "probably_antelopes.jpg",
+          "caption": {
+            "en": "Probably Antelopes",
+            "sk": "Pravdepodobne antilopy"
+          },
+          "categories": [
+            "landscape", "animals"
+          ]
+        },
+        {
+          "filename": "shadow_of_margeritha_to_kongo.jpg",
+          "caption": {
+            "en": "Shadow Of Margeritha over Kongo",
+            "sk": "Tieň Margerithy nad Kongom"
+          },
+          "categories": [
+            "landscape", "mountains"
+          ]
+        },
+        {
+          "filename": "shoebill_concentrated.jpg",
+          "caption": {
+            "en": "Shoebill from ancient times",
+            "sk": "Člnozobec z dávnych čias"
+          },
+          "categories": [
+            "animals"
+          ]
+        },
+        {
+          "filename": "shoe_bill_on_hunt.jpg",
+          "caption": {
+            "en": "Shoe Bill On Hunt",
+            "sk": "Člnozobec na love"
+          },
+          "categories": [
+            "animals"
+          ]
+        },
+        {
+          "filename": "tea_harvest.jpg",
+          "caption": {
+            "en": "Tea Harvest",
+            "sk": "Zber čaju"
+          },
+          "categories": [
+            "landscape", "people"
+          ]
+        },
+        {
+          "filename": "time_to_nap.jpg",
+          "caption": {
+            "en": "Time To Nap",
+            "sk": "Čas na šlofíka"
+          },
+          "categories": [
+            "animals"
+          ]
+        },
+        {
+          "filename": "vista_over_bujuku.jpg",
+          "caption": {
+            "en": "Vista Over Bujuku",
+            "sk": "Výhľad na Bujuku"
+          },
+          "categories": [
+            "landscape", "mountains"
+          ]
+        },
+        {
+          "filename": "what_am_i_doing_here.jpg",
+          "caption": {
+            "en": "What Am I Doing Here?",
+            "sk": "Čo tu robím?"
+          },
+          "categories": [
+            "animals"
+          ]
+        },
+        {
+          "filename": "why_are_you_hiding.jpg",
+          "caption": {
+            "en": "Why Are You Hiding",
+            "sk": "Prečo sa skrývaš?"
+          },
+          "categories": [
+            "animals"
+          ]
+        }
+      ]
+    },
+    {
       "id": "thailand-2023",
       "title": {
         "en": "Thailand 2023",
@@ -20,7 +217,8 @@
             "sk": "Útesy pri Ao Nang"
           },
           "categories": [
-            "landscape", "nature"
+            "landscape",
+            "nature"
           ]
         },
         {
@@ -40,7 +238,8 @@
             "sk": "Loď"
           },
           "categories": [
-            "landscape", "nature"
+            "landscape",
+            "nature"
           ]
         },
         {
@@ -50,7 +249,8 @@
             "sk": "Lezenie pri Ao Nang"
           },
           "categories": [
-            "landscape", "climbing"
+            "landscape",
+            "climbing"
           ]
         },
         {
@@ -60,7 +260,8 @@
             "sk": "Nespáľ sa!"
           },
           "categories": [
-            "people", "culture"
+            "people",
+            "culture"
           ]
         },
         {
@@ -80,7 +281,8 @@
             "sk": "Toľko ostrovov"
           },
           "categories": [
-            "landscape", "nature"
+            "landscape",
+            "nature"
           ]
         },
         {
@@ -90,7 +292,8 @@
             "sk": "Slnečno na Ko Hong"
           },
           "categories": [
-            "landscape", "nature"
+            "landscape",
+            "nature"
           ]
         },
         {
@@ -130,7 +333,6 @@
             "sk": "Smäd prichádza rýchlo"
           },
           "categories": [
-            "landscape",
             "food"
           ]
         },
@@ -151,7 +353,6 @@
             "sk": "Chill s kokosom"
           },
           "categories": [
-            "mountains",
             "food"
           ]
         },
@@ -172,7 +373,7 @@
             "sk": "Dámy na telefónoch"
           },
           "categories": [
-            "landscape",
+            "people",
             "culture"
           ]
         },
@@ -226,7 +427,6 @@
             "sk": "Múzeum vojny"
           },
           "categories": [
-            "landscape",
             "buildings"
           ]
         },
@@ -270,7 +470,6 @@
             "sk": "Stánok s jedlom v Luang Prabang"
           },
           "categories": [
-            "landscape",
             "food"
           ]
         }
@@ -301,7 +500,8 @@
             "sk": "Pozor medveď"
           },
           "categories": [
-            "animals"
+            "animals",
+            "nature"
           ]
         },
         {
@@ -321,7 +521,6 @@
             "sk": "Stredná stanica uhoľnej bane"
           },
           "categories": [
-            "landscape",
             "buildings"
           ]
         },
@@ -332,7 +531,8 @@
             "sk": "Domy v Longyearbeene"
           },
           "categories": [
-            "landscape"
+            "landscape",
+            "buildings"
           ]
         },
         {
@@ -342,7 +542,7 @@
             "sk": "Návšteva ľadovej jaskyne"
           },
           "categories": [
-            "landscape"
+            "nature"
           ]
         },
         {
@@ -352,7 +552,7 @@
             "sk": "Reštaurácia Krasny Medved"
           },
           "categories": [
-            "landscape"
+            "buildings"
           ]
         },
         {
@@ -362,7 +562,7 @@
             "sk": "Socha Lenina v Barentsburgu"
           },
           "categories": [
-            "landscape"
+            "culture"
           ]
         },
         {
@@ -394,7 +594,8 @@
             "sk": "Longyerbean z ľadovca Longyerbreen"
           },
           "categories": [
-            "landscape"
+            "landscape",
+            "nature"
           ]
         },
         {
@@ -404,7 +605,8 @@
             "sk": "Nádherná Aurora"
           },
           "categories": [
-            "landscape"
+            "landscape",
+            "nature"
           ]
         },
         {
@@ -414,7 +616,8 @@
             "sk": "Polárna noc na Svalbarde"
           },
           "categories": [
-            "landscape"
+            "landscape",
+            "nature"
           ]
         },
         {
@@ -424,7 +627,8 @@
             "sk": "Polárna noc nad morom"
           },
           "categories": [
-            "nature"
+            "nature",
+            "landscape"
           ]
         },
         {
@@ -434,7 +638,7 @@
             "sk": "Škola v Barentsburgu"
           },
           "categories": [
-            "landscape"
+            "buildings"
           ]
         },
         {
@@ -481,7 +685,8 @@
             "sk": "Pozor na ťavu"
           },
           "categories": [
-            "landscape"
+            "landscape",
+            "animals"
           ]
         },
         {
@@ -511,7 +716,8 @@
             "sk": "Slnko na Jebel Toubkal"
           },
           "categories": [
-            "landscape"
+            "landscape",
+            "mountains"
           ]
         },
         {
@@ -521,7 +727,8 @@
             "sk": "Todra z vrchu"
           },
           "categories": [
-            "landscape"
+            "landscape",
+            "mountains"
           ]
         },
         {
@@ -541,7 +748,8 @@
             "sk": "Cesta na Toubkal"
           },
           "categories": [
-            "landscape"
+            "landscape",
+            "mountains"
           ]
         }
       ]
