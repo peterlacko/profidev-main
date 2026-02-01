@@ -136,6 +136,9 @@
     "animals": "Animals",
     "nature": "Nature",
     "landscape": "Landscape",
-    "culture": "Culture"
+    "culture": "Culture",
+    "buildings": "Buildings",
+    "climbing": "Climbing",
+    "beach": "Beach"
   }
 }

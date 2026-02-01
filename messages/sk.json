@@ -136,6 +136,9 @@
     "animals": "Zvieratá",
     "nature": "Príroda",
     "landscape": "Krajina",
-    "culture": "Kultúra"
+    "culture": "Kultúra",
+    "buildings": "Budovy",
+    "climbing": "Lezenie",
+    "beach": "Pláž"
   }
 }
