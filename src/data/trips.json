@@ -8,7 +8,7 @@
       },
       "country": "Uganda",
       "date": "2025-07",
-      "featured": false,
+      "featured": true,
       "categories": [
         "landscape",
         "animals",
@@ -205,7 +205,7 @@
       },
       "country": "Thailand",
       "date": "2023-03",
-      "featured": false,
+      "featured": true,
       "categories": [
         "landscape"
       ],
@@ -316,7 +316,7 @@
       },
       "country": "Laos",
       "date": "2023-03",
-      "featured": false,
+      "featured": true,
       "categories": [
         "landscape",
         "mountains",
@@ -484,7 +484,7 @@
       "country": "Norway",
       "region": "Svalbard",
       "date": "2026-01",
-      "featured": false,
+      "featured": true,
       "categories": [
         "animals",
         "mountains",
@@ -661,7 +661,7 @@
       },
       "country": "Morocco",
       "date": "2026-01",
-      "featured": false,
+      "featured": true,
       "categories": [
         "landscape",
         "culture",
