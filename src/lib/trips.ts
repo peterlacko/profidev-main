@@ -37,6 +37,27 @@ export function getTripById(id: string): Trip | undefined {
   return data.trips.find((trip) => trip.id === id)
 }
 
+export function getPhotosByTripId(locale: Locale, tripId: string): PhotoWithTrip[] {
+  const trip = data.trips.find(t => t.id === tripId)
+  if (!trip) return []
+
+  return trip.photos.map(photo => ({
+    filename: photo.filename,
+    categories: photo.categories,
+    caption: getLocalizedString(photo.caption, locale),
+    tripId: trip.id,
+    tripTitle: getLocalizedString(trip.title, locale),
+    country: trip.country,
+    region: trip.region,
+    date: trip.date,
+    src: getPhotoSrc(trip.id, photo.filename),
+  }))
+}
+
+export function getTripCoverSrc(tripId: string, firstPhotoFilename: string): string {
+  return getPhotoSrc(tripId, firstPhotoFilename)
+}
+
 export function getAllPhotosWithTrip(locale: Locale): PhotoWithTrip[] {
   const photos: PhotoWithTrip[] = []
 

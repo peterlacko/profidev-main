@@ -33,21 +33,22 @@
     }
   },
   "gallery": {
-    "title": "Galéria",
-    "description": "Prehliadajte kompletnú zbierku cestovateľskej fotografie",
+    "title": "Cestovateľské portfólio",
     "filters": "Filtre",
     "country": "Krajina",
     "region": "Región",
     "category": "Kategória",
     "sortBy": "Zoradiť podľa",
     "date": "Dátum",
-    "all": "Všetko",
+    "all": "Všetky krajiny",
     "clearFilters": "Zrušiť filtre",
     "showAllFilters": "Zobraziť všetky filtre",
     "showLessFilters": "Skryť filtre",
     "photos": "{count} fotografií",
     "photosFiltered": "{count} fotografií (filtrované)",
-    "noPhotos": "Žiadne fotografie nezodpovedajú vybraným filtrom."
+    "noPhotos": "Žiadne fotografie nezodpovedajú vybraným filtrom.",
+    "filterView": "Filtre",
+    "tripView": "Výlety"
   },
   "about": {
     "title": "O mne",

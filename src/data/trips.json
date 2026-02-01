@@ -4,7 +4,7 @@
       "id": "svalbard-2026",
       "title": {
         "en": "Svalbard 2026",
-        "sk": "[SK] Svalbard 2026"
+        "sk": "Špicbergy 2026"
       },
       "country": "Norway",
       "region": "Svalbard",
@@ -97,7 +97,8 @@
           },
           "categories": [
             "landscape",
-            "culture"
+            "culture",
+            "buildings"
           ]
         },
         {

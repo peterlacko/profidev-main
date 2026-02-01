@@ -8,7 +8,8 @@
       "WebSearch",
       "Bash(git mv:*)",
       "Bash(dir \"C:\\\\Users\\\\lacko\\\\websites\\\\travel-portfolio\\\\public\\\\photos\" /s)",
-      "WebFetch(domain:developers.cloudflare.com)"
+      "WebFetch(domain:developers.cloudflare.com)",
+      "Bash(npx tsc:*)"
     ]
   }
 }

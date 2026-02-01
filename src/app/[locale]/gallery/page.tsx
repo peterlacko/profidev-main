@@ -1,27 +1,26 @@
 import type { Metadata } from "next"
 import { getTranslations, setRequestLocale } from "next-intl/server"
 import { GalleryContent } from "./gallery-content"
-import { getAllPhotosWithTrip, getAllCountries, getAllCategories, getRegionsByCountry } from "@/lib/trips"
+import { getAllPhotosWithTrip, getAllCountries, getAllCategories, getRegionsByCountry, getAllTrips } from "@/lib/trips"
 import type { Locale } from "@/i18n/routing"
 
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ locale: string }>;
+  params: Promise<{ locale: string }>
 }): Promise<Metadata> {
   const { locale } = await params
   const t = await getTranslations({ locale, namespace: "gallery" })
 
   return {
-    title: t("title"),
-    description: t("description"),
+    title: t("title")
   }
 }
 
 export default async function GalleryPage({
   params,
 }: {
-  params: Promise<{ locale: string }>;
+  params: Promise<{ locale: string }>
 }) {
   const { locale } = await params
   setRequestLocale(locale)
@@ -31,6 +30,7 @@ export default async function GalleryPage({
   const countries = getAllCountries()
   const categories = getAllCategories()
   const regionsByCountry = getRegionsByCountry()
+  const trips = getAllTrips()
 
   return (
     <div className="py-12 md:py-16">
@@ -40,9 +40,6 @@ export default async function GalleryPage({
           <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
             {t("title")}
           </h1>
-          <p className="mt-2 text-muted-foreground">
-            {t("description")}
-          </p>
         </div>
 
         {/* Gallery with filters */}
@@ -51,6 +48,8 @@ export default async function GalleryPage({
           countries={countries}
           categories={categories}
           regionsByCountry={regionsByCountry}
+          trips={trips}
+          locale={locale}
         />
       </div>
     </div>
