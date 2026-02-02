@@ -25,7 +25,7 @@ const CONFIG = {
   watermarkOpacity: 0.7,
   watermarkFontSize: 24,
   watermarkPadding: 20,
-  jpegQuality: 85,
+  jpegQuality: 95,
 }
 
 async function createWatermarkSvg(width, height) {

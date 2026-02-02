@@ -1,6 +1,115 @@
 {
   "trips": [
     {
+      "id": "georgia-2023",
+      "title": {
+        "en": "Georgia 2023",
+        "sk": "Gruzínsko 2023"
+      },
+      "country": "Georgia",
+      "date": "2023-7",
+      "featured": false,
+      "categories": [
+        "landscape",
+        "culture",
+        "nature",
+        "mountains",
+        "city"
+      ],
+      "photos": [
+        {
+          "filename": "abandoned_spa.jpg",
+          "caption": {
+            "en": "Abandoned Spa",
+            "sk": "Opustené kúpele"
+          },
+          "categories": [
+            "culture"
+          ]
+        },
+        {
+          "filename": "adishi_glacier.jpg",
+          "caption": {
+            "en": "Adishi Glacier",
+            "sk": "Ľadovec Adishi"
+          },
+          "categories": [
+            "landscape", "mountains"
+          ]
+        },
+        {
+          "filename": "caucasian_lilly.jpg",
+          "caption": {
+            "en": "Caucasian Lilly",
+            "sk": "Kaukazská ľalia"
+          },
+          "categories": [
+            "nature"
+          ]
+        },
+        {
+          "filename": "ceiling_in_ushguli_church.jpg",
+          "caption": {
+            "en": "Ceiling In Ushguli Church",
+            "sk": "Strop kostola v Ushguli"
+          },
+          "categories": [
+            "culture"
+          ]
+        },
+        {
+          "filename": "iconic_ushguli.jpg",
+          "caption": {
+            "en": "Iconic Ushguli",
+            "sk": "Ikonické Ushguli"
+          },
+          "categories": [
+            "landscape", "mountains"
+          ]
+        },
+        {
+          "filename": "just_cornflower.jpg",
+          "caption": {
+            "en": "Just Cornflower",
+            "sk": "Nevädza"
+          },
+          "categories": [
+            "nature"
+          ]
+        },
+        {
+          "filename": "peaks_of_ushba.jpg",
+          "caption": {
+            "en": "Peaks Of Ushba",
+            "sk": "Vrcholy Ushby"
+          },
+          "categories": [
+            "mountains"
+          ]
+        },
+        {
+          "filename": "photo_of_taking_photo.jpg",
+          "caption": {
+            "en": "Photo Of Taking Photo",
+            "sk": "Fotografia z fotografovania"
+          },
+          "categories": [
+            "landscape"
+          ]
+        },
+        {
+          "filename": "tower_of_bagrati.jpg",
+          "caption": {
+            "en": "Tower Of Bagrati",
+            "sk": "Veža katedrály Bagrati"
+          },
+          "categories": [
+            "city"
+          ]
+        }
+      ]
+    },
+    {
       "id": "uganda-2025",
       "title": {
         "en": "Uganda 2025",
@@ -92,7 +201,8 @@
             "sk": "Jazero Mahoma"
           },
           "categories": [
-            "nature", "landscape"
+            "nature",
+            "landscape"
           ]
         },
         {
@@ -102,7 +212,8 @@
             "sk": "Jazero Nyinambuga"
           },
           "categories": [
-            "nature", "landscape"
+            "nature",
+            "landscape"
           ]
         },
         {
@@ -112,7 +223,8 @@
             "sk": "Pravdepodobne antilopy"
           },
           "categories": [
-            "landscape", "animals"
+            "landscape",
+            "animals"
           ]
         },
         {
@@ -122,7 +234,8 @@
             "sk": "Tieň Margerithy nad Kongom"
           },
           "categories": [
-            "landscape", "mountains"
+            "landscape",
+            "mountains"
           ]
         },
         {
@@ -152,7 +265,8 @@
             "sk": "Zber čaju"
           },
           "categories": [
-            "landscape", "people"
+            "landscape",
+            "people"
           ]
         },
         {
@@ -172,7 +286,8 @@
             "sk": "Výhľad na Bujuku"
           },
           "categories": [
-            "landscape", "mountains"
+            "landscape",
+            "mountains"
           ]
         },
         {

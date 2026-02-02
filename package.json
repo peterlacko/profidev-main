@@ -10,7 +10,8 @@
     "add-trip": "node scripts/add-trip.js",
     "watermark": "node scripts/watermark.js",
     "r2-upload": "node scripts/r2-upload.js",
-    "remove-trip": "node scripts/remove-trip.js"
+    "remove-trip": "node scripts/remove-trip.js",
+    "reprocess": "node scripts/reprocess-photos.js"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.980.0",
