@@ -1,6 +1,103 @@
 {
   "trips": [
     {
+      "id": "kurdistan-2025",
+      "title": {
+        "en": "Kurdistan 2025",
+        "sk": "Kurdistán 2025"
+      },
+      "country": "Iraq",
+      "region": "Kurdistan",
+      "date": "2025-3",
+      "featured": false,
+      "categories": [
+        "landscape",
+        "culture"
+      ],
+      "photos": [
+        {
+          "filename": "akre_on_nawruz.jpg",
+          "caption": {
+            "en": "Akre On Nawruz",
+            "sk": "Akre počas Nawruzu"
+          },
+          "categories": [
+            "landscape", "city"
+          ]
+        },
+        {
+          "filename": "are_there_neandertals_in_shanidar.jpg",
+          "caption": {
+            "en": "Are There Neandertals In Shanidar?",
+            "sk": "Sú v Shanidare neandertálci?"
+          },
+          "categories": [
+            "landscape", "nature"
+          ]
+        },
+        {
+          "filename": "great_rawanduz_canyon.jpg",
+          "caption": {
+            "en": "Great Rawanduz Canyon",
+            "sk": "Veľký Rawanduz kaňon "
+          },
+          "categories": [
+            "landscape", "nature"
+          ]
+        },
+        {
+          "filename": "I_m_always_hungry.jpg",
+          "caption": {
+            "en": "I M Always Hungry",
+            "sk": "Vždy mám hlad"
+          },
+          "categories": [
+            "animals"
+          ]
+        },
+        {
+          "filename": "lalish_temple_for_yazidis.jpg",
+          "caption": {
+            "en": "Yazidis Lalish Temple",
+            "sk": "Jazídsky Chrám Lalish"
+          },
+          "categories": [
+            "culture"
+          ]
+        },
+        {
+          "filename": "on_way_to_nawruz.jpg",
+          "caption": {
+            "en": "On Way To Nawruz",
+            "sk": "Na ceste k Nawruzu"
+          },
+          "categories": [
+            "landscape", "culture"
+          ]
+        },
+        {
+          "filename": "rawanduz.jpg",
+          "caption": {
+            "en": "Rawanduz",
+            "sk": "Rawanduz"
+          },
+          "categories": [
+            "landscape", "city"
+          ]
+        },
+        {
+          "filename": "victory_is_ours.jpg",
+          "caption": {
+            "en": "Victory Is Ours",
+            "sk": "Víťazstvo je naše"
+          },
+          "categories": [
+            "culture"
+          ]
+        }
+      ]
+    },
+    {
       "id": "georgia-2023",
       "title": {
         "en": "Georgia 2023",
@@ -34,7 +131,8 @@
             "sk": "Ľadovec Adishi"
           },
           "categories": [
-            "landscape", "mountains"
+            "landscape",
+            "mountains"
           ]
         },
         {
@@ -64,7 +162,8 @@
             "sk": "Ikonické Ushguli"
           },
           "categories": [
-            "landscape", "mountains"
+            "landscape",
+            "mountains"
           ]
         },
         {

@@ -152,9 +152,11 @@
     "Laos": "Laos",
     "Norway": "Nórsko",
     "Morocco": "Maroko",
-    "Georgia": "Gruzínsko"
+    "Georgia": "Gruzínsko",
+    "Iraq": "Irak"
   },
   "regions": {
-    "Svalbard": "Svalbard"
+    "Svalbard": "Svalbard",
+    "Kurdistan": "Kurdistán"
   }
 }
