@@ -8,6 +8,7 @@ import {
 } from "next-intl/server"
 import { Geist, Geist_Mono } from "next/font/google"
 import { routing } from "@/i18n/routing"
+import { LocaleDetector } from "@/components/locale-detector"
 import { Footer } from "@/components/layout/Footer"
 import { Header } from "@/components/layout/Header"
 import { ThemeProvider } from "@/components/theme-provider"
@@ -96,6 +97,7 @@ export default async function LocaleLayout({
           disableTransitionOnChange
         >
           <NextIntlClientProvider messages={messages}>
+            <LocaleDetector />
             <div className="flex min-h-screen flex-col">
               <Header />
               <main className="flex-1">{children}</main>

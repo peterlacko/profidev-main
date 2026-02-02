@@ -13,6 +13,7 @@ export function LanguageSwitcher() {
 
   const toggleLocale = () => {
     const newLocale: Locale = locale === "en" ? "sk" : "en"
+    localStorage.setItem("preferred-locale", newLocale)
     router.replace(pathname, { locale: newLocale })
   }
 
