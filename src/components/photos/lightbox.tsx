@@ -74,7 +74,7 @@ export function Lightbox({
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
       <DialogContent
-        className="w-[66vw] max-h-[95vh] p-0 bg-black/95 border-none overflow-hidden sm:max-w-[66vw]"
+        className="w-[95vw] max-h-[95vh] p-0 bg-black/95 border-none overflow-hidden sm:w-[66vw] sm:max-w-[66vw]"
         showCloseButton={false}
       >
         <DialogTitle className="sr-only">{currentPhoto.caption}</DialogTitle>
@@ -122,7 +122,7 @@ export function Lightbox({
             alt={currentPhoto.caption}
             fill
             className="object-contain"
-            sizes="66vw"
+            sizes="(max-width: 640px) 95vw, 66vw"
             priority
           />
         </div>
