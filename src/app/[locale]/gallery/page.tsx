@@ -31,7 +31,11 @@ export default async function GalleryPage({
   const countries = getAllCountries()
   const categories = getAllCategories()
   const regionsByCountry = getRegionsByCountry()
-  const trips = getAllTrips()
+  const trips = getAllTrips().sort((a, b) => {
+    const dateA = new Date(a.date)
+    const dateB = new Date(b.date)
+    return dateB.getTime() - dateA.getTime()
+  })
 
   return (
     <div className="py-12 md:py-16">

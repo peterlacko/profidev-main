@@ -4,7 +4,7 @@
       "id": "uganda-2025",
       "title": {
         "en": "Uganda 2025",
-        "sk": "[SK] Uganda 2025"
+        "sk": "Uganda 2025"
       },
       "country": "Uganda",
       "date": "2025-07",
@@ -201,7 +201,7 @@
       "id": "thailand-2023",
       "title": {
         "en": "Thailand 2023",
-        "sk": "[SK] Thailand 2023"
+        "sk": "Thajsko 2023"
       },
       "country": "Thailand",
       "date": "2023-03",
@@ -660,7 +660,7 @@
         "sk": "Maroko 2019"
       },
       "country": "Morocco",
-      "date": "2026-01",
+      "date": "2019-01",
       "featured": true,
       "categories": [
         "landscape",
