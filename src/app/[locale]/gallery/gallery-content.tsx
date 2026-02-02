@@ -32,6 +32,8 @@ export function GalleryContent({
 }: GalleryContentProps) {
   const t = useTranslations("gallery")
   const tCategories = useTranslations("categories")
+  const tCountries = useTranslations("countries")
+  const tRegions = useTranslations("regions")
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
@@ -127,7 +129,7 @@ export function GalleryContent({
                       onClick={() => handleCountryChange(country)}
                       className={cn(selectedCountry === country ? "" : "border-border")}
                     >
-                      {country}
+                      {tCountries(country)}
                     </Button>
                   ))}
                 </div>
@@ -155,7 +157,7 @@ export function GalleryContent({
                           onClick={() => setSelectedRegion(region)}
                           className={cn(selectedRegion === region ? "" : "border-border")}
                         >
-                          {region}
+                          {tRegions(region)}
                         </Button>
                       ))}
                     </div>

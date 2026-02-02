@@ -145,5 +145,15 @@
     "beach": "Pláž",
     "food": "Jedlo",
     "people": "Ľudia"
+  },
+  "countries": {
+    "Uganda": "Uganda",
+    "Thailand": "Thajsko",
+    "Laos": "Laos",
+    "Norway": "Nórsko",
+    "Morocco": "Maroko"
+  },
+  "regions": {
+    "Svalbard": "Svalbard"
   }
 }

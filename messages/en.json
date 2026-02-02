@@ -145,5 +145,15 @@
     "beach": "Beach",
     "food": "Food",
     "people": "People"
+  },
+  "countries": {
+    "Uganda": "Uganda",
+    "Thailand": "Thailand",
+    "Laos": "Laos",
+    "Norway": "Norway",
+    "Morocco": "Morocco"
+  },
+  "regions": {
+    "Svalbard": "Svalbard"
   }
 }

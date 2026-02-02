@@ -36,6 +36,8 @@ export default async function TripPage({
   if (!trip) notFound()
 
   const t = await getTranslations("gallery")
+  const tCountries = await getTranslations("countries")
+  const tRegions = await getTranslations("regions")
   const photos = getPhotosByTripId(locale as Locale, tripId)
   const title = trip.title[locale as Locale] || trip.title.en
 
@@ -47,7 +49,7 @@ export default async function TripPage({
             {title}
           </h1>
           <p className="mt-2 text-muted-foreground">
-            {trip.country}{trip.region ? ` · ${trip.region}` : ""} · {photos.length} {t("photos", { count: photos.length }).replace(/\d+ /, "")}
+            {tCountries(trip.country)}{trip.region ? ` · ${tRegions(trip.region)}` : ""} · {photos.length} {t("photos", { count: photos.length }).replace(/\d+ /, "")}
           </p>
         </div>
 

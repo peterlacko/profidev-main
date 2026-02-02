@@ -1,6 +1,7 @@
 "use client"
 
 import Image from "next/image"
+import { useTranslations } from "next-intl"
 import { Link } from "@/i18n/navigation"
 import type { Trip } from "@/types"
 import type { Locale } from "@/i18n/routing"
@@ -12,6 +13,7 @@ interface TripCardProps {
 }
 
 export const TripCard = ({ trip, coverSrc, locale }: TripCardProps) => {
+  const tCountries = useTranslations("countries")
   const title = trip.title[locale as Locale] || trip.title.en
 
   return (
@@ -30,7 +32,7 @@ export const TripCard = ({ trip, coverSrc, locale }: TripCardProps) => {
       <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-4">
         <p className="text-lg font-medium text-white">{title}</p>
         <p className="text-sm text-white/70">
-          {trip.country} · {trip.photos.length} photos
+          {tCountries(trip.country)} · {trip.photos.length} photos
         </p>
       </div>
     </Link>
