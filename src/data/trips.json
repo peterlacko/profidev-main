@@ -1,6 +1,153 @@
 {
   "trips": [
     {
+      "id": "sumatra-2023",
+      "title": {
+        "en": "Sumatra 2023",
+        "sk": "Sumatra 2023"
+      },
+      "country": "Indonesia",
+      "region": "Sumatra",
+      "date": "2023-03",
+      "featured": false,
+      "categories": [
+        "landscape",
+        "nature"
+      ],
+      "photos": [
+        {
+          "filename": "amorphophallus_from_top.jpg",
+          "caption": {
+            "en": "Amorphophallus From Top",
+            "sk": "Amorphophallus zvrchu"
+          },
+          "categories": [
+            "nature"
+          ]
+        },
+        {
+          "filename": "before_the_storm.jpg",
+          "caption": {
+            "en": "Before The Storm",
+            "sk": "Pred búrkou"
+          },
+          "categories": [
+            "landscape"
+          ]
+        },
+        {
+          "filename": "collecting_rubber.jpg",
+          "caption": {
+            "en": "Collecting Rubber",
+            "sk": "Zber kaučuku"
+          },
+          "categories": [
+            "nature"
+          ]
+        },
+        {
+          "filename": "common_tree_frog.jpg",
+          "caption": {
+            "en": "Common Tree Frog",
+            "sk": "Žaba stromová"
+          },
+          "categories": [
+            "animals"
+          ]
+        },
+        {
+          "filename": "just_a)hermit_crab.jpg",
+          "caption": {
+            "en": "Just A Hermit Crab",
+            "sk": "Pustovnícky krab"
+          },
+          "categories": [
+            "animals"
+          ]
+        },
+        {
+          "filename": "port_on_lake_toba.jpg",
+          "caption": {
+            "en": "Port On Lake Toba",
+            "sk": "Prístav na jazere Toba"
+          },
+          "categories": [
+            "nature"
+          ]
+        },
+        {
+          "filename": "raphlesia_in_a_bloom.jpg",
+          "caption": {
+            "en": "Raphlesia In A Bloom",
+            "sk": "Raphlesia v kvete"
+          },
+          "categories": [
+            "nature"
+          ]
+        },
+        {
+          "filename": "ready_for_departure.jpg",
+          "caption": {
+            "en": "Ready For Departure",
+            "sk": "Pripravený na odchod"
+          },
+          "categories": [
+            "people"
+          ]
+        },
+        {
+          "filename": "stingray_on_the_beach.jpg",
+          "caption": {
+            "en": "Stingray On The Beach",
+            "sk": "Raja na pláži"
+          },
+          "categories": [
+            "animals"
+          ]
+        },
+        {
+          "filename": "tiny_amorphophallus.jpg",
+          "caption": {
+            "en": "Tiny Amorphophallus",
+            "sk": "Malý Amorphophallus"
+          },
+          "categories": [
+            "nature"
+          ]
+        },
+        {
+          "filename": "typical_batak_roof.jpg",
+          "caption": {
+            "en": "Typical Batak Roof",
+            "sk": "Typická strecha Batackého domu"
+          },
+          "categories": [
+            "culture", "buildings"
+          ]
+        },
+        {
+          "filename": "waiting_on_bus.jpg",
+          "caption": {
+            "en": "Waiting On Bus",
+            "sk": "Čakanie na autobus"
+          },
+          "categories": [
+            "people"
+          ]
+        },
+        {
+          "filename": "wild_beach_of_sikandang.jpg",
+          "caption": {
+            "en": "Wild Beach Of Sikandang",
+            "sk": "Divoká pláž Sikandangu"
+          },
+          "categories": [
+            "nature", "landscape"
+          ]
+        }
+      ]
+    },
+    {
       "id": "java-2023",
       "title": {
         "en": "Java 2023",
@@ -9,7 +156,7 @@
       "country": "Indonesia",
       "region": "Java",
       "date": "2023-04",
-      "featured": false,
+      "featured": true,
       "categories": [
         "landscape",
         "city"
@@ -32,7 +179,8 @@
             "sk": "Bromo a Semeru"
           },
           "categories": [
-            "landscape", "nature"
+            "landscape",
+            "nature"
           ]
         },
         {
@@ -82,7 +230,9 @@
             "sk": "Strechy v Kampung Tridi"
           },
           "categories": [
-            "landscape", "city", "buildings"
+            "landscape",
+            "city",
+            "buildings"
           ]
         },
         {
@@ -132,7 +282,8 @@
             "sk": "Veže Borobuduru"
           },
           "categories": [
-            "city", "culture"
+            "city",
+            "culture"
           ]
         },
         {
@@ -142,7 +293,8 @@
             "sk": "Tumpak Sewu"
           },
           "categories": [
-            "landscape", "nature"
+            "landscape",
+            "nature"
           ]
         },
         {
@@ -152,7 +304,9 @@
             "sk": "Vitajte v Borobudure"
           },
           "categories": [
-            "landscape", "culture", "buildings"
+            "landscape",
+            "culture",
+            "buildings"
           ]
         }
       ]
@@ -399,7 +553,7 @@
       },
       "country": "Georgia",
       "date": "2023-7",
-      "featured": false,
+      "featured": true,
       "categories": [
         "landscape",
         "culture",
@@ -824,7 +978,7 @@
       },
       "country": "Laos",
       "date": "2023-03",
-      "featured": true,
+      "featured": false,
       "categories": [
         "landscape",
         "mountains",
@@ -1169,7 +1323,7 @@
       },
       "country": "Morocco",
       "date": "2019-01",
-      "featured": true,
+      "featured": false,
       "categories": [
         "landscape",
         "culture",
