@@ -1,6 +1,295 @@
 {
   "trips": [
     {
+      "id": "java-2023",
+      "title": {
+        "en": "Java 2023",
+        "sk": "Java 2023"
+      },
+      "country": "Indonesia",
+      "region": "Java",
+      "date": "2023-04",
+      "featured": false,
+      "categories": [
+        "landscape",
+        "city"
+      ],
+      "photos": [
+        {
+          "filename": "ali_the_boss.jpg",
+          "caption": {
+            "en": "Ali The Boss",
+            "sk": "Ali The Boss"
+          },
+          "categories": [
+            "people"
+          ]
+        },
+        {
+          "filename": "bromo_and_semeru.jpg",
+          "caption": {
+            "en": "Bromo And Semeru",
+            "sk": "Bromo a Semeru"
+          },
+          "categories": [
+            "landscape", "nature"
+          ]
+        },
+        {
+          "filename": "buddha_in_chamber.jpg",
+          "caption": {
+            "en": "Buddha In Chamber",
+            "sk": "Buddha v komorke"
+          },
+          "categories": [
+            "culture"
+          ]
+        },
+        {
+          "filename": "DSC01641.jpg",
+          "caption": {
+            "en": "Wayang Kulit",
+            "sk": "Wayang Kulit"
+          },
+          "categories": [
+            "culture"
+          ]
+        },
+        {
+          "filename": "hard_work_is_hard.jpg",
+          "caption": {
+            "en": "Hard Work Is Hard",
+            "sk": "Ťažká práca je ťažká"
+          },
+          "categories": [
+            "people"
+          ]
+        },
+        {
+          "filename": "hide_the_pain_harold.jpg",
+          "caption": {
+            "en": "Hide The Pain Harold",
+            "sk": "Hide The Pain Harold"
+          },
+          "categories": [
+            "people"
+          ]
+        },
+        {
+          "filename": "kampung_tridi_roofs.jpg",
+          "caption": {
+            "en": "Kampung Tridi Roofs",
+            "sk": "Strechy v Kampung Tridi"
+          },
+          "categories": [
+            "landscape", "city", "buildings"
+          ]
+        },
+        {
+          "filename": "snake_fruit.jpg",
+          "caption": {
+            "en": "Snake Fruit",
+            "sk": "Hadie ovocie"
+          },
+          "categories": [
+            "nature"
+          ]
+        },
+        {
+          "filename": "story_of_borobudur.jpg",
+          "caption": {
+            "en": "Story Of Borobudur",
+            "sk": "Príbeh Borobuduru"
+          },
+          "categories": [
+            "culture"
+          ]
+        },
+        {
+          "filename": "sunrise_at_bromo.jpg",
+          "caption": {
+            "en": "Sunrise At Bromo",
+            "sk": "Východ slnka nad Bromo"
+          },
+          "categories": [
+            "landscape"
+          ]
+        },
+        {
+          "filename": "thats_how_you_do_it.jpg",
+          "caption": {
+            "en": "Thats How You Do It",
+            "sk": "Takto sa to robí"
+          },
+          "categories": [
+            "people"
+          ]
+        },
+        {
+          "filename": "towers_of_borobudur.jpg",
+          "caption": {
+            "en": "Towers Of Borobudur",
+            "sk": "Veže Borobuduru"
+          },
+          "categories": [
+            "city", "culture"
+          ]
+        },
+        {
+          "filename": "tumpak_sewu.jpg",
+          "caption": {
+            "en": "Tumpak Sewu",
+            "sk": "Tumpak Sewu"
+          },
+          "categories": [
+            "landscape", "nature"
+          ]
+        },
+        {
+          "filename": "welcome_to_borobudur.jpg",
+          "caption": {
+            "en": "Welcome To Borobudur",
+            "sk": "Vitajte v Borobudure"
+          },
+          "categories": [
+            "landscape", "culture", "buildings"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "lombok-2023",
+      "title": {
+        "en": "Lombok 2023",
+        "sk": "Lombok 2023"
+      },
+      "country": "Indonesia",
+      "region": "Lombok",
+      "date": "2023-04",
+      "featured": false,
+      "categories": [
+        "nature",
+        "landscape",
+        "animals",
+        "culture"
+      ],
+      "photos": [
+        {
+          "filename": "beach_overlook.jpg",
+          "caption": {
+            "en": "Beach Overlook",
+            "sk": "Výhľad na pláž"
+          },
+          "categories": [
+            "nature"
+          ]
+        },
+        {
+          "filename": "clouds_over_rinjani.jpg",
+          "caption": {
+            "en": "Clouds Over Rinjani",
+            "sk": "Oblaky nad Rinjani"
+          },
+          "categories": [
+            "landscape",
+            "mountains"
+          ]
+        },
+        {
+          "filename": "dont_steal_my_wallet.jpg",
+          "caption": {
+            "en": "Dont Steal My Wallet",
+            "sk": "Nekradni moju peňaženku"
+          },
+          "categories": [
+            "animals"
+          ]
+        },
+        {
+          "filename": "fisherman_barely_visible.jpg",
+          "caption": {
+            "en": "Fisherman Barely Visible",
+            "sk": "Sotva viditeľný rybár"
+          },
+          "categories": [
+            "culture",
+            "people"
+          ]
+        },
+        {
+          "filename": "not_many_cats_around.jpg",
+          "caption": {
+            "en": "Not Many Cats Around",
+            "sk": "Jedna z mála mačiek v okolí"
+          },
+          "categories": [
+            "animals"
+          ]
+        },
+        {
+          "filename": "pantai_kura_kura.jpg",
+          "caption": {
+            "en": "Pantai Kura Kura",
+            "sk": "Pláž Kura Kura"
+          },
+          "categories": [
+            "landscape"
+          ]
+        },
+        {
+          "filename": "pantai_kuta.jpg",
+          "caption": {
+            "en": "Pantai Kuta",
+            "sk": "Pláž Kuta"
+          },
+          "categories": [
+            "landscape"
+          ]
+        },
+        {
+          "filename": "rice_detail.jpg",
+          "caption": {
+            "en": "Rice Detail",
+            "sk": "Detail ryže"
+          },
+          "categories": [
+            "nature"
+          ]
+        },
+        {
+          "filename": "sendang_gile_waterfall.jpg",
+          "caption": {
+            "en": "Sendang Gile Waterfall",
+            "sk": "Vodopád Sendang Gile"
+          },
+          "categories": [
+            "nature"
+          ]
+        },
+        {
+          "filename": "typical_rice_fields.jpg",
+          "caption": {
+            "en": "Typical Rice Fields",
+            "sk": "Typické ryžové polia"
+          },
+          "categories": [
+            "landscape",
+            "nature"
+          ]
+        },
+        {
+          "filename": "without_borders.jpg",
+          "caption": {
+            "en": "Without Borders",
+            "sk": "[SK] Without Borders"
+          },
+          "categories": [
+            "landscape"
+          ]
+        }
+      ]
+    },
+    {
       "id": "kurdistan-2025",
       "title": {
         "en": "Kurdistan 2025",
@@ -22,7 +311,8 @@
             "sk": "Akre počas Nawruzu"
           },
           "categories": [
-            "landscape", "city"
+            "landscape",
+            "city"
           ]
         },
         {
@@ -32,7 +322,8 @@
             "sk": "Sú v Shanidare neandertálci?"
           },
           "categories": [
-            "landscape", "nature"
+            "landscape",
+            "nature"
           ]
         },
         {
@@ -42,7 +333,8 @@
             "sk": "Veľký Rawanduz kaňon "
           },
           "categories": [
-            "landscape", "nature"
+            "landscape",
+            "nature"
           ]
         },
         {
@@ -72,7 +364,8 @@
             "sk": "Na ceste k Nawruzu"
           },
           "categories": [
-            "landscape", "culture"
+            "landscape",
+            "culture"
           ]
         },
         {
@@ -82,7 +375,8 @@
             "sk": "Rawanduz"
           },
           "categories": [
-            "landscape", "city"
+            "landscape",
+            "city"
           ]
         },
         {
