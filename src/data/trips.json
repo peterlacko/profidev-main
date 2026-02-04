@@ -1,6 +1,96 @@
 {
   "trips": [
     {
+      "id": "malaysia-2023",
+      "title": {
+        "en": "Malaysia 2023",
+        "sk": "Malajzia 2023"
+      },
+      "country": "Malaysia",
+      "date": "2023-05",
+      "featured": false,
+      "categories": [
+        "city",
+        "nature",
+        "landscape"
+      ],
+      "photos": [
+        {
+          "filename": "artstreet_at_georgetown.jpg",
+          "caption": {
+            "en": "Artstreet At Georgetown",
+            "sk": "Umelecká ulica v Georgetowne"
+          },
+          "categories": [
+            "city",
+            "buildings",
+            "culture"
+          ]
+        },
+        {
+          "filename": "cutting_coconut.jpg",
+          "caption": {
+            "en": "Cutting Coconut",
+            "sk": "Príprava kokosového orecha"
+          },
+          "categories": [
+            "people"
+          ]
+        },
+        {
+          "filename": "golden_orb_is_golden.jpg",
+          "caption": {
+            "en": "Golden Orb Is Golden",
+            "sk": "Zlatá pavúčiarka je zlatá"
+          },
+          "categories": [
+            "animals"
+          ]
+        },
+        {
+          "filename": "lizard_lizard.jpg",
+          "caption": {
+            "en": "Lizard Lizard",
+            "sk": "Jašterica jašterica"
+          },
+          "categories": [
+            "animals"
+          ]
+        },
+        {
+          "filename": "petronas_towers.jpg",
+          "caption": {
+            "en": "Petronas Towers",
+            "sk": "Petronas Towers"
+          },
+          "categories": [
+            "city", "buildings"
+          ]
+        },
+        {
+          "filename": "pristine_beach_on_tioman.jpg",
+          "caption": {
+            "en": "Pristine Beach On Tioman",
+            "sk": "Panenská pláž na Tiomane"
+          },
+          "categories": [
+            "nature"
+          ]
+        },
+        {
+          "filename": "streetart_in_georgtown.jpg",
+          "caption": {
+            "en": "Streetart In Georgtown",
+            "sk": "Streetart v Georgtowne"
+          },
+          "categories": [
+            "city",
+            "culture"
+          ]
+        }
+      ]
+    },
+    {
       "id": "sumatra-2023",
       "title": {
         "en": "Sumatra 2023",
@@ -122,7 +212,8 @@
             "sk": "Typická strecha Batackého domu"
           },
           "categories": [
-            "culture", "buildings"
+            "culture",
+            "buildings"
           ]
         },
         {
@@ -142,7 +233,8 @@
             "sk": "Divoká pláž Sikandangu"
           },
           "categories": [
-            "nature", "landscape"
+            "nature",
+            "landscape"
           ]
         }
       ]
