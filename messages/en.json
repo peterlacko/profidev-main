@@ -154,14 +154,14 @@
     "Morocco": "Morocco",
     "Georgia": "Georgia",
     "Iraq": "Iraq",
-    "Indonesia": "Indonesia"
+    "Indonesia": "Indonesia",
+    "Malaysia": "Malaysia"
   },
   "regions": {
     "Svalbard": "Svalbard",
     "Kurdistan": "Kurdistan",
     "Lombok": "Lombok",
     "Java": "Java",
-    "Sumatra": "Sumatra",
-    "Malaysia": "Malaysia"
+    "Sumatra": "Sumatra"
   }
 }
