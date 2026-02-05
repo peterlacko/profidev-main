@@ -1,18 +1,20 @@
 import { NextResponse } from "next/server"
+import { Resend } from "resend"
+
+const resend = new Resend(process.env.RESEND_API_KEY)
 
 interface ContactFormData {
-  name: string;
-  email: string;
-  subject?: string;
-  photoReference?: string;
-  message: string;
+  name: string
+  email: string
+  subject?: string
+  photoReference?: string
+  message: string
 }
 
 export async function POST(request: Request) {
   try {
     const data: ContactFormData = await request.json()
 
-    // Validate required fields
     if (!data.name || !data.email || !data.message) {
       return NextResponse.json(
         { error: "Name, email, and message are required" },
@@ -20,7 +22,6 @@ export async function POST(request: Request) {
       )
     }
 
-    // Validate email format
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     if (!emailRegex.test(data.email)) {
       return NextResponse.json(
@@ -29,38 +30,26 @@ export async function POST(request: Request) {
       )
     }
 
-    // Here you would typically:
-    // 1. Send an email using a service like Resend, SendGrid, or Nodemailer
-    // 2. Or save to a database
-    // 3. Or forward to a form service like Formspree
+    const { error } = await resend.emails.send({
+      from: "Contact Form <noreply@profidev.sk>",
+      to: ["info@profidev.sk"],
+      replyTo: data.email,
+      subject: `Contact: ${data.subject || "Website Inquiry"}`,
+      text: `Name: ${data.name}
+Email: ${data.email}
+Photo Reference: ${data.photoReference || "None"}
 
-    // For now, we'll log the submission and return success
-    // In production, replace this with your actual email sending logic
-    console.log("Contact form submission:", {
-      name: data.name,
-      email: data.email,
-      subject: data.subject || "No subject",
-      photoReference: data.photoReference || "None",
-      message: data.message,
-      timestamp: new Date().toISOString(),
+Message:
+${data.message}`,
     })
 
-    // Example: Using Resend (uncomment and add your API key)
-    // import { Resend } from 'resend';
-    // const resend = new Resend(process.env.RESEND_API_KEY);
-    // await resend.emails.send({
-    //   from: 'Contact Form <noreply@yourdomain.com>',
-    //   to: ['your@email.com'],
-    //   subject: `New Contact: ${data.subject || 'Website Inquiry'}`,
-    //   text: `
-    //     Name: ${data.name}
-    //     Email: ${data.email}
-    //     Photo Reference: ${data.photoReference || 'None'}
-    //
-    //     Message:
-    //     ${data.message}
-    //   `,
-    // });
+    if (error) {
+      console.error("Resend error:", error)
+      return NextResponse.json(
+        { error: "Failed to send email" },
+        { status: 500 }
+      )
+    }
 
     return NextResponse.json(
       { message: "Message sent successfully" },

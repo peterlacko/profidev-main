@@ -1,6 +1,125 @@
 {
   "trips": [
     {
+      "id": "oman-2022",
+      "title": {
+        "en": "Oman 2022",
+        "sk": "Omán 2022"
+      },
+      "country": "Oman",
+      "date": "2022-05",
+      "featured": true,
+      "categories": [
+        "animals",
+        "culture",
+        "city",
+        "landscape"
+      ],
+      "photos": [
+        {
+          "filename": "al_hana_fisherman_bay_in_musandan.jpg",
+          "caption": {
+            "en": "Al Hana Fisherman Bay In Musandan",
+            "sk": "Záliv Rybárov Al Hana V Musandane"
+          },
+          "categories": [
+            "landscape",
+            "buildings"
+          ]
+        },
+        {
+          "filename": "central_tower_of_khasab_castle.jpg",
+          "caption": {
+            "en": "Central Tower Of Khasab Castle",
+            "sk": "Centrálná Veža Zámku Khasab"
+          },
+          "categories": [
+            "city", "buildings"
+          ]
+        },
+        {
+          "filename": "everything_is_orange.jpg",
+          "caption": {
+            "en": "Everything Is Orange",
+            "sk": "Všetko je oranžové"
+          },
+          "categories": [
+            "buildings"
+          ]
+        },
+        {
+          "filename": "modern_mosque.jpg",
+          "caption": {
+            "en": "Modern Mosque",
+            "sk": "Mešita v modernom štýle"
+          },
+          "categories": [
+            "culture", "buildings"
+          ]
+        },
+        {
+          "filename": "not_talking_to_you.jpg",
+          "caption": {
+            "en": "Not Talking To You",
+            "sk": "Nehovorím s tebou"
+          },
+          "categories": [
+            "animals"
+          ]
+        },
+        {
+          "filename": "on_a_walk.jpg",
+          "caption": {
+            "en": "On A Walk",
+            "sk": "Na prechádzke"
+          },
+          "categories": [
+            "animals"
+          ]
+        },
+        {
+          "filename": "somewhere_in_musandan.jpg",
+          "caption": {
+            "en": "Somewhere In Musandan",
+            "sk": "Niekde v Musandáne"
+          },
+          "categories": [
+            "landscape", "buildings"
+          ]
+        },
+        {
+          "filename": "view_to_oasis.jpg",
+          "caption": {
+            "en": "View To Oasis",
+            "sk": "Výhľad na oázu"
+          },
+          "categories": [
+            "landscape", "nature"
+          ]
+        },
+        {
+          "filename": "wadi_ghul_i_guess.jpg",
+          "caption": {
+            "en": "Wadi Ghul I Guess",
+            "sk": "Zrejme Wadi Ghul"
+          },
+          "categories": [
+            "landscape"
+          ]
+        },
+        {
+          "filename": "work_must_go_on.jpg",
+          "caption": {
+            "en": "Work Must Go On",
+            "sk": "Work Must Go On"
+          },
+          "categories": [
+            "buildings"
+          ]
+        }
+      ]
+    },
+    {
       "id": "malaysia-2023",
       "title": {
         "en": "Malaysia 2023",
@@ -64,7 +183,8 @@
             "sk": "Petronas Towers"
           },
           "categories": [
-            "city", "buildings"
+            "city",
+            "buildings"
           ]
         },
         {

@@ -7,10 +7,10 @@ import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 
 interface ContactFormProps {
-  searchParamsPromise: Promise<{ photo?: string }>;
+  searchParamsPromise: Promise<{ photo?: string }>
 }
 
-type FormStatus = "idle" | "submitting" | "success" | "error";
+type FormStatus = "idle" | "submitting" | "success" | "error"
 
 export function ContactForm({ searchParamsPromise }: ContactFormProps) {
   const searchParams = use(searchParamsPromise)
@@ -113,7 +113,7 @@ export function ContactForm({ searchParamsPromise }: ContactFormProps) {
             "focus:border-ring focus:outline-none focus:ring-2 focus:ring-ring/20",
             "placeholder:text-muted-foreground"
           )}
-          placeholder="your@email.com"
+          placeholder="info@profidev.sk"
         />
       </div>
 
