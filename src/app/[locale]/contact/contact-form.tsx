@@ -113,7 +113,7 @@ export function ContactForm({ searchParamsPromise }: ContactFormProps) {
             "focus:border-ring focus:outline-none focus:ring-2 focus:ring-ring/20",
             "placeholder:text-muted-foreground"
           )}
-          placeholder="info@profidev.sk"
+          placeholder="your@email.com"
         />
       </div>
 
