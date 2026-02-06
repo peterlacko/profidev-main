@@ -6,6 +6,7 @@ import {
   getTranslations,
   setRequestLocale,
 } from "next-intl/server"
+import { Analytics } from "@vercel/analytics/next"
 import { Geist, Geist_Mono } from "next/font/google"
 import { routing } from "@/i18n/routing"
 import { LocaleDetector } from "@/components/locale-detector"
@@ -115,6 +116,7 @@ export default async function LocaleLayout({
             </div>
           </NextIntlClientProvider>
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   )
