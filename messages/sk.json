@@ -1,9 +1,9 @@
 {
   "metadata": {
-    "title": "Cestovateľské portfólio | Fotografia",
-    "titleTemplate": "%s | Cestovateľské portfólio",
-    "description": "Osobné portfólio cestovateľskej fotografie prezentujúce zábery z celého sveta.",
-    "siteName": "Cestovateľské portfólio"
+    "title": "Peter Lacko | Developer & Fotograf",
+    "titleTemplate": "%s | Peter Lacko",
+    "description": "Software developer, fotograf, outdoorový nadšenec.",
+    "siteName": "profidev.sk"
   },
   "navigation": {
     "home": "Domov",
@@ -125,7 +125,7 @@
     "quickLinks": "Rýchle odkazy",
     "aboutMe": "O mne",
     "connect": "Spojte sa so mnou",
-    "copyright": "© {year} Cestovateľské portfólio. Všetky práva vyhradené."
+    "copyright": "© {year} Peter Lacko. Všetky práva vyhradené."
   },
   "lightbox": {
     "close": "Zavrieť",

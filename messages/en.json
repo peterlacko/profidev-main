@@ -1,9 +1,9 @@
 {
   "metadata": {
-    "title": "Travel Portfolio | Photography",
-    "titleTemplate": "%s | Travel Portfolio",
-    "description": "A personal travel photography portfolio showcasing stunning captures from around the world.",
-    "siteName": "Software | Photography"
+    "title": "Peter Lacko | Developer & Photographer",
+    "titleTemplate": "%s | Peter Lacko",
+    "description": "Software developer, photographer, outdoor enthusiast.",
+    "siteName": "profidev.sk"
   },
   "navigation": {
     "home": "Home",
