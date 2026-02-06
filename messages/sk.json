@@ -105,23 +105,23 @@
       "subject": "Predmet",
       "subjectPlaceholder": "O čo ide?",
       "photoReference": "Referencia fotografie",
-      "photoReferencePlaceholder": "Ak žiadate o konkrétnu fotografiu, zadajte jej názov",
+      "photoReferencePlaceholder": "Máte záujem o konkrétnu fotografiu, zadajte prosím jej názov",
       "photoReferencePrefilled": "Predvyplnené z výberu v galérii",
       "message": "Správa",
-      "messagePlaceholder": "Vaša správa... Ak žiadate o fotografiu, uveďte prosím podrobnosti o zamýšľanom použití (osobné, tlač, komerčné).",
+      "messagePlaceholder": "Vaša správa... Ak máte záujem o fotografiu, uveďte prosím podrobnosti o zamýšľanom použití (osobné, tlač, komerčné).",
       "required": "*",
       "send": "Odoslať správu",
       "sending": "Odosielam..."
     },
     "success": {
       "title": "Správa odoslaná!",
-      "description": "Ďakujem za kontaktovanie. Ozvem sa vám do 24-48 hodín.",
+      "description": "Ďakujem za Váš záujem. Ozvem sa Vám do 24-48 hodín.",
       "sendAnother": "Odoslať ďalšiu správu"
     },
-    "purchaseInfo": "Ohľadom nákupu fotografií: Všetky fotografie zobrazené na tejto stránke sú dostupné na zakúpenie v plnom rozlíšení bez vodoznaku. Cena závisí od zamýšľaného použitia (osobné, tlač, komerčné). Prosím, uveďte podrobnosti o vašom zamýšľanom použití vo vašej správe."
+    "purchaseInfo": "Všetky fotografie zobrazené na tejto stránke sú dostupné na zakúpenie v plnom rozlíšení bez vodoznaku. Cena závisí od zamýšľaného použitia (osobné, tlač, komerčné). Uveďte prosím podrobnosti v správe."
   },
   "footer": {
-    "tagline": "Zachytávam momenty z celého sveta cez objektív.",
+    "tagline": "Developer, Fotograf a iné.",
     "quickLinks": "Rýchle odkazy",
     "aboutMe": "O mne",
     "connect": "Spojte sa so mnou",

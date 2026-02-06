@@ -16,7 +16,7 @@ export function Footer() {
           <div className="space-y-4">
             <Link href="/" className="flex items-center gap-2 font-semibold">
               <Camera className="h-5 w-5" />
-              <span>Travel Portfolio</span>
+              <span>Peter Lacko</span>
             </Link>
             <p className="text-sm text-muted-foreground">
               {t("tagline")}
