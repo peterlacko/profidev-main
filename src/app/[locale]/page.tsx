@@ -6,6 +6,8 @@ import { PhotoGrid } from "@/components/photos/photo-grid"
 import { Button } from "@/components/ui/button"
 import type { Locale } from "@/i18n/routing"
 
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://profidev.sk"
+
 export const dynamic = "force-dynamic"
 
 export default async function Home({
@@ -19,8 +21,33 @@ export default async function Home({
   const t = await getTranslations("home")
   const featuredPhotos = getFeaturedPhotos(locale as Locale)
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        name: "Travel Portfolio",
+        url: `${SITE_URL}/${locale}`,
+        description: t("hero.description"),
+        inLanguage: locale === "sk" ? "sk-SK" : "en-US",
+      },
+      {
+        "@type": "Person",
+        name: "Peter",
+        jobTitle: "Software Developer & Travel Photographer",
+        url: `${SITE_URL}/${locale}/about`,
+      },
+    ],
+  }
+
   return (
     <div className="flex flex-col">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
+        }}
+      />
       {/* Hero Section */}
       <section className="relative py-20 md:py-32">
         <div className="container mx-auto px-4">

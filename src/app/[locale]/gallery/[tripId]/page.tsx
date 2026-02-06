@@ -5,6 +5,8 @@ import { getTripById, getPhotosByTripId, getAllTrips } from "@/lib/trips"
 import { PhotoGrid } from "@/components/photos/photo-grid"
 import type { Locale } from "@/i18n/routing"
 
+const R2_URL = process.env.NEXT_PUBLIC_R2_URL || ""
+
 export async function generateStaticParams() {
   const trips = getAllTrips()
   return trips.map(trip => ({ tripId: trip.id }))
@@ -21,7 +23,32 @@ export async function generateMetadata({
   if (!trip) return { title: "Trip Not Found" }
 
   const title = trip.title[locale as Locale] || trip.title.en
-  return { title }
+  const tCountries = await getTranslations({ locale, namespace: "countries" })
+  const description = `${tCountries(trip.country)} travel photography - ${trip.photos.length} photos`
+
+  return {
+    title,
+    description,
+    alternates: {
+      canonical: `/${locale}/gallery/${tripId}`,
+      languages: {
+        en: `/en/gallery/${tripId}`,
+        sk: `/sk/gallery/${tripId}`,
+      },
+    },
+    openGraph: {
+      title,
+      description,
+      type: "article",
+      images: trip.photos[0] && R2_URL ? [
+        {
+          url: `${R2_URL}/${tripId}/${trip.photos[0].filename}`,
+          width: 1200,
+          height: 630,
+        },
+      ] : undefined,
+    },
+  }
 }
 
 export default async function TripPage({
@@ -41,8 +68,23 @@ export default async function TripPage({
   const photos = getPhotosByTripId(locale as Locale, tripId)
   const title = trip.title[locale as Locale] || trip.title.en
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "ImageGallery",
+    name: title,
+    description: `Travel photography from ${trip.country}`,
+    numberOfItems: photos.length,
+    image: photos.slice(0, 5).map(p => p.src),
+  }
+
   return (
     <div className="py-12 md:py-16">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
+        }}
+      />
       <div className="container mx-auto px-4">
         <div className="mb-10">
           <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">

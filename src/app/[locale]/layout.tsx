@@ -28,6 +28,8 @@ export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }))
 }
 
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://profidev.sk"
+
 export async function generateMetadata({
   params,
 }: {
@@ -37,6 +39,7 @@ export async function generateMetadata({
   const t = await getTranslations({ locale, namespace: "metadata" })
 
   return {
+    metadataBase: new URL(SITE_URL),
     title: {
       default: t("title"),
       template: t("titleTemplate"),
@@ -49,7 +52,14 @@ export async function generateMetadata({
       "travel photos",
       "photography portfolio",
     ],
-    authors: [{ name: "Travel Photographer" }],
+    authors: [{ name: "Peter" }],
+    alternates: {
+      canonical: `/${locale}`,
+      languages: {
+        en: "/en",
+        sk: "/sk",
+      },
+    },
     openGraph: {
       type: "website",
       locale: locale === "sk" ? "sk_SK" : "en_US",
