@@ -1,6 +1,124 @@
 {
   "trips": [
     {
+      "id": "tenerife-2020",
+      "title": {
+        "en": "Tenerife 2020",
+        "sk": "Tenerife 2020"
+      },
+      "country": "Spain",
+      "region": "Tenerife",
+      "date": "2020-08",
+      "featured": false,
+      "categories": [
+        "mountains",
+        "nature",
+        "landscape"
+      ],
+      "photos": [
+        {
+          "filename": "a_hill.jpg",
+          "caption": {
+            "en": "A Hill",
+            "sk": "Kopec"
+          },
+          "categories": [
+            "mountains", "landscape"
+          ]
+        },
+        {
+          "filename": "beach_in_the_north.jpg",
+          "caption": {
+            "en": "Beach In The North",
+            "sk": "Pláž na severe"
+          },
+          "categories": [
+            "nature"
+          ]
+        },
+        {
+          "filename": "is_anybody_home.jpg",
+          "caption": {
+            "en": "Is Anybody Home?",
+            "sk": "Je niekto doma?"
+          },
+          "categories": [
+            "culture"
+          ]
+        },
+        {
+          "filename": "longest_shadow_on_earth.jpg",
+          "caption": {
+            "en": "Longest Shadow On Earth?",
+            "sk": "Najdlhší tieň na Zemi?"
+          },
+          "categories": [
+            "landscape", "mountains"
+          ]
+        },
+        {
+          "filename": "los_gigantes.jpg",
+          "caption": {
+            "en": "Los Gigantes",
+            "sk": "Los Gigantes"
+          },
+          "categories": [
+            "landscape"
+          ]
+        },
+        {
+          "filename": "milky_way.jpg",
+          "caption": {
+            "en": "Milky Way",
+            "sk": "Mliečna cesta"
+          },
+          "categories": [
+            "landscape"
+          ]
+        },
+        {
+          "filename": "on_the_way_to_teide.jpg",
+          "caption": {
+            "en": "On The Way To Teide",
+            "sk": "Na ceste k Teide"
+          },
+          "categories": [
+            "landscape", "mountains"
+          ]
+        },
+        {
+          "filename": "sunset_from_teide.jpg",
+          "caption": {
+            "en": "Sunset From Teide",
+            "sk": "Západ slnka z Teide"
+          },
+          "categories": [
+            "landscape"
+          ]
+        },
+        {
+          "filename": "wet_west.jpg",
+          "caption": {
+            "en": "Wet West",
+            "sk": "Vlhký západ"
+          },
+          "categories": [
+            "landscape", "buildings", "city"
+          ]
+        },
+        {
+          "filename": "windy_day.jpg",
+          "caption": {
+            "en": "Windy Day",
+            "sk": "Veterný deň"
+          },
+          "categories": [
+            "people", "mountains"
+          ]
+        }
+      ]
+    },
+    {
       "id": "oman-2022",
       "title": {
         "en": "Oman 2022",
@@ -34,7 +152,8 @@
             "sk": "Centrálná Veža Zámku Khasab"
           },
           "categories": [
-            "city", "buildings"
+            "city",
+            "buildings"
           ]
         },
         {
@@ -54,7 +173,8 @@
             "sk": "Mešita v modernom štýle"
           },
           "categories": [
-            "culture", "buildings"
+            "culture",
+            "buildings"
           ]
         },
         {
@@ -84,7 +204,8 @@
             "sk": "Niekde v Musandáne"
           },
           "categories": [
-            "landscape", "buildings"
+            "landscape",
+            "buildings"
           ]
         },
         {
@@ -94,7 +215,8 @@
             "sk": "Výhľad na oázu"
           },
           "categories": [
-            "landscape", "nature"
+            "landscape",
+            "nature"
           ]
         },
         {

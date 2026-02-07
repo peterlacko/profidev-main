@@ -156,13 +156,15 @@
     "Iraq": "Irak",
     "Indonesia": "Indonézia",
     "Malaysia": "Malajzia",
-    "Oman": "Omán"
+    "Oman": "Omán",
+    "Spain": "Španielsko"
   },
   "regions": {
     "Svalbard": "Svalbard",
     "Kurdistan": "Kurdistán",
     "Lombok": "Lombok",
     "Java": "Java",
-    "Sumatra": "Sumatra"
+    "Sumatra": "Sumatra",
+    "Tenerife": "Tenerife"
   }
 }
