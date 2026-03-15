@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useCallback } from "react"
+import { useState, useEffect, useCallback, useRef } from "react"
 import Image from "next/image"
 import { X, ChevronLeft, ChevronRight, Mail } from "lucide-react"
 import { useTranslations } from "next-intl"
@@ -32,6 +32,9 @@ export function Lightbox({
 
   const isOpen = currentIndex !== null
   const currentPhoto = currentIndex !== null ? photos[currentIndex] : null
+
+  const [overlayVisible, setOverlayVisible] = useState(true)
+  const touchStartX = useRef<number | null>(null)
 
   const goToPrevious = useCallback(() => {
     if (currentIndex !== null && currentIndex > 0) {
@@ -66,6 +69,22 @@ export function Lightbox({
     return () => window.removeEventListener("keydown", handleKeyDown)
   }, [isOpen, goToPrevious, goToNext, onClose])
 
+  const handleTouchStart = useCallback((e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX
+  }, [])
+
+  const handleTouchEnd = useCallback((e: React.TouchEvent) => {
+    if (touchStartX.current === null) return
+    const deltaX = e.changedTouches[0].clientX - touchStartX.current
+    touchStartX.current = null
+
+    if (Math.abs(deltaX) > 50) {
+      e.preventDefault()
+      if (deltaX > 0) goToPrevious()
+      else goToNext()
+    }
+  }, [goToPrevious, goToNext])
+
   if (!currentPhoto) return null
 
   const hasPrevious = currentIndex !== null && currentIndex > 0
@@ -74,16 +93,37 @@ export function Lightbox({
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
       <DialogContent
-        className="w-[95vw] max-h-[95vh] p-0 bg-black/95 border-none overflow-hidden sm:w-[66vw] sm:max-w-[66vw]"
+        className="w-screen h-[100dvh] max-w-none sm:max-w-none max-h-none rounded-none p-0 bg-black border-none overflow-hidden lg:w-[66vw] lg:max-w-[66vw] lg:rounded-lg"
         showCloseButton={false}
       >
         <DialogTitle className="sr-only">{currentPhoto.caption}</DialogTitle>
+
+        {/* Image container — fullscreen */}
+        <div
+          className="absolute inset-0 flex items-center justify-center"
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+          onClick={() => setOverlayVisible((v) => !v)}
+        >
+          <Image
+            src={currentPhoto.src}
+            alt={currentPhoto.caption}
+            fill
+            className="object-contain"
+            sizes="(max-width: 1024px) 100vw, 66vw"
+            priority
+          />
+        </div>
 
         {/* Close button */}
         <Button
           variant="ghost"
           size="icon"
-          className="absolute top-4 right-4 z-50 text-white hover:bg-white/20"
+          className={cn(
+            "absolute top-4 right-4 z-50 text-white hover:bg-white/20",
+            "transition-opacity duration-300",
+            !overlayVisible && "opacity-0 pointer-events-none"
+          )}
           onClick={onClose}
         >
           <X className="h-6 w-6" />
@@ -95,7 +135,11 @@ export function Lightbox({
           <Button
             variant="ghost"
             size="icon"
-            className="absolute left-4 top-1/2 -translate-y-1/2 z-50 text-white hover:bg-white/20"
+            className={cn(
+              "absolute left-4 top-1/2 -translate-y-1/2 z-50 text-white hover:bg-white/20",
+              "transition-opacity duration-300",
+              !overlayVisible && "opacity-0 pointer-events-none"
+            )}
             onClick={goToPrevious}
           >
             <ChevronLeft className="h-8 w-8" />
@@ -107,7 +151,11 @@ export function Lightbox({
           <Button
             variant="ghost"
             size="icon"
-            className="absolute right-4 top-1/2 -translate-y-1/2 z-50 text-white hover:bg-white/20"
+            className={cn(
+              "absolute right-4 top-1/2 -translate-y-1/2 z-50 text-white hover:bg-white/20",
+              "transition-opacity duration-300",
+              !overlayVisible && "opacity-0 pointer-events-none"
+            )}
             onClick={goToNext}
           >
             <ChevronRight className="h-8 w-8" />
@@ -115,21 +163,17 @@ export function Lightbox({
           </Button>
         )}
 
-        {/* Image container */}
-        <div className="relative w-full h-[70vh] flex items-center justify-center">
-          <Image
-            src={currentPhoto.src}
-            alt={currentPhoto.caption}
-            fill
-            className="object-contain"
-            sizes="(max-width: 640px) 95vw, 66vw"
-            priority
-          />
-        </div>
-
-        {/* Caption and info */}
-        <div className="p-6 text-white">
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        {/* Caption and info — overlay */}
+        <div
+          className={cn(
+            "absolute bottom-0 inset-x-0 z-40 p-4 lg:p-6 text-white",
+            "bg-gradient-to-t from-black/80 to-transparent pt-16",
+            "transition-opacity duration-300",
+            !overlayVisible && "opacity-0 pointer-events-none"
+          )}
+          onClick={(e) => e.stopPropagation()}
+        >
+          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
             <div>
               <h3 className="text-lg font-semibold">{currentPhoto.caption}</h3>
               <p className="text-sm text-white/70">
