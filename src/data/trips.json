@@ -1,6 +1,125 @@
 {
   "trips": [
     {
+      "id": "turkey-2026",
+      "title": {
+        "en": "Turkey 2026",
+        "sk": "Turecko 2026"
+      },
+      "country": "Turkey",
+      "region": "Antalya",
+      "date": "2026-04",
+      "featured": false,
+      "categories": [
+        "city",
+        "landscape",
+        "animals",
+        "nature"
+      ],
+      "photos": [
+        {
+          "filename": "ancient_city_of_myra.jpg",
+          "caption": {
+            "en": "Ancient City Of Myra",
+            "sk": "Staroveké mesto Myra"
+          },
+          "categories": [
+            "city", "culture"
+          ]
+        },
+        {
+          "filename": "butterfly_valley.jpg",
+          "caption": {
+            "en": "Butterfly Valley",
+            "sk": "Dolina Motýľov"
+          },
+          "categories": [
+            "landscape", "nature"
+          ]
+        },
+        {
+          "filename": "chiily_out_here.jpg",
+          "caption": {
+            "en": "Chilly Out Here",
+            "sk": "Ale je chladno"
+          },
+          "categories": [
+            "animals"
+          ]
+        },
+        {
+          "filename": "dogo_in_xanthos.jpg",
+          "caption": {
+            "en": "Dogo In Xanthos",
+            "sk": "Dogo v Xanthose"
+          },
+          "categories": [
+            "animals"
+          ]
+        },
+        {
+          "filename": "greeks_were_here.jpg",
+          "caption": {
+            "en": "Greeks Were Here",
+            "sk": "Gréci tu boli"
+          },
+          "categories": [
+            "culture"
+          ]
+        },
+        {
+          "filename": "oludeniz_beach.jpg",
+          "caption": {
+            "en": "Oludeniz Beach",
+            "sk": "Pláž Oludeniz"
+          },
+          "categories": [
+            "nature", "landscape"
+          ]
+        },
+        {
+          "filename": "patara_roman_road.jpg",
+          "caption": {
+            "en": "Patara Roman Road",
+            "sk": "Rímska cesta v Patare"
+          },
+          "categories": [
+            "culture"
+          ]
+        },
+        {
+          "filename": "patara_theather.jpg",
+          "caption": {
+            "en": "Patara Theather",
+            "sk": "Divadlo v Patare"
+          },
+          "categories": [
+            "culture", "landscape"
+          ]
+        },
+        {
+          "filename": "sancaklik_koyu_view.jpg",
+          "caption": {
+            "en": "Sancaklik Koyu View",
+            "sk": "Výhľad na Sancaklik Koyu"
+          },
+          "categories": [
+            "landscape"
+          ]
+        },
+        {
+          "filename": "termessos_ruins.jpg",
+          "caption": {
+            "en": "Termessos Ruins",
+            "sk": "Ruiny Termessosu"
+          },
+          "categories": [
+            "landscape", "culture"
+          ]
+        }
+      ]
+    },
+    {
       "id": "tenerife-2020",
       "title": {
         "en": "Tenerife 2020",
@@ -23,7 +142,8 @@
             "sk": "Kopec"
           },
           "categories": [
-            "mountains", "landscape"
+            "mountains",
+            "landscape"
           ]
         },
         {
@@ -53,7 +173,8 @@
             "sk": "Najdlhší tieň na Zemi?"
           },
           "categories": [
-            "landscape", "mountains"
+            "landscape",
+            "mountains"
           ]
         },
         {
@@ -83,7 +204,8 @@
             "sk": "Na ceste k Teide"
           },
           "categories": [
-            "landscape", "mountains"
+            "landscape",
+            "mountains"
           ]
         },
         {
@@ -103,7 +225,9 @@
             "sk": "Vlhký západ"
           },
           "categories": [
-            "landscape", "buildings", "city"
+            "landscape",
+            "buildings",
+            "city"
           ]
         },
         {
@@ -113,7 +237,8 @@
             "sk": "Veterný deň"
           },
           "categories": [
-            "people", "mountains"
+            "people",
+            "mountains"
           ]
         }
       ]

@@ -157,7 +157,9 @@
     "Indonesia": "Indonesia",
     "Malaysia": "Malaysia",
     "Oman": "Oman",
-    "Spain": "Spain"
+    "Spain": "Spain",
+    "Turkey": "Turkey",
+    "Greece": "Greece"
   },
   "regions": {
     "Svalbard": "Svalbard",
@@ -165,6 +167,7 @@
     "Lombok": "Lombok",
     "Java": "Java",
     "Sumatra": "Sumatra",
-    "Tenerife": "Tenerife"
+    "Tenerife": "Tenerife",
+    "Antalya": "Antalya"
   }
 }
