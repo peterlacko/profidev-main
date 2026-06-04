@@ -24,7 +24,7 @@ const disableTransitions = () => {
   document.head.appendChild(style)
   return () => {
     // Force reflow, then remove
-    window.getComputedStyle(document.body).opacity
+    void window.getComputedStyle(document.body).opacity
     document.head.removeChild(style)
   }
 }
@@ -37,12 +37,10 @@ const applyTheme = (theme: Theme) => {
 }
 
 export const ThemeProvider = ({ children }: { children: ReactNode }) => {
-  const [theme, setThemeState] = useState<Theme>("system")
-
-  useEffect(() => {
-    const saved = (localStorage.getItem(STORAGE_KEY) as Theme) || "system"
-    setThemeState(saved)
-  }, [])
+  const [theme, setThemeState] = useState<Theme>(() => {
+    if (typeof window === "undefined") return "system"
+    return (localStorage.getItem(STORAGE_KEY) as Theme) || "system"
+  })
 
   useEffect(() => {
     const restore = disableTransitions()
