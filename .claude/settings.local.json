@@ -10,7 +10,8 @@
       "Bash(dir \"C:\\\\Users\\\\lacko\\\\websites\\\\travel-portfolio\\\\public\\\\photos\" /s)",
       "WebFetch(domain:developers.cloudflare.com)",
       "Bash(npx tsc:*)",
-      "Bash(npm outdated:*)"
+      "Bash(npm outdated:*)",
+      "Bash(npm show *)"
     ]
   }
 }

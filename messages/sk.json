@@ -159,7 +159,8 @@
     "Oman": "Omán",
     "Spain": "Španielsko",
     "Turkey": "Turecko",
-    "Greece": "Grécko"
+    "Greece": "Grécko",
+    "Chile": "Čile"
   },
   "regions": {
     "Svalbard": "Svalbard",
@@ -168,6 +169,7 @@
     "Java": "Java",
     "Sumatra": "Sumatra",
     "Tenerife": "Tenerife",
-    "Antalya": "Antália"
+    "Antalya": "Antália",
+    "PatagoniaChillan": "Severná Patagónia - Chillan"
   }
 }

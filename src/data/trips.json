@@ -1,6 +1,143 @@
 {
   "trips": [
     {
+      "id": "chile-south-2019",
+      "title": {
+        "en": "Chile South 2019",
+        "sk": "Chile - Juh 2019"
+      },
+      "country": "Chile",
+      "region": "PatagoniaChillan",
+      "date": "2019-04",
+      "featured": false,
+      "categories": [
+        "landscape",
+        "mountains"
+      ],
+      "photos": [
+        {
+          "filename": "author_on_top_of_arcoiris.jpg",
+          "caption": {
+            "en": "Author On Top Of Arcoiris",
+            "sk": "Autor na vrchole Arcoirisu"
+          },
+          "categories": [
+            "landscape"
+          ]
+        },
+        {
+          "filename": "cochamo_night_sky.jpg",
+          "caption": {
+            "en": "Cochamo Night Sky",
+            "sk": "Nočná obloha nad Cochamom"
+          },
+          "categories": [
+            "landscape"
+          ]
+        },
+        {
+          "filename": "early_morning_work.jpg",
+          "caption": {
+            "en": "Early Morning Work",
+            "sk": "Ranná práca"
+          },
+          "categories": [
+            "landscape", "culture"
+          ]
+        },
+        {
+          "filename": "entrance_to_cochamo.jpg",
+          "caption": {
+            "en": "Entrance To Cochamo",
+            "sk": "Vstup do Cochama"
+          },
+          "categories": [
+            "landscape", "culture"
+          ]
+        },
+        {
+          "filename": "it_started_here.jpg",
+          "caption": {
+            "en": "It Started Here",
+            "sk": "Všetko začalo tu"
+          },
+          "categories": [
+            "buildings"
+          ]
+        },
+        {
+          "filename": "on_top_of_nevado_de_chillan.jpg",
+          "caption": {
+            "en": "On Top Of Nevado De Chillan",
+            "sk": "Na vrchole Nevado De Chillan"
+          },
+          "categories": [
+            "mountains", "landscape"
+          ]
+        },
+        {
+          "filename": "pretty_common_everywhere.jpg",
+          "caption": {
+            "en": "Pretty Common Everywhere",
+            "sk": "Úplne bežné značky"
+          },
+          "categories": [
+            "culture"
+          ]
+        },
+        {
+          "filename": "somewhere_in_patagonia.jpg",
+          "caption": {
+            "en": "Somewhere In Patagonia",
+            "sk": "Kdesi v Patagónii"
+          },
+          "categories": [
+            "landscape"
+          ]
+        },
+        {
+          "filename": "thats_how_you_do_plumbing.jpg",
+          "caption": {
+            "en": "Thats How You Do Plumbing",
+            "sk": "Takto sa robí inštalatérstvo"
+          },
+          "categories": [
+            "culture"
+          ]
+        },
+        {
+          "filename": "view_from_arcoiris.jpg",
+          "caption": {
+            "en": "View From Arcoiris",
+            "sk": "Výhľad z Arcoirisu"
+          },
+          "categories": [
+            "landscape", "mountains"
+          ]
+        },
+        {
+          "filename": "volcan_chillan_nuevo(or_viejo).jpg",
+          "caption": {
+            "en": "Volcan Chillan Nuevo(Or Viejo?)",
+            "sk": "Vulkan Chillan Nuevo (alebo Viejo?)"
+          },
+          "categories": [
+            "mountains", "landscape"
+          ]
+        },
+        {
+          "filename": "volcan_osorno.jpg",
+          "caption": {
+            "en": "Volcan Osorno",
+            "sk": "Vulkán Osorno"
+          },
+          "categories": [
+            "landscape"
+          ]
+        }
+      ]
+    },
+    {
       "id": "turkey-2026",
       "title": {
         "en": "Turkey 2026",
@@ -24,7 +161,8 @@
             "sk": "Staroveké mesto Myra"
           },
           "categories": [
-            "city", "culture"
+            "city",
+            "culture"
           ]
         },
         {
@@ -34,7 +172,8 @@
             "sk": "Dolina Motýľov"
           },
           "categories": [
-            "landscape", "nature"
+            "landscape",
+            "nature"
           ]
         },
         {
@@ -74,7 +213,8 @@
             "sk": "Pláž Oludeniz"
           },
           "categories": [
-            "nature", "landscape"
+            "nature",
+            "landscape"
           ]
         },
         {
@@ -94,7 +234,8 @@
             "sk": "Divadlo v Patare"
           },
           "categories": [
-            "culture", "landscape"
+            "culture",
+            "landscape"
           ]
         },
         {
@@ -114,7 +255,8 @@
             "sk": "Ruiny Termessosu"
           },
           "categories": [
-            "landscape", "culture"
+            "landscape",
+            "culture"
           ]
         }
       ]

@@ -7,6 +7,7 @@ import {
   setRequestLocale,
 } from "next-intl/server"
 import { Analytics } from "@vercel/analytics/next"
+import Script from "next/script"
 import { Geist, Geist_Mono } from "next/font/google"
 import { routing } from "@/i18n/routing"
 import { LocaleDetector } from "@/components/locale-detector"
@@ -98,15 +99,13 @@ export default async function LocaleLayout({
 
   return (
     <html lang={locale} suppressHydrationWarning>
+      <head>
+        <Script id="theme-init" strategy="beforeInteractive">{`(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(t!=='light'&&window.matchMedia('(prefers-color-scheme:dark)').matches)){document.documentElement.classList.add('dark')}}catch(e){}})()`}</Script>
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased`}
       >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
+        <ThemeProvider>
           <NextIntlClientProvider messages={messages}>
             <LocaleDetector />
             <div className="flex min-h-screen flex-col">

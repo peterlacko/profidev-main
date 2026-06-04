@@ -159,6 +159,7 @@
     "Oman": "Oman",
     "Spain": "Spain",
     "Turkey": "Turkey",
+    "Chile": "Chile",
     "Greece": "Greece"
   },
   "regions": {
@@ -168,6 +169,7 @@
     "Java": "Java",
     "Sumatra": "Sumatra",
     "Tenerife": "Tenerife",
-    "Antalya": "Antalya"
+    "Antalya": "Antalya",
+    "PatagoniaChillan": "North Patagonia - Chillan"
   }
 }
