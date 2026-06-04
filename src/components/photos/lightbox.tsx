@@ -36,6 +36,19 @@ export function Lightbox({
   const [overlayVisible, setOverlayVisible] = useState(true)
   const touchStartX = useRef<number | null>(null)
 
+  useEffect(() => {
+    if (isOpen) {
+      document.documentElement.requestFullscreen?.().catch(() => {})
+    } else if (document.fullscreenElement) {
+      document.exitFullscreen?.().catch(() => {})
+    }
+    return () => {
+      if (document.fullscreenElement) {
+        document.exitFullscreen?.().catch(() => {})
+      }
+    }
+  }, [isOpen])
+
   const goToPrevious = useCallback(() => {
     if (currentIndex !== null && currentIndex > 0) {
       onNavigate(currentIndex - 1)
