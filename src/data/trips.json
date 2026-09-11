@@ -1,6 +1,195 @@
 {
   "trips": [
     {
+      "id": "chile-north-2019",
+      "title": {
+        "en": "Chile North 2019",
+        "sk": "Čile Sever 2019"
+      },
+      "country": "Chile",
+      "date": "2019-5",
+      "featured": false,
+      "categories": [
+        "landscape",
+        "nature",
+        "culture",
+        "mountains"
+      ],
+      "photos": [
+        {
+          "filename": "bouldering_in_the_desert.jpg",
+          "caption": {
+            "en": "Bouldering In The Desert",
+            "sk": "Bouldering Na Púšti"
+          },
+          "categories": [
+            "landscape", "climbing"
+          ]
+        },
+        {
+          "filename": "boulder_in_san_pedro.jpg",
+          "caption": {
+            "en": "Boulder In San Pedro",
+            "sk": "Boulder V San Pedro"
+          },
+          "categories": [
+            "culture", "climbing"
+          ]
+        },
+        {
+          "filename": "burning_on_the_bike.jpg",
+          "caption": {
+            "en": "Burning On The Bike",
+            "sk": "Horím Na Bicykli"
+          },
+          "categories": [
+            "nature", "people"
+          ]
+        },
+        {
+          "filename": "dark_dark.jpg",
+          "caption": {
+            "en": "Dark Dark",
+            "sk": "Tmavá Tma"
+          },
+          "categories": [
+            "landscape", "nature"
+          ]
+        },
+        {
+          "filename": "endless_panamericana_road.jpg",
+          "caption": {
+            "en": "Endless Panamericana Road",
+            "sk": "Nekonečná Panamerická Cesta"
+          },
+          "categories": [
+            "landscape"
+          ]
+        },
+        {
+          "filename": "hotel_square.jpg",
+          "caption": {
+            "en": "Hotel Square",
+            "sk": "Hotelové Námestie"
+          },
+          "categories": [
+            "culture"
+          ]
+        },
+        {
+          "filename": "men_at_work.jpg",
+          "caption": {
+            "en": "Men At Work",
+            "sk": "Men At Work"
+          },
+          "categories": [
+            "people"
+          ]
+        },
+        {
+          "filename": "my_first_ocean_sunset.jpg",
+          "caption": {
+            "en": "My First Ocean Sunset",
+            "sk": "Môj prvý západ slnka nad oceánom"
+          },
+          "categories": [
+            "nature",
+            "landscape"
+          ]
+        },
+        {
+          "filename": "not_your_typical_church.jpg",
+          "caption": {
+            "en": "Not Your Typical Church",
+            "sk": "Nie Úplne Typický Kostol"
+          },
+          "categories": [
+            "culture"
+          ]
+        },
+        {
+          "filename": "on_the_way_to_bolivia.jpg",
+          "caption": {
+            "en": "On The Way To Bolivia",
+            "sk": "Na Ceste Do Bolívie"
+          },
+          "categories": [
+            "culture"
+          ]
+        },
+        {
+          "filename": "pueblito_san_pedro.jpg",
+          "caption": {
+            "en": "Pueblito San Pedro",
+            "sk": "Pueblito San Pedro"
+          },
+          "categories": [
+            "culture", "landscape"
+          ]
+        },
+        {
+          "filename": "salty_dunes_in_san_pedro.jpg",
+          "caption": {
+            "en": "Salty Dunes In San Pedro",
+            "sk": "Soľné Duny V San Pedro"
+          },
+          "categories": [
+            "landscape", "nature" 
+          ]
+        },
+        {
+          "filename": "volcano_san_pedro.jpg",
+          "caption": {
+            "en": "Volcano San Pedro",
+            "sk": "Vulkán San Pedro"
+          },
+          "categories": [
+            "mountains"
+          ]
+        },
+        {
+          "filename": "waiting_for_ride.jpg",
+          "caption": {
+            "en": "Waiting For Ride",
+            "sk": "Čakanie Na Stopa"
+          },
+          "categories": [
+            "people", "culture"
+          ]
+        },
+        {
+          "filename": "welcome_to_bolivia.jpg",
+          "caption": {
+            "en": "Welcome To Bolivia",
+            "sk": "Vitajte V Bolívii"
+          },
+          "categories": [
+            "landscape", "culture"
+          ]
+        },
+        {
+          "filename": "welcome_to_san_pedro_de_atrapama.jpg",
+          "caption": {
+            "en": "Welcome To San Pedro De Atrapama",
+            "sk": "Vitajte V San Pedro De Atrapama"
+          },
+          "categories": [
+            "culture"
+          ]
+        },
+        {
+          "filename": "where_s_the_water.jpg",
+          "caption": {
+            "en": "Where's The Water?",
+            "sk": "Kde Je Voda?"
+          },
+          "categories": [
+            "landscape", "nature"
+          ]
+        }
+      ]
+    },
+    {
       "id": "chile-south-2019",
       "title": {
         "en": "Chile South 2019",
@@ -42,7 +231,8 @@
             "sk": "Ranná práca"
           },
           "categories": [
-            "landscape", "culture"
+            "landscape",
+            "culture"
           ]
         },
         {
@@ -52,7 +242,8 @@
             "sk": "Vstup do Cochama"
           },
           "categories": [
-            "landscape", "culture"
+            "landscape",
+            "culture"
           ]
         },
         {
@@ -72,7 +263,8 @@
             "sk": "Na vrchole Nevado De Chillan"
           },
           "categories": [
-            "mountains", "landscape"
+            "mountains",
+            "landscape"
           ]
         },
         {
@@ -112,7 +304,8 @@
             "sk": "Výhľad z Arcoirisu"
           },
           "categories": [
-            "landscape", "mountains"
+            "landscape",
+            "mountains"
           ]
         },
         {
@@ -122,7 +315,8 @@
             "sk": "Vulkan Chillan Nuevo (alebo Viejo?)"
           },
           "categories": [
-            "mountains", "landscape"
+            "mountains",
+            "landscape"
           ]
         },
         {
