@@ -1,6 +1,231 @@
 {
   "trips": [
     {
+      "id": "bolivia-2019",
+      "title": {
+        "en": "Bolivia 2019",
+        "sk": "Bolívia 2019"
+      },
+      "country": "Bolivia",
+      "date": "2019-06",
+      "featured": true,
+      "categories": [
+        "landscape", "nature"
+      ],
+      "photos": [
+        {
+          "filename": "black_hooded_sierra_finch.jpg",
+          "caption": {
+            "en": "Black Hooded Sierra Finch",
+            "sk": "Pinkavka Čiernohlavá"
+          },
+          "categories": [
+            "animals"
+          ]
+        },
+        {
+          "filename": "cactus_forrest_on_incahuasi.jpg",
+          "caption": {
+            "en": "Cactus Forrest On Incahuasi",
+            "sk": "Kaktusový Les Na Incahuasi"
+          },
+          "categories": [
+            "landscape", "nature"
+          ]
+        },
+        {
+          "filename": "endless_salar_from_isla_incahuasi.jpg",
+          "caption": {
+            "en": "Endless Salar From Isla Incahuasi",
+            "sk": "Nekonečný Salar Z Isla Incahuasi"
+          },
+          "categories": [
+            "landscape"
+          ]
+        },
+        {
+          "filename": "endless_salar_from_tunupa.jpg",
+          "caption": {
+            "en": "Endless Salar From Tunupa",
+            "sk": "Nekonečný Salar Z Tunupy"
+          },
+          "categories": [
+            "landscape", "nature", "mountains"
+          ]
+        },
+        {
+          "filename": "incahuasi_at_sunset.jpg",
+          "caption": {
+            "en": "Incahuasi At Sunset",
+            "sk": "Incahuasi Pri Západe Slnka"
+          },
+          "categories": [
+            "landscape", "nature"
+          ]
+        },
+        {
+          "filename": "in_land_of_nobody.jpg",
+          "caption": {
+            "en": "In Land Of Nobody",
+            "sk": "V Krajine Nikoho"
+          },
+          "categories": [
+            "landscape", "culture"
+          ]
+        },
+        {
+          "filename": "llama_or_vicuna.jpg",
+          "caption": {
+            "en": "Llama Or Vicuna?",
+            "sk": "Lama Alebo Vikuňa?"
+          },
+          "categories": [
+            "animals"
+          ]
+        },
+        {
+          "filename": "majestic_sajama.jpg",
+          "caption": {
+            "en": "Majestic Sajama",
+            "sk": "Majestátna Sajama"
+          },
+          "categories": [
+            "landscape", "mountains"
+          ]
+        },
+        {
+          "filename": "only_photo_from_parinacota.jpg",
+          "caption": {
+            "en": "Only Photo From Parinacota?",
+            "sk": "Jediná Fotka Z Parinacoty?"
+          },
+          "categories": [
+            "people"
+          ]
+        },
+        {
+          "filename": "on_the_way_to_parinacota.jpg",
+          "caption": {
+            "en": "On The Way To Parinacota",
+            "sk": "Cestou K Parinacote"
+          },
+          "categories": [
+            "landscape"
+          ]
+        },
+        {
+          "filename": "parinacota_high_camp.jpg",
+          "caption": {
+            "en": "Parinacota High Camp",
+            "sk": "Posledný Tábor pred Parinacotou"
+          },
+          "categories": [
+            "buildings" 
+          ]
+        },
+        {
+          "filename": "quinoa_in_house_of_salt.jpg",
+          "caption": {
+            "en": "Quinoa In House Of Salt",
+            "sk": "Quinoa V Dome zo Soli"
+          },
+          "categories": [
+            "buildings", "nature", "culture"
+          ]
+        },
+        {
+          "filename": "sajama_from_parinacota.jpg",
+          "caption": {
+            "en": "Sajama From Parinacota",
+            "sk": "Sajama Z Parinacoty"
+          },
+          "categories": [
+            "landscape", "mountains"
+          ]
+        },
+        {
+          "filename": "sajama_sajama.jpg",
+          "caption": {
+            "en": "Sajama, Sajama",
+            "sk": "Sajama, Sajama"
+          },
+          "categories": [
+            "mountains"
+          ]
+        },
+        {
+          "filename": "salt_everywhere.jpg",
+          "caption": {
+            "en": "Salt Everywhere",
+            "sk": "Soľ Úplne Všade"
+          },
+          "categories": [
+            "landscape"
+          ]
+        },
+        {
+          "filename": "shoe_cleaners_in_la_paz.jpg",
+          "caption": {
+            "en": "Shoe Cleaners In La Paz",
+            "sk": "Čističi Topánok V La Paz"
+          },
+          "categories": [
+            "people"
+          ]
+        },
+        {
+          "filename": "smile_grows_in_the_heart_and_blossoms_on_the_lips.jpg",
+          "caption": {
+            "en": "Smile Grows In The Heart And Blossoms On The Lips",
+            "sk": "Úsmev Rastie V Srdci A Kvitne Na Perách"
+          },
+          "categories": [
+            "culture"
+          ]
+        },
+        {
+          "filename": "sunrise_over_salar.jpg",
+          "caption": {
+            "en": "Sunrise Over Salar",
+            "sk": "Východ Slnka Nad Salarom"
+          },
+          "categories": [
+            "landscape"
+          ]
+        },
+        {
+          "filename": "tunupa_my_first_5000er.jpg",
+          "caption": {
+            "en": "Tunupa, My First 5000er",
+            "sk": "Tunupa, moja Prvá 5000ovka"
+          },
+          "categories": [
+            "landscape", "mountains", "people"
+          ]
+        },
+        {
+          "filename": "what_a_life.jpg",
+          "caption": {
+            "en": "What A Life!",
+            "sk": "What A Life!"
+          },
+          "categories": [
+            "people"
+          ]
+        },
+        {
+          "filename": "what_a_road.jpg",
+          "caption": {
+            "en": "What A Road!",
+            "sk": "Akáže to cesta!"
+          },
+          "categories": [
+            "culture"
+          ]
+        }
+      ]
+    },
+    {
       "id": "chile-north-2019",
       "title": {
         "en": "Chile North 2019",
@@ -23,7 +248,8 @@
             "sk": "Bouldering Na Púšti"
           },
           "categories": [
-            "landscape", "climbing"
+            "landscape",
+            "climbing"
           ]
         },
         {
@@ -33,7 +259,8 @@
             "sk": "Boulder V San Pedro"
           },
           "categories": [
-            "culture", "climbing"
+            "culture",
+            "climbing"
           ]
         },
         {
@@ -43,7 +270,8 @@
             "sk": "Horím Na Bicykli"
           },
           "categories": [
-            "nature", "people"
+            "nature",
+            "people"
           ]
         },
         {
@@ -53,7 +281,8 @@
             "sk": "Tmavá Tma"
           },
           "categories": [
-            "landscape", "nature"
+            "landscape",
+            "nature"
           ]
         },
         {
@@ -124,7 +353,8 @@
             "sk": "Pueblito San Pedro"
           },
           "categories": [
-            "culture", "landscape"
+            "culture",
+            "landscape"
           ]
         },
         {
@@ -134,7 +364,8 @@
             "sk": "Soľné Duny V San Pedro"
           },
           "categories": [
-            "landscape", "nature" 
+            "landscape",
+            "nature"
           ]
         },
         {
@@ -154,7 +385,8 @@
             "sk": "Čakanie Na Stopa"
           },
           "categories": [
-            "people", "culture"
+            "people",
+            "culture"
           ]
         },
         {
@@ -164,7 +396,8 @@
             "sk": "Vitajte V Bolívii"
           },
           "categories": [
-            "landscape", "culture"
+            "landscape",
+            "culture"
           ]
         },
         {
@@ -184,7 +417,8 @@
             "sk": "Kde Je Voda?"
           },
           "categories": [
-            "landscape", "nature"
+            "landscape",
+            "nature"
           ]
         }
       ]
