@@ -1,6 +1,6 @@
 "use client"
 
-import { Camera, Instagram, Mail } from "lucide-react"
+import { Camera, Mail } from "lucide-react"
 import { useTranslations } from "next-intl"
 import { Link } from "@/i18n/navigation"
 
@@ -63,7 +63,12 @@ export function Footer() {
                 className="text-muted-foreground hover:text-foreground"
                 aria-label="Instagram"
               >
-                <Instagram className="h-5 w-5" />
+                {/* Instagram brand icon — removed from lucide-react v1 */}
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+                </svg>
               </a>
             </div>
           </div>
