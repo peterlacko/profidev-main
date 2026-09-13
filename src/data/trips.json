@@ -9,7 +9,7 @@
       "country": "Peru",
       "region": "Huaraz",
       "date": "2019-08",
-      "featured": false,
+      "featured": true,
       "categories": [
         "landscape",
         "mountains",
@@ -307,7 +307,7 @@
       "country": "Peru",
       "region": "Cusco",
       "date": "2019-07",
-      "featured": false,
+      "featured": true,
       "categories": [
         "landscape",
         "mountains",
