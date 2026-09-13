@@ -1,6 +1,455 @@
 {
   "trips": [
     {
+      "id": "peru-huaraz-2019",
+      "title": {
+        "en": "Peru, Huaraz 2019",
+        "sk": "Peru, Huaraz 2019"
+      },
+      "country": "Peru",
+      "region": "Huaraz",
+      "date": "2019-08",
+      "featured": false,
+      "categories": [
+        "landscape",
+        "mountains",
+        "people"
+      ],
+      "photos": [
+        {
+          "filename": "amazing_hatun_machay.jpg",
+          "caption": {
+            "en": "Amazing Hatun Machay",
+            "sk": "Úžasný Hatun Machay"
+          },
+          "categories": [
+            "landscape", "climbing"
+          ]
+        },
+        {
+          "filename": "huaraz_from_hilltop.jpg",
+          "caption": {
+            "en": "Huaraz From Hilltop",
+            "sk": "Huaraz z vrcholčeka kopca"
+          },
+          "categories": [
+            "culture", "buildings", "city" 
+          ]
+        },
+        {
+          "filename": "I_didnt_approve_that.jpg",
+          "caption": {
+            "en": "We Didnt Approve That",
+            "sk": "Neschválili sme to"
+          },
+          "categories": [
+            "animals"
+          ]
+        },
+        {
+          "filename": "juan_under_pisco.jpg",
+          "caption": {
+            "en": "Juan Under Pisco",
+            "sk": "Juan pod Piscom"
+          },
+          "categories": [
+            "landscape", "buildings", "people", "mountains"
+          ]
+        },
+        {
+          "filename": "laguna_antacocha.jpg",
+          "caption": {
+            "en": "Laguna Antacocha",
+            "sk": "Laguna Antacocha"
+          },
+          "categories": [
+            "landscape"
+          ]
+        },
+        {
+          "filename": "climbing_above_antacocha.jpg",
+          "caption": {
+            "en": "Climbing Above Antacocha",
+            "sk": "Lezenie nad Antacochou"
+          },
+          "categories": [
+            "climbing", "people"
+          ]
+        },
+        {
+          "filename": "clear_view.jpg",
+          "caption": {
+            "en": "Clear View",
+            "sk": "Jasný výhľad"
+          },
+          "categories": [
+            "landscape", "climbing"
+          ]
+        },
+        {
+          "filename": "lets_go_bouldering.jpg",
+          "caption": {
+            "en": "Lets Go Bouldering",
+            "sk": "Poďme na boulder"
+          },
+          "categories": [
+            "climbing"
+          ]
+        },
+        {
+          "filename": "my_office.jpg",
+          "caption": {
+            "en": "My Office",
+            "sk": "Moja Kancelária"
+          },
+          "categories": [
+            "buildings"
+          ]
+        },
+        {
+          "filename": "view_from_ishinca.jpg",
+          "caption": {
+            "en": "View From Ishinca",
+            "sk": "Pohľad z Ishincy"
+          },
+          "categories": [
+            "landscape"
+          ]
+        },
+        {
+          "filename": "chill_after_ishinca.jpg",
+          "caption": {
+            "en": "Chill After Ishinca",
+            "sk": "Oddych po Ishince"
+          },
+          "categories": [
+            "mountains","people"
+          ]
+        },
+        {
+          "filename": "lunch_under_urus.jpg",
+          "caption": {
+            "en": "Lunch Under Urus",
+            "sk": "Obed pod Urusom"
+          },
+          "categories": [
+            "people"
+          ]
+        },
+        {
+          "filename": "nature_plays.jpg",
+          "caption": {
+            "en": "Nature Plays",
+            "sk": "Hry prírody"
+          },
+          "categories": [
+            "landscape", "mountains"
+          ]
+        },
+        {
+          "filename": "on_the_way_to_vallunarechu.jpg",
+          "caption": {
+            "en": "On The Way To Vallunarechu",
+            "sk": "Cestou na Vallunarechu"
+          },
+          "categories": [
+            "people", "mountains"
+          ]
+        },
+        {
+          "filename": "almost_on_vallunarechu.jpg",
+          "caption": {
+            "en": "Almost On Vallunarechu",
+            "sk": "Takmer na Vallunarechu"
+          },
+          "categories": [
+            "people", "mountains"
+          ]
+        },
+        {
+          "filename": "alpamayo_trek.jpg",
+          "caption": {
+            "en": "Alpamayo Trek",
+            "sk": "Trek popod Alpamayo"
+          },
+          "categories": [
+            "landscape", "mountains"
+          ]
+        },
+        {
+          "filename": "what_a_bridge.jpg",
+          "caption": {
+            "en": "What A Bridge!",
+            "sk": "Aha, most!"
+          },
+          "categories": [
+            "culture"
+          ]
+        },
+        {
+          "filename": "simple_agriculture.jpg",
+          "caption": {
+            "en": "Simple Agriculture",
+            "sk": "Jednoduché poľnohospodárstvo"
+          },
+          "categories": [
+            "landscape", "mountains", "culture"
+          ]
+        },
+        {
+          "filename": "simple_life.jpg",
+          "caption": {
+            "en": "Simple Life",
+            "sk": "Jednoduchý život"
+          },
+          "categories": [
+            "buildings", "culture"
+          ]
+        },
+        {
+          "filename": "where_did_you_come_from.jpg",
+          "caption": {
+            "en": "Where Did You Come From?",
+            "sk": "Odkiaľ si prišla?"
+          },
+          "categories": [
+            "culture"
+          ]
+        },
+        {
+          "filename": "on_way_to_alpamayo.jpg",
+          "caption": {
+            "en": "On Way To Alpamayo",
+            "sk": "Cestou na Alpamayo"
+          },
+          "categories": [
+            "landscape", "mountains"
+          ]
+        },
+        {
+          "filename": "morraine_camp_under_alpamayo.jpg",
+          "caption": {
+            "en": "Morraine Camp Under Alpamayo",
+            "sk": "Morénový Kemp pod Alpamayom"
+          },
+          "categories": [
+            "landscape", "mountains"
+          ]
+        },
+        {
+          "filename": "what_could_go_wrong.jpg",
+          "caption": {
+            "en": "What Could Go Wrong?",
+            "sk": "Čo by sa mohlo pokaziť?"
+          },
+          "categories": [
+            "people", "mountains"
+          ]
+        },
+        {
+          "filename": "alpamayo.jpg",
+          "caption": {
+            "en": "Alpamayo",
+            "sk": "Alpamayo"
+          },
+          "categories": [
+            "mountains"
+          ]
+        },
+        {
+          "filename": "on_top_of_alpamayo.jpg",
+          "caption": {
+            "en": "On Top Of Alpamayo",
+            "sk": "Na vrchole Alpamaya"
+          },
+          "categories": [
+            "landscape", "mountains", "people"
+          ]
+        },
+        {
+          "filename": "after_descent_from_alpamayo.jpg",
+          "caption": {
+            "en": "After Descent From Alpamayo",
+            "sk": "Po zostupe z Alpamaya"
+          },
+          "categories": [
+            "people"
+          ]
+        },
+        {
+          "filename": "louis_on_trip.jpg",
+          "caption": {
+            "en": "Louis On Trip",
+            "sk": "Louis na výlete"
+          },
+          "categories": [
+            "people"
+          ]
+        },
+        {
+          "filename": "almost_ecuador.jpg",
+          "caption": {
+            "en": "Almost Ecuador",
+            "sk": "Takmer v Ekvádore"
+          },
+          "categories": [
+            "people", "culture"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "peru-cusco-2019",
+      "title": {
+        "en": "Peru, Cusco, 2019",
+        "sk": "Peru, Cusco, 2019"
+      },
+      "country": "Peru",
+      "region": "Cusco",
+      "date": "2019-07",
+      "featured": false,
+      "categories": [
+        "landscape",
+        "mountains",
+        "city",
+        "nature",
+        "people"
+      ],
+      "photos": [
+        {
+          "filename": "cusco_cusco.jpg",
+          "caption": {
+            "en": "Cusco Cusco",
+            "sk": "Cusco Cusco"
+          },
+          "categories": [
+            "culture",
+            "buildings"
+          ]
+        },
+        {
+          "filename": "fantastic_choquequirao.jpg",
+          "caption": {
+            "en": "Fantastic Choquequirao",
+            "sk": "Fantastické Choquequirao"
+          },
+          "categories": [
+            "landscape",
+            "culture"
+          ]
+        },
+        {
+          "filename": "hiking_team.jpg",
+          "caption": {
+            "en": "Hiking Team",
+            "sk": "Hiking Team"
+          },
+          "categories": [
+            "people",
+            "culture"
+          ]
+        },
+        {
+          "filename": "machu_pichu_view.jpg",
+          "caption": {
+            "en": "Machu Pichu View",
+            "sk": "Výhľad na Machu Pichu"
+          },
+          "categories": [
+            "landscape",
+            "culture"
+          ]
+        },
+        {
+          "filename": "more_beautiful_than_ever.jpg",
+          "caption": {
+            "en": "More Beautiful Than Ever",
+            "sk": "Krásnejšie než kedykoľvek predtým"
+          },
+          "categories": [
+            "landscape",
+            "culture"
+          ]
+        },
+        {
+          "filename": "mountain_pass_on_the_way_to_machu_pichu.jpg",
+          "caption": {
+            "en": "Mountain Pass On The Way To Machu Pichu",
+            "sk": "Horský priechod na ceste do Machu Pichu"
+          },
+          "categories": [
+            "mountains",
+            "people"
+          ]
+        },
+        {
+          "filename": "random_house_in_machu_pichu.jpg",
+          "caption": {
+            "en": "Random House In Machu Pichu",
+            "sk": "Náhodný dom v Machu Pichu"
+          },
+          "categories": [
+            "buildings",
+            "culture"
+          ]
+        },
+        {
+          "filename": "stairs_detail.jpg",
+          "caption": {
+            "en": "Stairs Detail",
+            "sk": "Detail schodov"
+          },
+          "categories": [
+            "culture"
+          ]
+        },
+        {
+          "filename": "street_seller.jpg",
+          "caption": {
+            "en": "Street Seller",
+            "sk": "Pouličný predavač"
+          },
+          "categories": [
+            "city",
+            "people"
+          ]
+        },
+        {
+          "filename": "trek_to_machu_pichu.jpg",
+          "caption": {
+            "en": "Trek To Machu Pichu",
+            "sk": "Trek Do Machu Pichu"
+          },
+          "categories": [
+            "people",
+            "mountains"
+          ]
+        },
+        {
+          "filename": "view_from_choquequirao.jpg",
+          "caption": {
+            "en": "View From Choquequirao",
+            "sk": "Výhľad z Choquequirao"
+          },
+          "categories": [
+            "landscape",
+            "mountains"
+          ]
+        },
+        {
+          "filename": "want_some_fruit.jpg",
+          "caption": {
+            "en": "Want Some Fruit?",
+            "sk": "Chceš nejaké ovocie?"
+          },
+          "categories": [
+            "culture",
+            "people"
+          ]
+        }
+      ]
+    },
+    {
       "id": "bolivia-2019",
       "title": {
         "en": "Bolivia 2019",
@@ -10,7 +459,8 @@
       "date": "2019-06",
       "featured": true,
       "categories": [
-        "landscape", "nature"
+        "landscape",
+        "nature"
       ],
       "photos": [
         {
@@ -30,7 +480,8 @@
             "sk": "Kaktusový Les Na Incahuasi"
           },
           "categories": [
-            "landscape", "nature"
+            "landscape",
+            "nature"
           ]
         },
         {
@@ -50,7 +501,9 @@
             "sk": "Nekonečný Salar Z Tunupy"
           },
           "categories": [
-            "landscape", "nature", "mountains"
+            "landscape",
+            "nature",
+            "mountains"
           ]
         },
         {
@@ -60,7 +513,8 @@
             "sk": "Incahuasi Pri Západe Slnka"
           },
           "categories": [
-            "landscape", "nature"
+            "landscape",
+            "nature"
           ]
         },
         {
@@ -70,7 +524,8 @@
             "sk": "V Krajine Nikoho"
           },
           "categories": [
-            "landscape", "culture"
+            "landscape",
+            "culture"
           ]
         },
         {
@@ -90,7 +545,8 @@
             "sk": "Majestátna Sajama"
           },
           "categories": [
-            "landscape", "mountains"
+            "landscape",
+            "mountains"
           ]
         },
         {
@@ -120,7 +576,7 @@
             "sk": "Posledný Tábor pred Parinacotou"
           },
           "categories": [
-            "buildings" 
+            "buildings"
           ]
         },
         {
@@ -130,7 +586,9 @@
             "sk": "Quinoa V Dome zo Soli"
           },
           "categories": [
-            "buildings", "nature", "culture"
+            "buildings",
+            "nature",
+            "culture"
           ]
         },
         {
@@ -140,7 +598,8 @@
             "sk": "Sajama Z Parinacoty"
           },
           "categories": [
-            "landscape", "mountains"
+            "landscape",
+            "mountains"
           ]
         },
         {
@@ -200,7 +659,9 @@
             "sk": "Tunupa, moja Prvá 5000ovka"
           },
           "categories": [
-            "landscape", "mountains", "people"
+            "landscape",
+            "mountains",
+            "people"
           ]
         },
         {

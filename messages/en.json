@@ -161,7 +161,8 @@
     "Turkey": "Turkey",
     "Chile": "Chile",
     "Greece": "Greece",
-    "Bolivia": "Bolivia"
+    "Bolivia": "Bolivia",
+    "Peru": "Peru"
   },
   "regions": {
     "Svalbard": "Svalbard",
@@ -171,6 +172,8 @@
     "Sumatra": "Sumatra",
     "Tenerife": "Tenerife",
     "Antalya": "Antalya",
-    "PatagoniaChillan": "North Patagonia - Chillan"
+    "PatagoniaChillan": "North Patagonia - Chillan",
+    "Cusco": "Cusco",
+    "Huaraz": "Huaraz"
   }
 }
