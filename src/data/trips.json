@@ -1,6 +1,263 @@
 {
   "trips": [
     {
+      "id": "colombia-2019",
+      "title": {
+        "en": "Colombia 2019",
+        "sk": "Kolumbia 2019"
+      },
+      "country": "Colombia",
+      "date": "2019-10",
+      "featured": false,
+      "categories": [
+        "landscape",
+        "mountains",
+        "animals",
+        "city",
+        "nature",
+        "people"
+      ],
+      "photos": [
+        {
+          "filename": "01_around_suesca.jpg",
+          "caption": {
+            "en": "Around Suesca",
+            "sk": "Okolo Suescy"
+          },
+          "categories": [
+            "landscape", "nature"
+          ]
+        },
+        {
+          "filename": "02_endless_bogota.jpg",
+          "caption": {
+            "en": "Endless Bogota",
+            "sk": "Nekonečná Bogota"
+          },
+          "categories": [
+            "landscape", "city"
+          ]
+        },
+        {
+          "filename": "03_la_mojarra_climbing_crag.jpg",
+          "caption": {
+            "en": "La Mojarra Climbing Crag",
+            "sk": "Skaly La Mojarra"
+          },
+          "categories": [
+            "landscape", "climbing"
+          ]
+        },
+        {
+          "filename": "04_dogo_chill.jpg",
+          "caption": {
+            "en": "Dogo Chill",
+            "sk": "Dogo Chill"
+          },
+          "categories": [
+            "mountains",
+            "animals"
+          ]
+        },
+        {
+          "filename": "05_busy_bee.jpg",
+          "caption": {
+            "en": "Busy Bee",
+            "sk": "Usilovná včelička"
+          },
+          "categories": [
+            "animals"
+          ]
+        },
+        {
+          "filename": "06_streets_of_barichara.jpg",
+          "caption": {
+            "en": "Streets Of Barichara",
+            "sk": "Ulice Barichary"
+          },
+          "categories": [
+            "city"
+          ]
+        },
+        {
+          "filename": "07_dancers_gonna_dance.jpg",
+          "caption": {
+            "en": "Dancers Gonna Dance",
+            "sk": "Tanečníci budú tancovať"
+          },
+          "categories": [
+            "people"
+          ]
+        },
+        {
+          "filename": "08_clowns_gonna_clown.jpg",
+          "caption": {
+            "en": "Clowns Gonna Clown",
+            "sk": "Klauni budú klaunovať"
+          },
+          "categories": [
+            "people"
+          ]
+        },
+        {
+          "filename": "09_so_comfy.jpg",
+          "caption": {
+            "en": "So Comfy",
+            "sk": "Tak pohodlná"
+          },
+          "categories": [
+            "buildings"
+          ]
+        },
+        {
+          "filename": "10_florian.jpg",
+          "caption": {
+            "en": "Florian",
+            "sk": "Florian"
+          },
+          "categories": [
+            "mountains", "landscape"
+          ]
+        },
+        {
+          "filename": "11_villa_de_leyva.jpg",
+          "caption": {
+            "en": "Villa De Leyva",
+            "sk": "Villa De Leyva"
+          },
+          "categories": [
+            "city"
+          ]
+        },
+        {
+          "filename": "12_guatavita_golden_treasure.jpg",
+          "caption": {
+            "en": "Guatavita Golden Treasure",
+            "sk": "Zlatý Poklad Guatavity"
+          },
+          "categories": [
+            "landscape"
+          ]
+        },
+        {
+          "filename": "13_hasta_luego_latinoamerica.jpg",
+          "caption": {
+            "en": "Hasta Luego Latinoamerica",
+            "sk": "Hasta Luego Latinská Amerika"
+          },
+          "categories": []
+        }
+      ]
+    },
+    {
+      "id": "ecuador-2019",
+      "title": {
+        "en": "Ecuador 2019",
+        "sk": "Ekvádor 2019"
+      },
+      "country": "Ecuador",
+      "date": "2019-09",
+      "featured": false,
+      "categories": [
+        "nature",
+        "landscape"
+      ],
+      "photos": [
+        {
+          "filename": "coco_on_the_beach.jpg",
+          "caption": {
+            "en": "Coco On The Beach",
+            "sk": "Kokosy na pláži"
+          },
+          "categories": [
+            "culture",
+            "people"
+          ]
+        },
+        {
+          "filename": "cuenca_stairs.jpg",
+          "caption": {
+            "en": "Cuenca Stairs",
+            "sk": "Schody v Cuence"
+          },
+          "categories": [
+            "buildings"
+          ]
+        },
+        {
+          "filename": "how_old_are_you.jpg",
+          "caption": {
+            "en": "How Old Are You?",
+            "sk": "Koľko máš rokov?"
+          },
+          "categories": [
+            "culture"
+          ]
+        },
+        {
+          "filename": "how_to_build_a_ship.jpg",
+          "caption": {
+            "en": "How To Build A Ship",
+            "sk": "Ako sa stavia loď"
+          },
+          "categories": [
+            "culture"
+          ]
+        },
+        {
+          "filename": "juan_the_guide.jpg",
+          "caption": {
+            "en": "Juan The Guide",
+            "sk": "Sprievodca Juan"
+          },
+          "categories": [
+            "people"
+          ]
+        },
+        {
+          "filename": "look_into_my_eyes.jpg",
+          "caption": {
+            "en": "Look Into My Eyes",
+            "sk": "Pozri sa mi do očí"
+          },
+          "categories": [
+            "animals"
+          ]
+        },
+        {
+          "filename": "Louis_and_blake_on_the_road.jpg",
+          "caption": {
+            "en": "Louis And Blake On The Road",
+            "sk": "Louis a Blake na cestách"
+          },
+          "categories": [
+            "people",
+            "animals"
+          ]
+        },
+        {
+          "filename": "magnolia_in_the_jungle.jpg",
+          "caption": {
+            "en": "Magnolia In The Jungle",
+            "sk": "Magnólia v džungli"
+          },
+          "categories": [
+            "nature"
+          ]
+        },
+        {
+          "filename": "still_working.jpg",
+          "caption": {
+            "en": "Still Working?",
+            "sk": "Stále fungujú?"
+          },
+          "categories": [
+            "culture"
+          ]
+        }
+      ]
+    },
+    {
       "id": "peru-huaraz-2019",
       "title": {
         "en": "Peru, Huaraz 2019",
@@ -23,7 +280,8 @@
             "sk": "Úžasný Hatun Machay"
           },
           "categories": [
-            "landscape", "climbing"
+            "landscape",
+            "climbing"
           ]
         },
         {
@@ -33,7 +291,9 @@
             "sk": "Huaraz z vrcholčeka kopca"
           },
           "categories": [
-            "culture", "buildings", "city" 
+            "culture",
+            "buildings",
+            "city"
           ]
         },
         {
@@ -53,7 +313,10 @@
             "sk": "Juan pod Piscom"
           },
           "categories": [
-            "landscape", "buildings", "people", "mountains"
+            "landscape",
+            "buildings",
+            "people",
+            "mountains"
           ]
         },
         {
@@ -73,7 +336,8 @@
             "sk": "Lezenie nad Antacochou"
           },
           "categories": [
-            "climbing", "people"
+            "climbing",
+            "people"
           ]
         },
         {
@@ -83,7 +347,8 @@
             "sk": "Jasný výhľad"
           },
           "categories": [
-            "landscape", "climbing"
+            "landscape",
+            "climbing"
           ]
         },
         {
@@ -123,7 +388,8 @@
             "sk": "Oddych po Ishince"
           },
           "categories": [
-            "mountains","people"
+            "mountains",
+            "people"
           ]
         },
         {
@@ -143,7 +409,8 @@
             "sk": "Hry prírody"
           },
           "categories": [
-            "landscape", "mountains"
+            "landscape",
+            "mountains"
           ]
         },
         {
@@ -153,7 +420,8 @@
             "sk": "Cestou na Vallunarechu"
           },
           "categories": [
-            "people", "mountains"
+            "people",
+            "mountains"
           ]
         },
         {
@@ -163,7 +431,8 @@
             "sk": "Takmer na Vallunarechu"
           },
           "categories": [
-            "people", "mountains"
+            "people",
+            "mountains"
           ]
         },
         {
@@ -173,7 +442,8 @@
             "sk": "Trek popod Alpamayo"
           },
           "categories": [
-            "landscape", "mountains"
+            "landscape",
+            "mountains"
           ]
         },
         {
@@ -193,7 +463,9 @@
             "sk": "Jednoduché poľnohospodárstvo"
           },
           "categories": [
-            "landscape", "mountains", "culture"
+            "landscape",
+            "mountains",
+            "culture"
           ]
         },
         {
@@ -203,7 +475,8 @@
             "sk": "Jednoduchý život"
           },
           "categories": [
-            "buildings", "culture"
+            "buildings",
+            "culture"
           ]
         },
         {
@@ -223,7 +496,8 @@
             "sk": "Cestou na Alpamayo"
           },
           "categories": [
-            "landscape", "mountains"
+            "landscape",
+            "mountains"
           ]
         },
         {
@@ -233,7 +507,8 @@
             "sk": "Morénový Kemp pod Alpamayom"
           },
           "categories": [
-            "landscape", "mountains"
+            "landscape",
+            "mountains"
           ]
         },
         {
@@ -243,7 +518,8 @@
             "sk": "Čo by sa mohlo pokaziť?"
           },
           "categories": [
-            "people", "mountains"
+            "people",
+            "mountains"
           ]
         },
         {
@@ -263,7 +539,9 @@
             "sk": "Na vrchole Alpamaya"
           },
           "categories": [
-            "landscape", "mountains", "people"
+            "landscape",
+            "mountains",
+            "people"
           ]
         },
         {
@@ -293,7 +571,8 @@
             "sk": "Takmer v Ekvádore"
           },
           "categories": [
-            "people", "culture"
+            "people",
+            "culture"
           ]
         }
       ]
