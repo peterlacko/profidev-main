@@ -1,6 +1,214 @@
 {
   "trips": [
     {
+      "id": "costarica-2024",
+      "title": {
+        "en": "Costarica 2024",
+        "sk": "Kostarika 2024"
+      },
+      "country": "Costarica",
+      "date": "2024-12",
+      "featured": true,
+      "categories": [
+        "landscape",
+        "mountains",
+        "animals",
+        "nature"
+      ],
+      "photos": [
+        {
+          "filename": "01_palm_tanager.jpg",
+          "caption": {
+            "en": "Palm Tanager",
+            "sk": "Tanager palmový"
+          },
+          "categories": [
+            "animals"
+          ]
+        },
+        {
+          "filename": "02_tuky_tuky.jpg",
+          "caption": {
+            "en": "Tuky Tuky",
+            "sk": "Tuky Tuky"
+          },
+          "categories": [
+            "animals"
+          ]
+        },
+        {
+          "filename": "03_aguti.jpg",
+          "caption": {
+            "en": "Aguti",
+            "sk": "Aguti"
+          },
+          "categories": [
+            "animals"
+          ]
+        },
+        {
+          "filename": "04_colibri_in_action.jpg",
+          "caption": {
+            "en": "Colibri In Action",
+            "sk": "Kolibrík v akcii"
+          },
+          "categories": [
+            "animals"
+          ]
+        },
+        {
+          "filename": "05_perozoso_on_coke.jpg",
+          "caption": {
+            "en": "Perozoso On Coke",
+            "sk": "Leňochod na kokaíne"
+          },
+          "categories": [
+            "animals"
+          ]
+        },
+        {
+          "filename": "06_perozoso_in_move.jpg",
+          "caption": {
+            "en": "Perozoso In Move",
+            "sk": "Leňochod v pohybe"
+          },
+          "categories": [
+            "animals"
+          ]
+        },
+        {
+          "filename": "07_white_faced_capuchin.jpg",
+          "caption": {
+            "en": "White Faced Capuchin",
+            "sk": "Kapucín bielolícy"
+          },
+          "categories": [
+            "animals"
+          ]
+        },
+        {
+          "filename": "08_black_spiny_tailed_iguana.jpg",
+          "caption": {
+            "en": "Black Spiny Tailed Iguana",
+            "sk": "Iguana čierna tŕnistá"
+          },
+          "categories": [
+            "animals"
+          ]
+        },
+        {
+          "filename": "09_paradajs_paradajs.jpg",
+          "caption": {
+            "en": "Paradajs Paradajs",
+            "sk": "Paradajs Paradajs"
+          },
+          "categories": [
+            "landscape"
+          ]
+        },
+        {
+          "filename": "10_different_paradajs.jpg",
+          "caption": {
+            "en": "Different Paradajs",
+            "sk": "Trocha iný Paradajs"
+          },
+          "categories": [
+            "landscape"
+          ]
+        },
+        {
+          "filename": "11_on_coffe_farm.jpg",
+          "caption": {
+            "en": "On Coffe Farm",
+            "sk": "Na kávovej farme"
+          },
+          "categories": [
+            "people", "culture"
+          ]
+        },
+        {
+          "filename": "12_ripe_or_rotten.jpg",
+          "caption": {
+            "en": "Ripe Or Rotten?",
+            "sk": "Zrelé alebo hnilé?"
+          },
+          "categories": [
+            "nature", "culture"
+          ]
+        },
+        {
+          "filename": "13_roasted_or_raw.jpg",
+          "caption": {
+            "en": "Roasted Or Raw?",
+            "sk": "Pražené alebo surové?"
+          },
+          "categories": [
+            "food"
+          ]
+        },
+        {
+          "filename": "14_volcano_arenal.jpg",
+          "caption": {
+            "en": "Volcano Arenal",
+            "sk": "Sopka Arenal"
+          },
+          "categories": [
+            "mountains"
+          ]
+        },
+        {
+          "filename": "15_swampity_swamp.jpg",
+          "caption": {
+            "en": "Swampity Swamp",
+            "sk": "Bažinaté močiare"
+          },
+          "categories": [
+            "landscape"
+          ]
+        },
+        {
+          "filename": "16_social_flycatcher.jpg",
+          "caption": {
+            "en": "Social Flycatcher",
+            "sk": "Postriežkár družný"
+          },
+          "categories": [
+            "animals"
+          ]
+        },
+        {
+          "filename": "17_endless_carribean_beach.jpg",
+          "caption": {
+            "en": "Endless Carribean Beach",
+            "sk": "Nekonečná karibská pláž"
+          },
+          "categories": [
+            "nature"
+          ]
+        },
+        {
+          "filename": "18_jesus_christ_basilisk.jpg",
+          "caption": {
+            "en": "Jesus Christ Basilisk",
+            "sk": "Ježiš Kristus či Bazilištek?"
+          },
+          "categories": [
+            "landscape"
+          ]
+        },
+        {
+          "filename": "19_irazu_undercover.jpg",
+          "caption": {
+            "en": "Irazu Undercover",
+            "sk": "Irazu v utajení"
+          },
+          "categories": [
+            "landscape", "mountains"
+          ]
+        }
+      ]
+    },
+    {
       "id": "colombia-2019",
       "title": {
         "en": "Colombia 2019",
@@ -25,7 +233,8 @@
             "sk": "Okolo Suescy"
           },
           "categories": [
-            "landscape", "nature"
+            "landscape",
+            "nature"
           ]
         },
         {
@@ -35,7 +244,8 @@
             "sk": "Nekonečná Bogota"
           },
           "categories": [
-            "landscape", "city"
+            "landscape",
+            "city"
           ]
         },
         {
@@ -45,7 +255,8 @@
             "sk": "Skaly La Mojarra"
           },
           "categories": [
-            "landscape", "climbing"
+            "landscape",
+            "climbing"
           ]
         },
         {
@@ -116,7 +327,8 @@
             "sk": "Florian"
           },
           "categories": [
-            "mountains", "landscape"
+            "mountains",
+            "landscape"
           ]
         },
         {
@@ -2655,8 +2867,8 @@
         {
           "filename": "blonde_on_hong_island.jpg",
           "caption": {
-            "en": "Blonde On Hong Island",
-            "sk": "Blondína na ostrove Hong"
+            "en": "Petra On Hong Island",
+            "sk": "Petra na ostrove Hong"
           },
           "categories": [
             "people"
