@@ -1,6 +1,112 @@
 {
   "trips": [
     {
+      "id": "nicaragua-2024",
+      "title": {
+        "en": "Nicaragua 2024",
+        "sk": "[SK] Nicaragua 2024"
+      },
+      "country": "Nicaragua",
+      "date": "2024-12",
+      "featured": false,
+      "categories": [
+        "landscape",
+        "animals"
+      ],
+      "photos": [
+        {
+          "filename": "01_hide_and_seek.jpg",
+          "caption": {
+            "en": "Hide And Seek",
+            "sk": "Schovka"
+          },
+          "categories": [
+            "animals"
+          ]
+        },
+        {
+          "filename": "02_concepcion_on_ometepe.jpg",
+          "caption": {
+            "en": "Concepcion Volcano On Ometepe",
+            "sk": "Sopka Concepcion Na Ometepe"
+          },
+          "categories": [
+            "landscape", "mountains"
+          ]
+        },
+        {
+          "filename": "03_sunset_over_cocibolca.jpg",
+          "caption": {
+            "en": "Sunset Over Lake Cocibolca",
+            "sk": "Západ slnka nad jazerom Cocibolca"
+          },
+          "categories": [
+            "landscape"
+          ]
+        },
+        {
+          "filename": "04_Bare-throated_Tiger_Heron.jpg",
+          "caption": {
+            "en": "Bare Throated Tiger Heron",
+            "sk": "Volavka tigrovaná mexická"
+          },
+          "categories": [
+            "animals"
+          ]
+        },
+        {
+          "filename": "05_rio_istian.jpg",
+          "caption": {
+            "en": "Rio Istian",
+            "sk": "Rieka Istian"
+          },
+          "categories": [
+            "landscape"
+          ]
+        },
+        {
+          "filename": "06_Little_Blue_Heron.jpg",
+          "caption": {
+            "en": "Little Blue Heron",
+            "sk": "Volavka modrá"
+          },
+          "categories": [
+            "animals"
+          ]
+        },
+        {
+          "filename": "07_Turquoise-browed_Motmot.jpg",
+          "caption": {
+            "en": "Turquoise Browed Motmot",
+            "sk": "Motmot čiernohrdlý"
+          },
+          "categories": [
+            "animals"
+          ]
+        },
+        {
+          "filename": "08_cocibolca.jpg",
+          "caption": {
+            "en": "Plenty of Water in Lake Cocibolca",
+            "sk": "Nadmiera Vody v Jazere Cocibolca"
+          },
+          "categories": [
+            "landscape"
+          ]
+        },
+        {
+          "filename": "09_granada.jpg",
+          "caption": {
+            "en": "Granada",
+            "sk": "Granada"
+          },
+          "categories": [
+            "landscape"
+          ]
+        }
+      ]
+    },
+    {
       "id": "costarica-2024",
       "title": {
         "en": "Costarica 2024",
@@ -123,7 +229,8 @@
             "sk": "Na kávovej farme"
           },
           "categories": [
-            "people", "culture"
+            "people",
+            "culture"
           ]
         },
         {
@@ -133,7 +240,8 @@
             "sk": "Zrelé alebo hnilé?"
           },
           "categories": [
-            "nature", "culture"
+            "nature",
+            "culture"
           ]
         },
         {
@@ -203,7 +311,8 @@
             "sk": "Irazu v utajení"
           },
           "categories": [
-            "landscape", "mountains"
+            "landscape",
+            "mountains"
           ]
         }
       ]
