@@ -120,13 +120,21 @@
     @apply border-border;
   }
 
-  *:focus-visible {
-    outline: none;
+  *:focus,
+  *:focus-visible,
+  *:active {
+    outline: none !important;
+    box-shadow: none !important;
   }
 
+  svg,
+  svg *,
+  svg path,
   svg path:focus,
-  svg path:focus-visible {
+  svg path:focus-visible,
+  svg path:active {
     outline: none !important;
+    box-shadow: none !important;
   }
 
   body {

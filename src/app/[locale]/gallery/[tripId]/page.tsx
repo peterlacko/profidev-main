@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import Script from "next/script"
 import { getTranslations, setRequestLocale } from "next-intl/server"
 import { notFound } from "next/navigation"
 import { getTripById, getPhotosByTripId, getAllTrips } from "@/lib/trips"
@@ -79,8 +80,10 @@ export default async function TripPage({
 
   return (
     <div className="py-12 md:py-16">
-      <script
+      <Script
+        id={`trip-json-ld-${tripId}`}
         type="application/ld+json"
+        strategy="beforeInteractive"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
         }}

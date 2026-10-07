@@ -25,6 +25,37 @@ const normalizeCountryKey = (value: string): string =>
     .toLowerCase()
     .replace(/[^a-z0-9]/g, "")
 
+const COUNTRY_COLORS = [
+  "#f8d9b5",
+  "#d7f0d0",
+  "#dfe7ff",
+  "#f7d7e8",
+  "#ffe9a8",
+  "#cfeaf7",
+  "#e6d9ff",
+  "#ffd9c9",
+  "#d7f5ee",
+  "#f8e6b3",
+  "#cfe8d5",
+  "#dfe9f7",
+]
+
+const darkenHexColor = (hex: string, amount = 0.25): string => {
+  const sanitized = hex.replace("#", "")
+  const value = sanitized.length === 3
+    ? sanitized.split("").map((char) => char + char).join("")
+    : sanitized
+
+  const numeric = Number.parseInt(value, 16)
+  const r = Math.max(0, Math.min(255, (numeric >> 16) - Math.round(255 * amount)))
+  const g = Math.max(0, Math.min(255, ((numeric >> 8) & 0xff) - Math.round(255 * amount)))
+  const b = Math.max(0, Math.min(255, (numeric & 0xff) - Math.round(255 * amount)))
+
+  return `#${[r, g, b]
+    .map((channel) => channel.toString(16).padStart(2, "0"))
+    .join("")}`
+}
+
 const resolveCountry = (
   mapCountryName: string,
   countryLookup: Map<string, string>,
@@ -44,8 +75,8 @@ export const WorldMap = ({ countryPhotoCounts }: WorldMapProps) => {
   const router = useRouter()
   const wrapperRef = useRef<HTMLDivElement>(null)
   const [view, setView] = useState<{ center: [number, number]; zoom: number }>({
-    center: [0, 20],
-    zoom: 1,
+    center: [0, 0],
+    zoom: 1.2,
   })
   const [tooltip, setTooltip] = useState<{
     country: string
@@ -55,7 +86,7 @@ export const WorldMap = ({ countryPhotoCounts }: WorldMapProps) => {
   } | null>(null)
 
   const minZoom = 1
-  const maxZoom = 4
+  const maxZoom = 4.5
 
   const countryLookup = new Map(
     Object.keys(countryPhotoCounts).map((country) => [normalizeCountryKey(country), country]),
@@ -93,7 +124,7 @@ export const WorldMap = ({ countryPhotoCounts }: WorldMapProps) => {
         <Button
           size="icon"
           variant="secondary"
-          onClick={() => setView({ center: [0, 20], zoom: 1 })}
+          onClick={() => setView({ center: [0, 20], zoom: 1.5 })}
           aria-label="Reset map"
         >
           <RotateCcw className="h-4 w-4" />
@@ -141,58 +172,69 @@ export const WorldMap = ({ countryPhotoCounts }: WorldMapProps) => {
                 const country = resolveCountry(countryName, countryLookup)
                 const isActive = Boolean(country)
                 const count = country ? countryPhotoCounts[country] ?? 0 : 0
-                const fillColor = isActive ? "var(--primary)" : "var(--muted)"
+                const baseFillColor = isActive && country
+                  ? COUNTRY_COLORS[Math.abs(country.split("").reduce((sum, char) => sum + char.charCodeAt(0), 0)) % COUNTRY_COLORS.length]
+                  : "#3a3a3c"
+                const fillColor = isActive && country ? baseFillColor : "#3a3a3c"
+                const hoverFillColor = isActive && country ? darkenHexColor(baseFillColor) : "#3a3a3c"
                 const interactionProps = isActive && country
                   ? {
-                      onMouseDown: (event: MouseEvent<SVGPathElement>) => {
-                        event.preventDefault()
-                      },
-                      onClick: () => {
-                        handleCountryClick(country)
-                      },
-                      onMouseEnter: (event: MouseEvent<SVGPathElement>) => {
-                        const pos = getTooltipPosition(event.clientX, event.clientY)
-                        setTooltip({
-                          country,
-                          count,
-                          x: pos.x,
-                          y: pos.y,
-                        })
-                      },
-                      onMouseMove: (event: MouseEvent<SVGPathElement>) => {
-                        const pos = getTooltipPosition(event.clientX, event.clientY)
-                        setTooltip((prev) =>
-                          prev
-                            ? {
-                                ...prev,
-                                x: pos.x,
-                                y: pos.y,
-                              }
-                            : prev,
-                        )
-                      },
-                      onMouseLeave: () => setTooltip(null),
-                    }
+                    onMouseDown: (event: MouseEvent<SVGPathElement>) => {
+                      event.preventDefault()
+                    },
+                    onClick: () => {
+                      handleCountryClick(country)
+                    },
+                    onMouseEnter: (event: MouseEvent<SVGPathElement>) => {
+                      const pos = getTooltipPosition(event.clientX, event.clientY)
+                      setTooltip({
+                        country,
+                        count,
+                        x: pos.x,
+                        y: pos.y,
+                      })
+                    },
+                    onMouseMove: (event: MouseEvent<SVGPathElement>) => {
+                      const pos = getTooltipPosition(event.clientX, event.clientY)
+                      setTooltip((prev) =>
+                        prev
+                          ? {
+                            ...prev,
+                            x: pos.x,
+                            y: pos.y,
+                          }
+                          : prev,
+                      )
+                    },
+                    onMouseLeave: () => setTooltip(null),
+                  }
                   : {}
 
                 return (
                   <Geography
                     key={geo.rsmKey}
                     geography={geo}
-                    tabIndex={country ? 0 : -1}
-                    focusable={country}
                     {...interactionProps}
                     fill={fillColor}
                     fillOpacity={isActive ? 1 : 0.7}
                     stroke="var(--border)"
                     strokeWidth={0.5}
-                    pointerEvents={isActive ? "auto" : "none"}
-                    style={{ outline: "none" }}
-                    className={
-                      isActive
-                        ? "cursor-pointer outline-none focus:outline-none transition-opacity hover:opacity-80"
-                        : "cursor-default outline-none focus:outline-none"
-                    }
+                    style={{
+                      outline: "none",
+                      boxShadow: "none",
+                      pointerEvents: isActive ? "auto" : "none",
+                    }}
+                    className={isActive ? "cursor-pointer transition-all duration-200 hover:opacity-100" : "cursor-default"}
+                    onMouseEnter={(event) => {
+                      if (!country) return
+                      const target = event.currentTarget as SVGPathElement
+                      target.setAttribute("fill", hoverFillColor)
+                    }}
+                    onMouseLeave={(event) => {
+                      if (!country) return
+                      const target = event.currentTarget as SVGPathElement
+                      target.setAttribute("fill", fillColor)
+                    }}
                   />
                 )
               })
