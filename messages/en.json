@@ -8,10 +8,16 @@
   "navigation": {
     "home": "Home",
     "gallery": "Gallery",
+    "map": "Map",
     "about": "About",
     "contact": "Contact",
     "openMenu": "Open menu",
     "closeMenu": "Close menu"
+  },
+  "map": {
+    "title": "World Map",
+    "description": "Click a highlighted country to open the gallery filtered for that destination.",
+    "photosCount": "{count} photos"
   },
   "home": {
     "hero": {

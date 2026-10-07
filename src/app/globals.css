@@ -117,8 +117,18 @@
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    @apply border-border;
   }
+
+  *:focus-visible {
+    outline: none;
+  }
+
+  svg path:focus,
+  svg path:focus-visible {
+    outline: none !important;
+  }
+
   body {
     @apply bg-background text-foreground;
   }

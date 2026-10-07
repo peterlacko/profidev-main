@@ -8,10 +8,16 @@
   "navigation": {
     "home": "Domov",
     "gallery": "Galéria",
+    "map": "Mapa",
     "about": "O mne",
     "contact": "Kontakt",
     "openMenu": "Otvoriť menu",
     "closeMenu": "Zavrieť menu"
+  },
+  "map": {
+    "title": "Mapa sveta",
+    "description": "Kliknite na zvýraznenú krajinu a otvorí sa galéria filtrovaná podľa danej destinácie.",
+    "photosCount": "{count} fotografií"
   },
   "home": {
     "hero": {
