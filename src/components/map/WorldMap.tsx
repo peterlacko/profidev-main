@@ -133,7 +133,7 @@ export const WorldMap = ({ countryPhotoCounts }: WorldMapProps) => {
 
       {tooltip && (
         <div
-          className="pointer-events-none absolute z-20 -translate-x-1/2 rounded-md border bg-background px-2 py-1 text-xs shadow-sm"
+          className="pointer-events-none absolute z-20 -translate-x-1/2 rounded-md border border-border/80 bg-popover px-2 py-1 text-xs text-popover-foreground shadow-lg"
           style={{ left: tooltip.x, top: tooltip.y }}
         >
           <div className="font-medium">{tCountries(tooltip.country)}</div>
@@ -193,6 +193,9 @@ export const WorldMap = ({ countryPhotoCounts }: WorldMapProps) => {
                         x: pos.x,
                         y: pos.y,
                       })
+
+                      const target = event.currentTarget as SVGPathElement
+                      target.setAttribute("fill", hoverFillColor)
                     },
                     onMouseMove: (event: MouseEvent<SVGPathElement>) => {
                       const pos = getTooltipPosition(event.clientX, event.clientY)
@@ -206,7 +209,11 @@ export const WorldMap = ({ countryPhotoCounts }: WorldMapProps) => {
                           : prev,
                       )
                     },
-                    onMouseLeave: () => setTooltip(null),
+                    onMouseLeave: (event: MouseEvent<SVGPathElement>) => {
+                      setTooltip(null)
+                      const target = event.currentTarget as SVGPathElement
+                      target.setAttribute("fill", fillColor)
+                    },
                   }
                   : {}
 
@@ -225,16 +232,6 @@ export const WorldMap = ({ countryPhotoCounts }: WorldMapProps) => {
                       pointerEvents: isActive ? "auto" : "none",
                     }}
                     className={isActive ? "cursor-pointer transition-all duration-200 hover:opacity-100" : "cursor-default"}
-                    onMouseEnter={(event) => {
-                      if (!country) return
-                      const target = event.currentTarget as SVGPathElement
-                      target.setAttribute("fill", hoverFillColor)
-                    }}
-                    onMouseLeave={(event) => {
-                      if (!country) return
-                      const target = event.currentTarget as SVGPathElement
-                      target.setAttribute("fill", fillColor)
-                    }}
                   />
                 )
               })
