@@ -22,6 +22,12 @@ interface GalleryContentProps {
   locale: string
 }
 
+const resolveCountryFromQuery = (queryCountry: string | null, countries: string[]): string | undefined => {
+  if (!queryCountry) return undefined
+  const normalized = queryCountry.toLowerCase()
+  return countries.find((country) => country.toLowerCase() === normalized)
+}
+
 export function GalleryContent({
   initialPhotos,
   countries,
@@ -39,7 +45,9 @@ export function GalleryContent({
   const searchParams = useSearchParams()
 
   const viewMode = searchParams.get("view") === "trips" ? "trips" : "filters"
-  const [selectedCountry, setSelectedCountry] = useState<string | undefined>()
+  const [selectedCountry, setSelectedCountry] = useState<string | undefined>(() =>
+    resolveCountryFromQuery(searchParams.get("country"), countries)
+  )
   const [selectedRegion, setSelectedRegion] = useState<string | undefined>()
   const [selectedCategory, setSelectedCategory] = useState<PhotoCategory | undefined>()
   const [sortBy, setSortBy] = useState<"date" | "country">("date")
@@ -52,9 +60,23 @@ export function GalleryContent({
 
   const showRegionFilter = selectedCountry && availableRegions.length > 0
 
+  const updateCountryParam = (country: string | undefined) => {
+    const params = new URLSearchParams(searchParams.toString())
+
+    if (country) {
+      params.set("country", country.toLowerCase())
+    } else {
+      params.delete("country")
+    }
+
+    const queryString = params.toString()
+    router.replace(queryString ? `${pathname}?${queryString}` : pathname, { scroll: false })
+  }
+
   const handleCountryChange = (country: string | undefined) => {
     setSelectedCountry(country)
     setSelectedRegion(undefined)
+    updateCountryParam(country)
   }
 
   const filteredPhotos = useMemo(() => {
@@ -72,6 +94,7 @@ export function GalleryContent({
     setSelectedCountry(undefined)
     setSelectedRegion(undefined)
     setSelectedCategory(undefined)
+    updateCountryParam(undefined)
   }
 
   const handleViewModeChange = (mode: "filters" | "trips") => {
