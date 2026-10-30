@@ -27,6 +27,23 @@ const createUploadItem = (filename: string): UploadItem => ({
   status: "pending",
 })
 
+const extractErrorMessage = async (
+  response: Response,
+  fallbackMessage: string
+): Promise<string> => {
+  const raw = await response.text()
+  if (!raw) return fallbackMessage
+
+  try {
+    const parsed = JSON.parse(raw) as { error?: string }
+    if (parsed.error) return parsed.error
+  } catch {
+    // Non-JSON error response (e.g. proxy/body-size error)
+  }
+
+  return raw
+}
+
 export function UploadForm() {
   const t = useTranslations("mobileUpload")
   const [token, setToken] = useState("")
@@ -103,8 +120,11 @@ export function UploadForm() {
         })
 
         if (!response.ok) {
-          const data = (await response.json()) as { error?: string }
-          updateStatus(item.id, "error", data.error ?? t("errors.uploadFailed"))
+          const errorMessage = await extractErrorMessage(
+            response,
+            t("errors.uploadFailed")
+          )
+          updateStatus(item.id, "error", errorMessage)
           continue
         }
 
