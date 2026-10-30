@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useMemo } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { useSearchParams } from "next/navigation"
 import { ChevronDown, X } from "lucide-react"
 import { useTranslations } from "next-intl"
@@ -22,11 +22,32 @@ interface GalleryContentProps {
   locale: string
 }
 
+type MobileApiPhoto = {
+  id: string
+  filename: string
+  country: string
+  trip?: string
+  caption?: string
+  uploadedAt: string
+  src: string
+}
+
 const resolveCountryFromQuery = (queryCountry: string | null, countries: string[]): string | undefined => {
   if (!queryCountry) return undefined
   const normalized = queryCountry.toLowerCase()
   return countries.find((country) => country.toLowerCase() === normalized)
 }
+
+const toMobilePhotoWithTrip = (photo: MobileApiPhoto): PhotoWithTrip => ({
+  filename: photo.filename,
+  categories: [],
+  caption: photo.caption || photo.filename,
+  tripId: photo.id,
+  tripTitle: photo.trip || "Mobile",
+  country: photo.country,
+  date: photo.uploadedAt.slice(0, 10),
+  src: photo.src,
+})
 
 export function GalleryContent({
   initialPhotos,
@@ -52,6 +73,48 @@ export function GalleryContent({
   const [selectedCategory, setSelectedCategory] = useState<PhotoCategory | undefined>()
   const [sortBy, setSortBy] = useState<"date" | "country">("date")
   const [showAllFilters, setShowAllFilters] = useState(false)
+  const [includeMobilePhotos, setIncludeMobilePhotos] = useState(false)
+  const [mobilePhotos, setMobilePhotos] = useState<PhotoWithTrip[]>([])
+  const [mobilePhotosLoaded, setMobilePhotosLoaded] = useState(false)
+  const [mobilePhotosLoading, setMobilePhotosLoading] = useState(false)
+  const [mobilePhotosError, setMobilePhotosError] = useState<string | null>(null)
+
+  useEffect(() => {
+    if (!includeMobilePhotos || mobilePhotosLoaded || mobilePhotosLoading) return
+
+    const loadMobilePhotos = async () => {
+      setMobilePhotosLoading(true)
+      setMobilePhotosError(null)
+
+      try {
+        const response = await fetch("/api/mobile-photos")
+        if (!response.ok) {
+          throw new Error(t("mobilePhotosLoadError"))
+        }
+
+        const data = (await response.json()) as { photos?: MobileApiPhoto[] }
+        const photos = (data.photos ?? []).map((photo) => toMobilePhotoWithTrip(photo))
+        setMobilePhotos(photos)
+        setMobilePhotosLoaded(true)
+      } catch (error) {
+        setMobilePhotosError(error instanceof Error ? error.message : t("mobilePhotosLoadError"))
+      } finally {
+        setMobilePhotosLoading(false)
+      }
+    }
+
+    void loadMobilePhotos()
+  }, [includeMobilePhotos, mobilePhotosLoaded, mobilePhotosLoading, t])
+
+  const allPhotos = useMemo(
+    () => (includeMobilePhotos ? [...initialPhotos, ...mobilePhotos] : initialPhotos),
+    [includeMobilePhotos, initialPhotos, mobilePhotos]
+  )
+
+  const availableCountries = useMemo(() => {
+    const countrySet = new Set(allPhotos.map((photo) => photo.country))
+    return Array.from(countrySet).sort()
+  }, [allPhotos])
 
   const availableRegions = useMemo(() => {
     if (!selectedCountry) return []
@@ -80,13 +143,13 @@ export function GalleryContent({
   }
 
   const filteredPhotos = useMemo(() => {
-    return filterPhotos(initialPhotos, {
+    return filterPhotos(allPhotos, {
       country: selectedCountry,
       region: selectedRegion,
       category: selectedCategory,
       sortBy,
     })
-  }, [initialPhotos, selectedCountry, selectedRegion, selectedCategory, sortBy])
+  }, [allPhotos, selectedCountry, selectedRegion, selectedCategory, sortBy])
 
   const hasActiveFilters = selectedCountry || selectedRegion || selectedCategory
 
@@ -111,22 +174,50 @@ export function GalleryContent({
   return (
     <div>
       {/* View Mode Toggle */}
-      <div className="mb-4 flex gap-2">
-        <Button
-          variant={viewMode === "filters" ? "default" : "outline"}
-          size="sm"
-          onClick={() => handleViewModeChange("filters")}
-        >
-          {t("filterView")}
-        </Button>
-        <Button
-          variant={viewMode === "trips" ? "default" : "outline"}
-          size="sm"
-          onClick={() => handleViewModeChange("trips")}
-        >
-          {t("tripView")}
-        </Button>
+      <div className="mb-4 flex flex-wrap items-center gap-2">
+        <div className="flex gap-2">
+          <Button
+            variant={viewMode === "filters" ? "default" : "outline"}
+            size="sm"
+            onClick={() => handleViewModeChange("filters")}
+          >
+            {t("filterView")}
+          </Button>
+          <Button
+            variant={viewMode === "trips" ? "default" : "outline"}
+            size="sm"
+            onClick={() => handleViewModeChange("trips")}
+          >
+            {t("tripView")}
+          </Button>
+        </div>
+        <div className="ml-auto flex items-center gap-3">
+          <span className="text-sm text-muted-foreground">{t("photosFromMobile")}</span>
+          <button
+            type="button"
+            role="switch"
+            aria-checked={includeMobilePhotos}
+            onClick={() => setIncludeMobilePhotos((prev) => !prev)}
+            className={cn(
+              "relative inline-flex h-6 w-11 items-center rounded-full border transition-colors",
+              includeMobilePhotos ? "border-primary bg-primary" : "border-border bg-muted"
+            )}
+          >
+            <span
+              className={cn(
+                "inline-block h-4 w-4 transform rounded-full bg-background transition-transform",
+                includeMobilePhotos ? "translate-x-6" : "translate-x-1"
+              )}
+            />
+          </button>
+        </div>
       </div>
+      {mobilePhotosLoading && (
+        <p className="mb-4 text-sm text-muted-foreground">{t("loadingMobilePhotos")}</p>
+      )}
+      {mobilePhotosError && (
+        <p className="mb-4 text-sm text-destructive">{mobilePhotosError}</p>
+      )}
 
       {viewMode === "filters" ? (
         <>
@@ -144,7 +235,7 @@ export function GalleryContent({
                   >
                     {t("allCountries")}
                   </Button>
-                  {countries.map((country) => (
+                  {availableCountries.map((country) => (
                     <Button
                       key={country}
                       variant={selectedCountry === country ? "default" : "outline"}

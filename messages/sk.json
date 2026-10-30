@@ -8,7 +8,6 @@
   "navigation": {
     "home": "Domov",
     "gallery": "Galéria",
-    "fromMobile": "Z mobilu",
     "map": "Mapa",
     "about": "O mne",
     "contact": "Kontakt",
@@ -56,14 +55,10 @@
     "photosFiltered": "{count} fotografií (filtrované)",
     "noPhotos": "Žiadne fotografie nezodpovedajú vybraným filtrom.",
     "filterView": "Filtre",
-    "tripView": "Výlety"
-  },
-  "fromMobile": {
-    "title": "Z mobilu",
-    "description": "Fotky nahrané priamo z mobilu, zoradené podľa krajiny a voliteľne podľa výletu.",
-    "empty": "Zatiaľ tu nie sú žiadne publikované mobilné fotky.",
-    "tripLabel": "Výlet",
-    "photosCount": "{count} fotografií"
+    "tripView": "Výlety",
+    "photosFromMobile": "Fotky z mobilu",
+    "loadingMobilePhotos": "Načítavam mobilné fotky...",
+    "mobilePhotosLoadError": "Mobilné fotky sa nepodarilo načítať."
   },
   "mobileUpload": {
     "title": "Nahrávanie z mobilu",
@@ -208,7 +203,8 @@
     "Ecuador": "Ekvádor",
     "Colombia": "Kolumbia",
     "Costarica": "Kostarika",
-    "Nicaragua": "Nikaragua"
+    "Nicaragua": "Nikaragua",
+    "Switzerland": "Švajčiarsko"
   },
   "regions": {
     "Svalbard": "Svalbard",

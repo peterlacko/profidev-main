@@ -8,7 +8,6 @@
   "navigation": {
     "home": "Home",
     "gallery": "Gallery",
-    "fromMobile": "From mobile",
     "map": "Map",
     "about": "About",
     "contact": "Contact",
@@ -56,14 +55,10 @@
     "photosFiltered": "{count} photos (filtered)",
     "noPhotos": "No photos match the selected filters.",
     "filterView": "By Filters",
-    "tripView": "By Trips"
-  },
-  "fromMobile": {
-    "title": "From mobile",
-    "description": "Photos uploaded directly from my phone, grouped by country and optional trip.",
-    "empty": "No mobile photos published yet.",
-    "tripLabel": "Trip",
-    "photosCount": "{count} photos"
+    "tripView": "By Trips",
+    "photosFromMobile": "Photos from mobile",
+    "loadingMobilePhotos": "Loading mobile photos...",
+    "mobilePhotosLoadError": "Failed to load mobile photos."
   },
   "mobileUpload": {
     "title": "Mobile upload",
@@ -208,7 +203,8 @@
     "Ecuador": "Ecuador",
     "Colombia": "Colombia",
     "Costarica": "Costa Rica",
-    "Nicaragua": "Nicaragua"
+    "Nicaragua": "Nicaragua",
+    "Switzerland": "Switzerland"
   },
   "regions": {
     "Svalbard": "Svalbard",
