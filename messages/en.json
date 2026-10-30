@@ -8,6 +8,7 @@
   "navigation": {
     "home": "Home",
     "gallery": "Gallery",
+    "fromMobile": "From mobile",
     "map": "Map",
     "about": "About",
     "contact": "Contact",
@@ -56,6 +57,41 @@
     "noPhotos": "No photos match the selected filters.",
     "filterView": "By Filters",
     "tripView": "By Trips"
+  },
+  "fromMobile": {
+    "title": "From mobile",
+    "description": "Photos uploaded directly from my phone, grouped by country and optional trip.",
+    "empty": "No mobile photos published yet.",
+    "tripLabel": "Trip",
+    "photosCount": "{count} photos"
+  },
+  "mobileUpload": {
+    "title": "Mobile upload",
+    "description": "Upload photos from your phone to the mobile gallery.",
+    "token": "Upload token",
+    "tokenPlaceholder": "Enter upload token",
+    "country": "Country",
+    "countryPlaceholder": "e.g. Norway",
+    "trip": "Trip (optional)",
+    "tripPlaceholder": "e.g. Svalbard weekend",
+    "caption": "Caption (optional)",
+    "captionPlaceholder": "Short description for all selected photos",
+    "photos": "Photos",
+    "submit": "Upload photos",
+    "uploading": "Uploading...",
+    "resultSummary": "{success} / {total} uploaded",
+    "status": {
+      "pending": "Pending",
+      "uploading": "Uploading",
+      "success": "Done",
+      "error": "Failed"
+    },
+    "errors": {
+      "tokenRequired": "Upload token is required.",
+      "countryRequired": "Country is required.",
+      "photoRequired": "Please select at least one photo.",
+      "uploadFailed": "Upload failed."
+    }
   },
   "about": {
     "title": "About",

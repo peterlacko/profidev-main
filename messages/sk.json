@@ -8,6 +8,7 @@
   "navigation": {
     "home": "Domov",
     "gallery": "Galéria",
+    "fromMobile": "Z mobilu",
     "map": "Mapa",
     "about": "O mne",
     "contact": "Kontakt",
@@ -56,6 +57,41 @@
     "noPhotos": "Žiadne fotografie nezodpovedajú vybraným filtrom.",
     "filterView": "Filtre",
     "tripView": "Výlety"
+  },
+  "fromMobile": {
+    "title": "Z mobilu",
+    "description": "Fotky nahrané priamo z mobilu, zoradené podľa krajiny a voliteľne podľa výletu.",
+    "empty": "Zatiaľ tu nie sú žiadne publikované mobilné fotky.",
+    "tripLabel": "Výlet",
+    "photosCount": "{count} fotografií"
+  },
+  "mobileUpload": {
+    "title": "Nahrávanie z mobilu",
+    "description": "Nahrajte fotky z mobilu do mobilnej galérie.",
+    "token": "Upload token",
+    "tokenPlaceholder": "Zadajte upload token",
+    "country": "Krajina",
+    "countryPlaceholder": "napr. Nórsko",
+    "trip": "Výlet (voliteľné)",
+    "tripPlaceholder": "napr. víkend na Svalbarde",
+    "caption": "Popis (voliteľné)",
+    "captionPlaceholder": "Krátky popis pre všetky vybrané fotky",
+    "photos": "Fotky",
+    "submit": "Nahrať fotky",
+    "uploading": "Nahrávam...",
+    "resultSummary": "{success} / {total} nahratých",
+    "status": {
+      "pending": "Čaká",
+      "uploading": "Nahrávam",
+      "success": "Hotovo",
+      "error": "Chyba"
+    },
+    "errors": {
+      "tokenRequired": "Upload token je povinný.",
+      "countryRequired": "Krajina je povinná.",
+      "photoRequired": "Vyberte aspoň jednu fotku.",
+      "uploadFailed": "Nahrávanie zlyhalo."
+    }
   },
   "about": {
     "title": "O mne",

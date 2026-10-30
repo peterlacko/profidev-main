@@ -5,6 +5,7 @@ Personal travel photography portfolio built with Next.js 16, TypeScript, and Tai
 ## Features
 
 - Photo gallery with filtering by country, region, category, and date
+- Mobile upload flow with separate `/frommobile` gallery
 - Fullscreen lightbox with keyboard navigation
 - Responsive design with dark mode support
 - Bilingual (English/Slovak) with automatic browser language detection
@@ -133,7 +134,15 @@ R2_ACCOUNT_ID=
 R2_ACCESS_KEY_ID=
 R2_SECRET_ACCESS_KEY=
 R2_BUCKET_NAME=
+NEXT_PUBLIC_R2_URL=
+MOBILE_UPLOAD_TOKEN=
 ```
+
+### Mobile upload flow
+
+- Upload page: `/[locale]/mobile-upload` (private via `MOBILE_UPLOAD_TOKEN`)
+- Public page: `/[locale]/frommobile` (published mobile photos only)
+- Photos are resized to max `2560x1440`, converted to JPEG and uploaded under `mobile/published/...` in R2.
 
 ## Deployment
 
