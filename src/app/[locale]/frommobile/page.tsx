@@ -4,6 +4,8 @@ import type { PhotoWithTrip } from "@/types"
 import { PhotoGrid } from "@/components/photos/photo-grid"
 import { listMobilePhotos } from "@/lib/mobile-photos"
 
+export const dynamic = "force-dynamic"
+
 type MobileGroup = {
   country: string
   trip?: string
