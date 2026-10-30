@@ -57,6 +57,8 @@
     "filterView": "By Filters",
     "tripView": "By Trips",
     "photosFromMobile": "Photos from mobile",
+    "mobileTrips": "Mobile trips",
+    "mobileTripFilter": "Mobile trip",
     "loadingMobilePhotos": "Loading mobile photos...",
     "mobilePhotosLoadError": "Failed to load mobile photos."
   },

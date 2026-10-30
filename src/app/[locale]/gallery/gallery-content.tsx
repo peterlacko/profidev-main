@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react"
 import { useSearchParams } from "next/navigation"
 import { ChevronDown, X } from "lucide-react"
+import Image from "next/image"
 import { useTranslations } from "next-intl"
 import { useRouter, usePathname } from "@/i18n/navigation"
 import type { PhotoWithTrip, PhotoCategory, Trip } from "@/types"
@@ -30,6 +31,14 @@ type MobileApiPhoto = {
   caption?: string
   uploadedAt: string
   src: string
+}
+
+type MobileTripGroup = {
+  key: string
+  tripTitle: string
+  country: string
+  count: number
+  coverSrc: string
 }
 
 const resolveCountryFromQuery = (queryCountry: string | null, countries: string[]): string | undefined => {
@@ -71,6 +80,7 @@ export function GalleryContent({
   )
   const [selectedRegion, setSelectedRegion] = useState<string | undefined>()
   const [selectedCategory, setSelectedCategory] = useState<PhotoCategory | undefined>()
+  const [selectedMobileTrip, setSelectedMobileTrip] = useState<string | undefined>()
   const [sortBy, setSortBy] = useState<"date" | "country">("date")
   const [showAllFilters, setShowAllFilters] = useState(false)
   const [includeMobilePhotos, setIncludeMobilePhotos] = useState(false)
@@ -123,6 +133,35 @@ export function GalleryContent({
 
   const showRegionFilter = selectedCountry && availableRegions.length > 0
 
+  const mobileTripGroups = useMemo(() => {
+    if (!includeMobilePhotos) return []
+
+    const groups = new Map<string, MobileTripGroup>()
+    for (const photo of mobilePhotos) {
+      const tripTitle = photo.tripTitle.trim()
+      if (!tripTitle || tripTitle === "Mobile") continue
+
+      const key = `${tripTitle}::${photo.country}`
+      const existing = groups.get(key)
+      if (existing) {
+        existing.count += 1
+      } else {
+        groups.set(key, {
+          key,
+          tripTitle,
+          country: photo.country,
+          count: 1,
+          coverSrc: photo.src,
+        })
+      }
+    }
+
+    return Array.from(groups.values()).sort((a, b) => {
+      if (a.tripTitle !== b.tripTitle) return a.tripTitle.localeCompare(b.tripTitle)
+      return a.country.localeCompare(b.country)
+    })
+  }, [includeMobilePhotos, mobilePhotos])
+
   const updateCountryParam = (country: string | undefined) => {
     const params = new URLSearchParams(searchParams.toString())
 
@@ -143,20 +182,27 @@ export function GalleryContent({
   }
 
   const filteredPhotos = useMemo(() => {
-    return filterPhotos(allPhotos, {
+    let result = filterPhotos(allPhotos, {
       country: selectedCountry,
       region: selectedRegion,
       category: selectedCategory,
       sortBy,
     })
-  }, [allPhotos, selectedCountry, selectedRegion, selectedCategory, sortBy])
 
-  const hasActiveFilters = selectedCountry || selectedRegion || selectedCategory
+    if (selectedMobileTrip) {
+      result = result.filter((photo) => photo.tripTitle === selectedMobileTrip)
+    }
+
+    return result
+  }, [allPhotos, selectedCountry, selectedRegion, selectedCategory, sortBy, selectedMobileTrip])
+
+  const hasActiveFilters = selectedCountry || selectedRegion || selectedCategory || selectedMobileTrip
 
   const clearFilters = () => {
     setSelectedCountry(undefined)
     setSelectedRegion(undefined)
     setSelectedCategory(undefined)
+    setSelectedMobileTrip(undefined)
     updateCountryParam(undefined)
   }
 
@@ -169,6 +215,16 @@ export function GalleryContent({
     }
     const queryString = params.toString()
     router.replace(queryString ? `${pathname}?${queryString}` : pathname, { scroll: false })
+  }
+
+  const handleMobileTripOpen = (tripTitle: string) => {
+    setIncludeMobilePhotos(true)
+    setSelectedMobileTrip(tripTitle)
+    setSelectedCountry(undefined)
+    setSelectedRegion(undefined)
+    setSelectedCategory(undefined)
+    updateCountryParam(undefined)
+    handleViewModeChange("filters")
   }
 
   return (
@@ -197,7 +253,14 @@ export function GalleryContent({
             type="button"
             role="switch"
             aria-checked={includeMobilePhotos}
-            onClick={() => setIncludeMobilePhotos((prev) => !prev)}
+            onClick={() =>
+              setIncludeMobilePhotos((prev) => {
+                if (prev) {
+                  setSelectedMobileTrip(undefined)
+                }
+                return !prev
+              })
+            }
             className={cn(
               "relative inline-flex h-6 w-11 items-center rounded-full border transition-colors",
               includeMobilePhotos ? "border-primary bg-primary" : "border-border bg-muted"
@@ -325,6 +388,25 @@ export function GalleryContent({
                       {t("country")}
                     </Button>
                   </div>
+
+                  {selectedMobileTrip && (
+                    <div className="border-t border-border/50 pt-3">
+                      <label className="mb-1.5 block text-xs font-medium text-muted-foreground">
+                        {t("mobileTripFilter")}
+                      </label>
+                      <div className="flex flex-wrap gap-1.5">
+                        <Button
+                          variant="default"
+                          size="sm"
+                          onClick={() => setSelectedMobileTrip(undefined)}
+                          className="gap-2"
+                        >
+                          {selectedMobileTrip}
+                          <X className="h-4 w-4" />
+                        </Button>
+                      </div>
+                    </div>
+                  )}
                 </div>
 
                 {/* Clear Filters */}
@@ -379,15 +461,50 @@ export function GalleryContent({
         </>
       ) : (
         /* Trips Grid */
-        <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-          {trips.map(trip => (
-            <TripCard
-              key={trip.id}
-              trip={trip}
-              coverSrc={trip.photos[0] ? getTripCoverSrc(trip.id, trip.photos[0].filename) : ""}
-              locale={locale}
-            />
-          ))}
+        <div className="space-y-8">
+          {includeMobilePhotos && mobileTripGroups.length > 0 && (
+            <section>
+              <h2 className="mb-4 text-lg font-semibold">{t("mobileTrips")}</h2>
+              <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+                {mobileTripGroups.map((trip) => (
+                  <button
+                    key={trip.key}
+                    onClick={() => handleMobileTripOpen(trip.tripTitle)}
+                    className="group relative aspect-[4/3] overflow-hidden rounded-lg bg-muted text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                  >
+                    <Image
+                      src={trip.coverSrc}
+                      alt={trip.tripTitle}
+                      fill
+                      className="object-cover transition-transform duration-300 group-hover:scale-105"
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    />
+                    <div className="absolute inset-0 bg-black/0 transition-colors duration-300 group-hover:bg-black/30" />
+                    <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-4">
+                      <p className="text-lg font-medium text-white">{trip.tripTitle}</p>
+                      <p className="text-sm text-white/70">
+                        {tCountries(trip.country)} · {t("photos", { count: trip.count })}
+                      </p>
+                    </div>
+                  </button>
+                ))}
+              </div>
+            </section>
+          )}
+
+          <section>
+            <h2 className="mb-4 text-lg font-semibold">{t("tripView")}</h2>
+            <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+              {trips.map(trip => (
+                <TripCard
+                  key={trip.id}
+                  trip={trip}
+                  coverSrc={trip.photos[0] ? getTripCoverSrc(trip.id, trip.photos[0].filename) : ""}
+                  locale={locale}
+                />
+              ))}
+            </div>
+          </section>
         </div>
       )}
     </div>

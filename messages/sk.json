@@ -57,6 +57,8 @@
     "filterView": "Filtre",
     "tripView": "Výlety",
     "photosFromMobile": "Fotky z mobilu",
+    "mobileTrips": "Mobilné výlety",
+    "mobileTripFilter": "Mobilný výlet",
     "loadingMobilePhotos": "Načítavam mobilné fotky...",
     "mobilePhotosLoadError": "Mobilné fotky sa nepodarilo načítať."
   },
