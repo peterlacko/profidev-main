@@ -10,6 +10,7 @@ import type { PhotoWithTrip, PhotoCategory, Trip } from "@/types"
 import { filterPhotos, getTripCoverSrc } from "@/lib/trips"
 import { PhotoGrid } from "@/components/photos/photo-grid"
 import { TripCard } from "@/components/photos/trip-card"
+import { WorldMap } from "@/components/map/WorldMap"
 import { Button } from "@/components/ui/button"
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
 import { cn } from "@/lib/utils"
@@ -67,6 +68,7 @@ export function GalleryContent({
   locale,
 }: GalleryContentProps) {
   const t = useTranslations("gallery")
+  const tMap = useTranslations("map")
   const tCategories = useTranslations("categories")
   const tCountries = useTranslations("countries")
   const tRegions = useTranslations("regions")
@@ -74,7 +76,12 @@ export function GalleryContent({
   const pathname = usePathname()
   const searchParams = useSearchParams()
 
-  const viewMode = searchParams.get("view") === "trips" ? "trips" : "filters"
+  const resolveViewMode = (): "filters" | "trips" | "map" => {
+    const raw = searchParams.get("view")
+    if (raw === "trips" || raw === "map") return raw
+    return "filters"
+  }
+  const viewMode = resolveViewMode()
   const [selectedCountry, setSelectedCountry] = useState<string | undefined>(() =>
     resolveCountryFromQuery(searchParams.get("country"), countries)
   )
@@ -162,6 +169,13 @@ export function GalleryContent({
     })
   }, [includeMobilePhotos, mobilePhotos])
 
+  const countryPhotoCounts = useMemo(() => {
+    return allPhotos.reduce<Record<string, number>>((acc, photo) => {
+      acc[photo.country] = (acc[photo.country] ?? 0) + 1
+      return acc
+    }, {})
+  }, [allPhotos])
+
   const updateCountryParam = (country: string | undefined) => {
     const params = new URLSearchParams(searchParams.toString())
 
@@ -206,12 +220,12 @@ export function GalleryContent({
     updateCountryParam(undefined)
   }
 
-  const handleViewModeChange = (mode: "filters" | "trips") => {
+  const handleViewModeChange = (mode: "filters" | "trips" | "map") => {
     const params = new URLSearchParams(searchParams.toString())
-    if (mode === "trips") {
-      params.set("view", "trips")
-    } else {
+    if (mode === "filters") {
       params.delete("view")
+    } else {
+      params.set("view", mode)
     }
     const queryString = params.toString()
     router.replace(queryString ? `${pathname}?${queryString}` : pathname, { scroll: false })
@@ -245,6 +259,13 @@ export function GalleryContent({
             onClick={() => handleViewModeChange("trips")}
           >
             {t("tripView")}
+          </Button>
+          <Button
+            variant={viewMode === "map" ? "default" : "outline"}
+            size="sm"
+            onClick={() => handleViewModeChange("map")}
+          >
+            {t("mapView")}
           </Button>
         </div>
         <div className="ml-auto flex items-center gap-3">
@@ -459,7 +480,7 @@ export function GalleryContent({
             </div>
           )}
         </>
-      ) : (
+      ) : viewMode === "trips" ? (
         /* Trips Grid */
         <div className="space-y-8">
           {includeMobilePhotos && mobileTripGroups.length > 0 && (
@@ -505,6 +526,14 @@ export function GalleryContent({
               ))}
             </div>
           </section>
+        </div>
+      ) : (
+        <div className="space-y-6">
+          <div className="text-center">
+            <h2 className="text-2xl font-semibold tracking-tight">{tMap("title")}</h2>
+            <p className="mt-2 text-sm text-muted-foreground">{tMap("description")}</p>
+          </div>
+          <WorldMap countryPhotoCounts={countryPhotoCounts} />
         </div>
       )}
     </div>

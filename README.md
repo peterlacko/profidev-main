@@ -5,6 +5,7 @@ Personal travel photography portfolio built with Next.js 16, TypeScript, and Tai
 ## Features
 
 - Photo gallery with filtering by country, region, category, and date
+- Gallery view modes: Filters, Trips, and Map
 - Mobile upload flow integrated into gallery via "Photos from mobile" switch
 - Fullscreen lightbox with keyboard navigation
 - Responsive design with dark mode support
