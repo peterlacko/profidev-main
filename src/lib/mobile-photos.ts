@@ -1,5 +1,6 @@
 import { randomUUID, timingSafeEqual } from "node:crypto"
 import {
+  DeleteObjectsCommand,
   HeadObjectCommand,
   ListObjectsV2Command,
   PutObjectCommand,
@@ -17,6 +18,13 @@ export interface MobilePhoto {
   height: number
   src: string
   r2Key: string
+}
+
+export interface MobileTripSummary {
+  country: string
+  trip: string
+  photosCount: number
+  lastUploadedAt: string
 }
 
 const MOBILE_PUBLISHED_PREFIX = "mobile/published"
@@ -246,4 +254,100 @@ export const listMobilePhotos = async (): Promise<MobilePhoto[]> => {
   )
 
   return photos.sort((a, b) => b.uploadedAt.localeCompare(a.uploadedAt))
+}
+
+export const listMobileTripSummaries = async (): Promise<MobileTripSummary[]> => {
+  const photos = await listMobilePhotos()
+  const grouped = new Map<string, MobileTripSummary>()
+
+  for (const photo of photos) {
+    if (!photo.trip) continue
+
+    const key = `${photo.country}::${photo.trip}`
+    const existing = grouped.get(key)
+
+    if (existing) {
+      existing.photosCount += 1
+      if (photo.uploadedAt > existing.lastUploadedAt) {
+        existing.lastUploadedAt = photo.uploadedAt
+      }
+      continue
+    }
+
+    grouped.set(key, {
+      country: photo.country,
+      trip: photo.trip,
+      photosCount: 1,
+      lastUploadedAt: photo.uploadedAt,
+    })
+  }
+
+  return Array.from(grouped.values()).sort((a, b) => {
+    if (a.lastUploadedAt !== b.lastUploadedAt) {
+      return b.lastUploadedAt.localeCompare(a.lastUploadedAt)
+    }
+    if (a.country !== b.country) return a.country.localeCompare(b.country)
+    return a.trip.localeCompare(b.trip)
+  })
+}
+
+const listObjectKeysByPrefix = async (prefix: string): Promise<string[]> => {
+  const client = getR2Client()
+  const bucket = getBucketName()
+  const keys: string[] = []
+  let continuationToken: string | undefined
+
+  do {
+    const response = await client.send(
+      new ListObjectsV2Command({
+        Bucket: bucket,
+        Prefix: prefix,
+        ContinuationToken: continuationToken,
+      })
+    )
+
+    for (const item of response.Contents ?? []) {
+      if (item.Key) {
+        keys.push(item.Key)
+      }
+    }
+
+    continuationToken = response.IsTruncated ? response.NextContinuationToken : undefined
+  } while (continuationToken)
+
+  return keys
+}
+
+export const deleteMobileTrip = async (country: string, trip: string): Promise<number> => {
+  const normalizedTrip = trip.trim()
+  if (!normalizedTrip) {
+    throw new Error("Trip is required")
+  }
+
+  const countrySegment = sanitizeSegment(country)
+  const tripSegment = sanitizeSegment(normalizedTrip)
+  const prefix = `${MOBILE_PUBLISHED_PREFIX}/${countrySegment}/${tripSegment}/`
+  const keys = await listObjectKeysByPrefix(prefix)
+
+  if (keys.length === 0) return 0
+
+  const client = getR2Client()
+  const bucket = getBucketName()
+  let deleted = 0
+
+  for (let index = 0; index < keys.length; index += 1000) {
+    const chunk = keys.slice(index, index + 1000)
+    await client.send(
+      new DeleteObjectsCommand({
+        Bucket: bucket,
+        Delete: {
+          Objects: chunk.map((key) => ({ Key: key })),
+          Quiet: true,
+        },
+      })
+    )
+    deleted += chunk.length
+  }
+
+  return deleted
 }

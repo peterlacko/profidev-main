@@ -76,6 +76,13 @@
     "photos": "Photos",
     "submit": "Upload photos",
     "uploading": "Uploading...",
+    "manageTripsTitle": "Manage mobile trips",
+    "loadTrips": "Load trips",
+    "loadingTrips": "Loading trips...",
+    "noTripsToManage": "No mobile trips found.",
+    "deleteTrip": "Delete",
+    "tripSummary": "{count} photos",
+    "confirmDeleteTrip": "Delete mobile trip \"{trip}\" in {country}? This cannot be undone.",
     "resultSummary": "{success} / {total} uploaded",
     "status": {
       "pending": "Pending",
@@ -87,7 +94,9 @@
       "tokenRequired": "Upload token is required.",
       "countryRequired": "Country is required.",
       "photoRequired": "Please select at least one photo.",
-      "uploadFailed": "Upload failed."
+      "uploadFailed": "Upload failed.",
+      "listTripsFailed": "Failed to load mobile trips.",
+      "deleteTripFailed": "Failed to delete mobile trip."
     }
   },
   "about": {

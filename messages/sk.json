@@ -76,6 +76,13 @@
     "photos": "Fotky",
     "submit": "Nahrať fotky",
     "uploading": "Nahrávam...",
+    "manageTripsTitle": "Správa mobilných výletov",
+    "loadTrips": "Načítať výlety",
+    "loadingTrips": "Načítavam výlety...",
+    "noTripsToManage": "Nenašli sa žiadne mobilné výlety.",
+    "deleteTrip": "Zmazať",
+    "tripSummary": "{count} fotografií",
+    "confirmDeleteTrip": "Zmazať mobilný výlet \"{trip}\" v krajine {country}? Táto akcia sa nedá vrátiť.",
     "resultSummary": "{success} / {total} nahratých",
     "status": {
       "pending": "Čaká",
@@ -87,7 +94,9 @@
       "tokenRequired": "Upload token je povinný.",
       "countryRequired": "Krajina je povinná.",
       "photoRequired": "Vyberte aspoň jednu fotku.",
-      "uploadFailed": "Nahrávanie zlyhalo."
+      "uploadFailed": "Nahrávanie zlyhalo.",
+      "listTripsFailed": "Mobilné výlety sa nepodarilo načítať.",
+      "deleteTripFailed": "Mobilný výlet sa nepodarilo zmazať."
     }
   },
   "about": {

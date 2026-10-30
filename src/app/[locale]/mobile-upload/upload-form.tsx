@@ -1,7 +1,7 @@
 "use client"
 
 import { useMemo, useState } from "react"
-import { AlertCircle, CheckCircle2, Loader2, Upload } from "lucide-react"
+import { AlertCircle, CheckCircle2, Loader2, Trash2, Upload } from "lucide-react"
 import { useTranslations } from "next-intl"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
@@ -13,7 +13,20 @@ type UploadItem = {
   filename: string
   status: UploadItemStatus
   error?: string
+  originalBytes: number
+  uploadBytes?: number
 }
+
+type MobileTripSummary = {
+  country: string
+  trip: string
+  photosCount: number
+  lastUploadedAt: string
+}
+
+const CLIENT_MAX_WIDTH = 2560
+const CLIENT_MAX_HEIGHT = 1440
+const CLIENT_JPEG_QUALITY = 0.86
 
 const fileInputClasses = cn(
   "w-full rounded-md border bg-background px-4 py-2 text-sm",
@@ -21,11 +34,20 @@ const fileInputClasses = cn(
   "placeholder:text-muted-foreground"
 )
 
-const createUploadItem = (filename: string): UploadItem => ({
-  id: `${Date.now()}-${filename}-${Math.random()}`,
-  filename,
+const createUploadItem = (file: File): UploadItem => ({
+  id: `${Date.now()}-${file.name}-${Math.random()}`,
+  filename: file.name,
   status: "pending",
+  originalBytes: file.size,
 })
+
+const formatBytes = (bytes: number): string => {
+  if (!Number.isFinite(bytes) || bytes < 0) return "0 B"
+  if (bytes < 1024) return `${bytes} B`
+  const kb = bytes / 1024
+  if (kb < 1024) return `${kb.toFixed(1)} KB`
+  return `${(kb / 1024).toFixed(1)} MB`
+}
 
 const extractErrorMessage = async (
   response: Response,
@@ -44,6 +66,46 @@ const extractErrorMessage = async (
   return raw
 }
 
+const resizeForMobileUpload = async (file: File): Promise<File> => {
+  if (!file.type.startsWith("image/")) return file
+  if (file.type === "image/heic" || file.type === "image/heif") return file
+
+  try {
+    const bitmap = await createImageBitmap(file)
+    const scale = Math.min(
+      1,
+      CLIENT_MAX_WIDTH / bitmap.width,
+      CLIENT_MAX_HEIGHT / bitmap.height
+    )
+
+    const targetWidth = Math.max(1, Math.round(bitmap.width * scale))
+    const targetHeight = Math.max(1, Math.round(bitmap.height * scale))
+
+    const canvas = document.createElement("canvas")
+    canvas.width = targetWidth
+    canvas.height = targetHeight
+
+    const context = canvas.getContext("2d")
+    if (!context) {
+      bitmap.close()
+      return file
+    }
+
+    context.drawImage(bitmap, 0, 0, targetWidth, targetHeight)
+    bitmap.close()
+
+    const outputBlob = await new Promise<Blob | null>((resolve) =>
+      canvas.toBlob(resolve, "image/jpeg", CLIENT_JPEG_QUALITY)
+    )
+    if (!outputBlob) return file
+
+    const outputName = file.name.replace(/\.[^/.]+$/, "") || "mobile-photo"
+    return new File([outputBlob], `${outputName}.jpg`, { type: "image/jpeg" })
+  } catch {
+    return file
+  }
+}
+
 export function UploadForm() {
   const t = useTranslations("mobileUpload")
   const [token, setToken] = useState("")
@@ -53,6 +115,10 @@ export function UploadForm() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [items, setItems] = useState<UploadItem[]>([])
   const [globalError, setGlobalError] = useState<string | null>(null)
+  const [mobileTrips, setMobileTrips] = useState<MobileTripSummary[]>([])
+  const [tripsLoading, setTripsLoading] = useState(false)
+  const [tripsError, setTripsError] = useState<string | null>(null)
+  const [deletingTripKey, setDeletingTripKey] = useState<string | null>(null)
 
   const successCount = useMemo(
     () => items.filter((item) => item.status === "success").length,
@@ -71,6 +137,103 @@ export function UploadForm() {
           : item
       )
     )
+  }
+
+  const updateUploadBytes = (id: string, uploadBytes: number) => {
+    setItems((current) =>
+      current.map((item) =>
+        item.id === id
+          ? {
+              ...item,
+              uploadBytes,
+            }
+          : item
+      )
+    )
+  }
+
+  const loadMobileTrips = async () => {
+    if (!token.trim()) {
+      setTripsError(t("errors.tokenRequired"))
+      return
+    }
+
+    setTripsLoading(true)
+    setTripsError(null)
+    try {
+      const response = await fetch("/api/mobile-photos/trips", {
+        method: "GET",
+        headers: {
+          "x-mobile-upload-token": token.trim(),
+        },
+      })
+
+      if (!response.ok) {
+        const errorMessage = await extractErrorMessage(
+          response,
+          t("errors.listTripsFailed")
+        )
+        throw new Error(errorMessage)
+      }
+
+      const data = (await response.json()) as { trips?: MobileTripSummary[] }
+      setMobileTrips(data.trips ?? [])
+    } catch (error) {
+      setTripsError(
+        error instanceof Error ? error.message : t("errors.listTripsFailed")
+      )
+    } finally {
+      setTripsLoading(false)
+    }
+  }
+
+  const removeMobileTrip = async (trip: MobileTripSummary) => {
+    if (!token.trim()) {
+      setTripsError(t("errors.tokenRequired"))
+      return
+    }
+
+    const confirmed = window.confirm(
+      t("confirmDeleteTrip", { trip: trip.trip, country: trip.country })
+    )
+    if (!confirmed) return
+
+    const tripKey = `${trip.country}::${trip.trip}`
+    setDeletingTripKey(tripKey)
+    setTripsError(null)
+    try {
+      const response = await fetch("/api/mobile-photos/trips", {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          "x-mobile-upload-token": token.trim(),
+        },
+        body: JSON.stringify({
+          country: trip.country,
+          trip: trip.trip,
+        }),
+      })
+
+      if (!response.ok) {
+        const errorMessage = await extractErrorMessage(
+          response,
+          t("errors.deleteTripFailed")
+        )
+        throw new Error(errorMessage)
+      }
+
+      setMobileTrips((current) =>
+        current.filter(
+          (item) => !(item.country === trip.country && item.trip === trip.trip)
+        )
+      )
+    } catch (error) {
+      setTripsError(
+        error instanceof Error ? error.message : t("errors.deleteTripFailed")
+      )
+    } finally {
+      setDeletingTripKey(null)
+    }
   }
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -95,7 +258,7 @@ export function UploadForm() {
       return
     }
 
-    const nextItems = files.map((file) => createUploadItem(file.name))
+    const nextItems = files.map((file) => createUploadItem(file))
     setItems(nextItems)
     setIsSubmitting(true)
 
@@ -104,8 +267,10 @@ export function UploadForm() {
       const item = nextItems[index]
       updateStatus(item.id, "uploading")
 
+      const preparedFile = await resizeForMobileUpload(file)
+      updateUploadBytes(item.id, preparedFile.size)
       const payload = new FormData()
-      payload.set("file", file)
+      payload.set("file", preparedFile)
       payload.set("country", country.trim())
       payload.set("trip", trip.trim())
       payload.set("caption", caption.trim())
@@ -245,7 +410,13 @@ export function UploadForm() {
           <ul className="space-y-1 text-sm">
             {items.map((item) => (
               <li key={item.id} className="flex items-center justify-between gap-2">
-                <span className="truncate">{item.filename}</span>
+                <div className="min-w-0">
+                  <span className="block truncate">{item.filename}</span>
+                  <span className="text-xs text-muted-foreground">
+                    {formatBytes(item.originalBytes)} →{" "}
+                    {formatBytes(item.uploadBytes ?? item.originalBytes)}
+                  </span>
+                </div>
                 <span className="flex items-center gap-1 text-xs">
                   {item.status === "success" && (
                     <>
@@ -271,6 +442,71 @@ export function UploadForm() {
           </ul>
         </div>
       )}
+
+      <div className="space-y-3 rounded-md border p-3">
+        <div className="flex items-center justify-between gap-2">
+          <p className="text-sm font-medium">{t("manageTripsTitle")}</p>
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            onClick={loadMobileTrips}
+            disabled={tripsLoading}
+          >
+            {tripsLoading ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                {t("loadingTrips")}
+              </>
+            ) : (
+              t("loadTrips")
+            )}
+          </Button>
+        </div>
+
+        {tripsError && (
+          <p className="text-sm text-destructive">{tripsError}</p>
+        )}
+
+        {mobileTrips.length === 0 ? (
+          <p className="text-sm text-muted-foreground">{t("noTripsToManage")}</p>
+        ) : (
+          <ul className="space-y-2 text-sm">
+            {mobileTrips.map((trip) => {
+              const tripKey = `${trip.country}::${trip.trip}`
+              const isDeleting = deletingTripKey === tripKey
+              return (
+                <li key={tripKey} className="flex items-center justify-between gap-2">
+                  <div className="min-w-0">
+                    <p className="truncate font-medium">
+                      {trip.trip} · {trip.country}
+                    </p>
+                    <p className="text-xs text-muted-foreground">
+                      {t("tripSummary", { count: trip.photosCount })}
+                    </p>
+                  </div>
+                  <Button
+                    type="button"
+                    variant="destructive"
+                    size="sm"
+                    onClick={() => void removeMobileTrip(trip)}
+                    disabled={isDeleting}
+                  >
+                    {isDeleting ? (
+                      <Loader2 className="h-4 w-4 animate-spin" />
+                    ) : (
+                      <>
+                        <Trash2 className="mr-1 h-4 w-4" />
+                        {t("deleteTrip")}
+                      </>
+                    )}
+                  </Button>
+                </li>
+              )
+            })}
+          </ul>
+        )}
+      </div>
     </form>
   )
 }
