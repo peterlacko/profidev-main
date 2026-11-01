@@ -1,4 +1,3 @@
-import Script from "next/script"
 import { ArrowRight } from "lucide-react"
 import { getTranslations, setRequestLocale } from "next-intl/server"
 import { Link } from "@/i18n/navigation"
@@ -43,10 +42,9 @@ export default async function Home({
 
   return (
     <div className="flex flex-col">
-      <Script
+      <script
         id={`home-json-ld-${locale}`}
         type="application/ld+json"
-        strategy="beforeInteractive"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
         }}

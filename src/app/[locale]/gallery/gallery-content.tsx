@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useMemo, useState } from "react"
+import { useEffect, useMemo, useRef, useState } from "react"
 import { useSearchParams } from "next/navigation"
 import { ChevronDown, X } from "lucide-react"
 import Image from "next/image"
@@ -56,6 +56,7 @@ const toMobilePhotoWithTrip = (photo: MobileApiPhoto): PhotoWithTrip => ({
   filename: photo.filename,
   categories: [],
   caption: photo.caption || photo.filename,
+  isMobile: true,
   tripId: photo.id,
   tripTitle: photo.trip || "Mobile",
   country: photo.country,
@@ -91,6 +92,7 @@ export function GalleryContent({
   const [selectedMobileTrip, setSelectedMobileTrip] = useState<string | undefined>()
   const [sortBy, setSortBy] = useState<"date" | "country">("date")
   const [countriesDropdownOpen, setCountriesDropdownOpen] = useState(false)
+  const countryDropdownRef = useRef<HTMLDivElement | null>(null)
   const [includeMobilePhotos, setIncludeMobilePhotos] = useState(false)
   const [mobilePhotos, setMobilePhotos] = useState<PhotoWithTrip[]>([])
   const [mobilePhotosLoaded, setMobilePhotosLoaded] = useState(false)
@@ -123,6 +125,22 @@ export function GalleryContent({
 
     void loadMobilePhotos()
   }, [includeMobilePhotos, mobilePhotosLoaded, mobilePhotosLoading, t])
+
+  useEffect(() => {
+    if (!countriesDropdownOpen) return
+
+    const handlePointerDown = (event: MouseEvent) => {
+      const target = event.target
+      if (!(target instanceof Node)) return
+
+      if (countryDropdownRef.current && !countryDropdownRef.current.contains(target)) {
+        setCountriesDropdownOpen(false)
+      }
+    }
+
+    document.addEventListener("pointerdown", handlePointerDown)
+    return () => document.removeEventListener("pointerdown", handlePointerDown)
+  }, [countriesDropdownOpen])
 
   const allPhotos = useMemo(
     () => (includeMobilePhotos ? [...initialPhotos, ...mobilePhotos] : initialPhotos),
@@ -261,39 +279,42 @@ export function GalleryContent({
       {/* View Mode Toggle */}
       <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-center">
         <div className="flex w-full gap-2 rounded-md bg-muted p-1">
-          <Button
-            variant="ghost"
-            size="sm"
+          <button
+            type="button"
             onClick={() => handleViewModeChange("filters")}
             className={cn(
-              "flex-1 rounded-sm px-3",
-              viewMode === "filters" ? "bg-background shadow-sm hover:bg-background" : "text-muted-foreground"
+              "flex-1 cursor-pointer rounded-sm px-3 py-1.5 text-sm font-medium transition-colors",
+              viewMode === "filters"
+                ? "bg-background text-foreground shadow-sm"
+                : "text-muted-foreground hover:bg-muted/80 hover:text-foreground"
             )}
           >
             {t("filterView")}
-          </Button>
-          <Button
-            variant="ghost"
-            size="sm"
+          </button>
+          <button
+            type="button"
             onClick={() => handleViewModeChange("trips")}
             className={cn(
-              "flex-1 rounded-sm px-3",
-              viewMode === "trips" ? "bg-background shadow-sm hover:bg-background" : "text-muted-foreground"
+              "flex-1 cursor-pointer rounded-sm px-3 py-1.5 text-sm font-medium transition-colors",
+              viewMode === "trips"
+                ? "bg-background text-foreground shadow-sm"
+                : "text-muted-foreground hover:bg-muted/80 hover:text-foreground"
             )}
           >
             {t("tripView")}
-          </Button>
-          <Button
-            variant="ghost"
-            size="sm"
+          </button>
+          <button
+            type="button"
             onClick={() => handleViewModeChange("map")}
             className={cn(
-              "flex-1 rounded-sm px-3",
-              viewMode === "map" ? "bg-background shadow-sm hover:bg-background" : "text-muted-foreground"
+              "flex-1 cursor-pointer rounded-sm px-3 py-1.5 text-sm font-medium transition-colors",
+              viewMode === "map"
+                ? "bg-background text-foreground shadow-sm"
+                : "text-muted-foreground hover:bg-muted/80 hover:text-foreground"
             )}
           >
             {t("mapView")}
-          </Button>
+          </button>
         </div>
         <div className="flex items-center justify-between gap-3 rounded-md border border-border bg-card px-3 py-2 sm:ml-auto sm:w-auto sm:min-w-[220px]">
           <span className="text-sm text-muted-foreground">{t("photosFromMobile")}</span>
@@ -336,7 +357,7 @@ export function GalleryContent({
           <div className="mb-8 rounded-lg border bg-card p-4">
             <div className="flex flex-col gap-3 pb-3 md:flex-row md:items-end md:justify-between">
                 {/* Country Filter - dropdown multi-select */}
-                <div className="w-full md:max-w-md">
+                <div className="w-full md:max-w-md" ref={countryDropdownRef}>
                   <label className="mb-1.5 block text-xs font-medium text-muted-foreground">{t("country")}</label>
                   <div className="relative inline-block w-full">
                     <button
@@ -417,7 +438,7 @@ export function GalleryContent({
                       size="sm"
                       onClick={() => setSortBy("date")}
                       className={cn(
-                        "h-8 rounded-sm px-3",
+                        "h-8 cursor-pointer rounded-sm px-3",
                         sortBy === "date" ? "bg-background shadow-sm hover:bg-background" : "text-muted-foreground"
                       )}
                     >
@@ -428,7 +449,7 @@ export function GalleryContent({
                       size="sm"
                       onClick={() => setSortBy("country")}
                       className={cn(
-                        "h-8 rounded-sm px-3",
+                        "h-8 cursor-pointer rounded-sm px-3",
                         sortBy === "country" ? "bg-background shadow-sm hover:bg-background" : "text-muted-foreground"
                       )}
                     >

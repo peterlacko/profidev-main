@@ -11,6 +11,9 @@ interface PhotoGridProps {
   columns?: 2 | 3 | 4;
 }
 
+const shouldHideCaption = (photo: { caption: string; filename: string; isMobile?: boolean }) =>
+  photo.isMobile || !photo.caption || photo.caption === photo.filename
+
 export function PhotoGrid({ photos, columns = 3 }: PhotoGridProps) {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null)
 
@@ -23,28 +26,32 @@ export function PhotoGrid({ photos, columns = 3 }: PhotoGridProps) {
   return (
     <>
       <div className={cn("grid gap-4", gridCols[columns])}>
-        {photos.map((photo, index) => (
-          <button
-            key={`${photo.tripId}-${photo.filename}`}
-            onClick={() => setSelectedIndex(index)}
-            className="group relative aspect-[4/3] overflow-hidden rounded-lg bg-muted focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-          >
-            <Image
-              src={photo.src}
-              alt={photo.caption}
-              fill
-              className="object-cover transition-transform duration-300 group-hover:scale-105"
-              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-            />
-            <div className="absolute inset-0 bg-black/0 transition-colors duration-300 group-hover:bg-black/20" />
-            <div className="absolute inset-x-0 bottom-0 translate-y-full bg-gradient-to-t from-black/80 to-transparent p-4 transition-transform duration-300 group-hover:translate-y-0">
-              <p className="text-sm font-medium text-white">{photo.caption}</p>
-              <p className="text-xs text-white/70">
-                {photo.tripTitle} &middot; {photo.country}
-              </p>
-            </div>
-          </button>
-        ))}
+        {photos.map((photo, index) => {
+          const hideCaption = shouldHideCaption(photo)
+
+          return (
+            <button
+              key={`${photo.tripId}-${photo.filename}`}
+              onClick={() => setSelectedIndex(index)}
+              className="group relative aspect-[4/3] overflow-hidden rounded-lg bg-muted focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+            >
+              <Image
+                src={photo.src}
+                alt={photo.caption}
+                fill
+                className="object-cover transition-transform duration-300 group-hover:scale-105"
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+              />
+              <div className="absolute inset-0 bg-black/0 transition-colors duration-300 group-hover:bg-black/20" />
+              <div className="absolute inset-x-0 bottom-0 translate-y-full bg-gradient-to-t from-black/80 to-transparent p-4 transition-transform duration-300 group-hover:translate-y-0">
+                {!hideCaption && <p className="text-sm font-medium text-white">{photo.caption}</p>}
+                <p className="text-xs text-white/70">
+                  {photo.tripTitle} &middot; {photo.country}
+                </p>
+              </div>
+            </button>
+          )
+        })}
       </div>
 
       <Lightbox

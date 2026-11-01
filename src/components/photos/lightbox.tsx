@@ -102,6 +102,7 @@ export function Lightbox({
 
   const hasPrevious = currentIndex !== null && currentIndex > 0
   const hasNext = currentIndex !== null && currentIndex < photos.length - 1
+  const hideCaption = currentPhoto.isMobile || !currentPhoto.caption || currentPhoto.caption === currentPhoto.filename
 
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
@@ -109,7 +110,7 @@ export function Lightbox({
         className="w-screen h-[100dvh] max-w-none sm:max-w-none max-h-none rounded-none p-0 bg-black border-none overflow-hidden lg:w-[66vw] lg:max-w-[66vw] lg:rounded-lg"
         showCloseButton={false}
       >
-        <DialogTitle className="sr-only">{currentPhoto.caption}</DialogTitle>
+        <DialogTitle className="sr-only">{hideCaption ? currentPhoto.filename : currentPhoto.caption}</DialogTitle>
 
         {/* Image container — fullscreen */}
         <div
@@ -188,7 +189,7 @@ export function Lightbox({
         >
           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
             <div>
-              <h3 className="text-lg font-semibold">{currentPhoto.caption}</h3>
+              {!hideCaption && <h3 className="text-lg font-semibold">{currentPhoto.caption}</h3>}
               <p className="text-sm text-white/70">
                 {currentPhoto.tripTitle} &middot; {currentPhoto.country} &middot;{" "}
                 {currentPhoto.date}

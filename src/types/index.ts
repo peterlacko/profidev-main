@@ -35,6 +35,7 @@ export type PhotoCategory =
 
 export interface PhotoWithTrip extends Omit<Photo, 'caption'> {
   caption: string;
+  isMobile?: boolean;
   tripId: string;
   tripTitle: string;
   country: string;
