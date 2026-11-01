@@ -6,19 +6,17 @@ import { ChevronDown, X } from "lucide-react"
 import Image from "next/image"
 import { useTranslations } from "next-intl"
 import { useRouter, usePathname } from "@/i18n/navigation"
-import type { PhotoWithTrip, PhotoCategory, Trip } from "@/types"
+import type { PhotoWithTrip, Trip } from "@/types"
 import { filterPhotos, getTripCoverSrc } from "@/lib/trips"
 import { PhotoGrid } from "@/components/photos/photo-grid"
 import { TripCard } from "@/components/photos/trip-card"
 import { WorldMap } from "@/components/map/WorldMap"
 import { Button } from "@/components/ui/button"
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
 import { cn } from "@/lib/utils"
 
 interface GalleryContentProps {
   initialPhotos: PhotoWithTrip[]
   countries: string[]
-  categories: PhotoCategory[]
   regionsByCountry: Record<string, string[]>
   trips: Trip[]
   locale: string
@@ -42,10 +40,16 @@ type MobileTripGroup = {
   coverSrc: string
 }
 
-const resolveCountryFromQuery = (queryCountry: string | null, countries: string[]): string | undefined => {
-  if (!queryCountry) return undefined
-  const normalized = queryCountry.toLowerCase()
-  return countries.find((country) => country.toLowerCase() === normalized)
+const resolveCountriesFromQuery = (queryCountries: string[], countries: string[]): string[] => {
+  if (queryCountries.length === 0) return []
+
+  const normalized = new Set(
+    queryCountries
+      .map((country) => country.toLowerCase())
+      .filter(Boolean)
+  )
+
+  return countries.filter((country) => normalized.has(country.toLowerCase()))
 }
 
 const toMobilePhotoWithTrip = (photo: MobileApiPhoto): PhotoWithTrip => ({
@@ -62,14 +66,12 @@ const toMobilePhotoWithTrip = (photo: MobileApiPhoto): PhotoWithTrip => ({
 export function GalleryContent({
   initialPhotos,
   countries,
-  categories,
   regionsByCountry,
   trips,
   locale,
 }: GalleryContentProps) {
   const t = useTranslations("gallery")
   const tMap = useTranslations("map")
-  const tCategories = useTranslations("categories")
   const tCountries = useTranslations("countries")
   const tRegions = useTranslations("regions")
   const router = useRouter()
@@ -82,14 +84,13 @@ export function GalleryContent({
     return "filters"
   }
   const viewMode = resolveViewMode()
-  const [selectedCountry, setSelectedCountry] = useState<string | undefined>(() =>
-    resolveCountryFromQuery(searchParams.get("country"), countries)
+  const [selectedCountries, setSelectedCountries] = useState<string[]>(() =>
+    resolveCountriesFromQuery(searchParams.getAll("country"), countries)
   )
   const [selectedRegion, setSelectedRegion] = useState<string | undefined>()
-  const [selectedCategory, setSelectedCategory] = useState<PhotoCategory | undefined>()
   const [selectedMobileTrip, setSelectedMobileTrip] = useState<string | undefined>()
   const [sortBy, setSortBy] = useState<"date" | "country">("date")
-  const [showAllFilters, setShowAllFilters] = useState(false)
+  const [countriesDropdownOpen, setCountriesDropdownOpen] = useState(false)
   const [includeMobilePhotos, setIncludeMobilePhotos] = useState(false)
   const [mobilePhotos, setMobilePhotos] = useState<PhotoWithTrip[]>([])
   const [mobilePhotosLoaded, setMobilePhotosLoaded] = useState(false)
@@ -134,11 +135,18 @@ export function GalleryContent({
   }, [allPhotos])
 
   const availableRegions = useMemo(() => {
-    if (!selectedCountry) return []
-    return regionsByCountry[selectedCountry] || []
-  }, [selectedCountry, regionsByCountry])
+    if (selectedCountries.length === 0) return []
 
-  const showRegionFilter = selectedCountry && availableRegions.length > 0
+    const regions = new Set<string>()
+    selectedCountries.forEach((country) => {
+      const countryRegions = regionsByCountry[country] || []
+      countryRegions.forEach((region) => regions.add(region))
+    })
+
+    return Array.from(regions).sort()
+  }, [selectedCountries, regionsByCountry])
+
+  const showRegionFilter = selectedCountries.length > 0 && availableRegions.length > 0
 
   const mobileTripGroups = useMemo(() => {
     if (!includeMobilePhotos) return []
@@ -176,30 +184,32 @@ export function GalleryContent({
     }, {})
   }, [allPhotos])
 
-  const updateCountryParam = (country: string | undefined) => {
+  const updateCountryParam = (countries: string[]) => {
     const params = new URLSearchParams(searchParams.toString())
+    params.delete("country")
 
-    if (country) {
-      params.set("country", country.toLowerCase())
-    } else {
-      params.delete("country")
-    }
+    countries.forEach((country) => {
+      params.append("country", country.toLowerCase())
+    })
 
     const queryString = params.toString()
     router.replace(queryString ? `${pathname}?${queryString}` : pathname, { scroll: false })
   }
 
-  const handleCountryChange = (country: string | undefined) => {
-    setSelectedCountry(country)
+  const handleCountryToggle = (country: string) => {
+    const nextCountries = selectedCountries.includes(country)
+      ? selectedCountries.filter((selectedCountry) => selectedCountry !== country)
+      : [...selectedCountries, country]
+
+    setSelectedCountries(nextCountries)
     setSelectedRegion(undefined)
-    updateCountryParam(country)
+    updateCountryParam(nextCountries)
   }
 
   const filteredPhotos = useMemo(() => {
     let result = filterPhotos(allPhotos, {
-      country: selectedCountry,
+      countries: selectedCountries,
       region: selectedRegion,
-      category: selectedCategory,
       sortBy,
     })
 
@@ -208,16 +218,15 @@ export function GalleryContent({
     }
 
     return result
-  }, [allPhotos, selectedCountry, selectedRegion, selectedCategory, sortBy, selectedMobileTrip])
+  }, [allPhotos, selectedCountries, selectedRegion, sortBy, selectedMobileTrip])
 
-  const hasActiveFilters = selectedCountry || selectedRegion || selectedCategory || selectedMobileTrip
+  const hasActiveFilters = selectedCountries.length > 0 || selectedRegion || selectedMobileTrip
 
   const clearFilters = () => {
-    setSelectedCountry(undefined)
+    setSelectedCountries([])
     setSelectedRegion(undefined)
-    setSelectedCategory(undefined)
     setSelectedMobileTrip(undefined)
-    updateCountryParam(undefined)
+    updateCountryParam([])
   }
 
   const handleViewModeChange = (mode: "filters" | "trips" | "map") => {
@@ -234,41 +243,59 @@ export function GalleryContent({
   const handleMobileTripOpen = (tripTitle: string) => {
     setIncludeMobilePhotos(true)
     setSelectedMobileTrip(tripTitle)
-    setSelectedCountry(undefined)
+    setSelectedCountries([])
     setSelectedRegion(undefined)
-    setSelectedCategory(undefined)
-    updateCountryParam(undefined)
+    updateCountryParam([])
     handleViewModeChange("filters")
   }
+
+  const countryFilterLabel =
+    selectedCountries.length === 0
+      ? t("allCountries")
+      : selectedCountries.length === 1
+        ? tCountries(selectedCountries[0])
+        : `${selectedCountries.length} ${t("countriesSelected")}`
 
   return (
     <div>
       {/* View Mode Toggle */}
-      <div className="mb-4 flex flex-wrap items-center gap-2">
-        <div className="flex gap-2">
+      <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-center">
+        <div className="flex w-full gap-2 rounded-md bg-muted p-1">
           <Button
-            variant={viewMode === "filters" ? "default" : "outline"}
+            variant="ghost"
             size="sm"
             onClick={() => handleViewModeChange("filters")}
+            className={cn(
+              "flex-1 rounded-sm px-3",
+              viewMode === "filters" ? "bg-background shadow-sm hover:bg-background" : "text-muted-foreground"
+            )}
           >
             {t("filterView")}
           </Button>
           <Button
-            variant={viewMode === "trips" ? "default" : "outline"}
+            variant="ghost"
             size="sm"
             onClick={() => handleViewModeChange("trips")}
+            className={cn(
+              "flex-1 rounded-sm px-3",
+              viewMode === "trips" ? "bg-background shadow-sm hover:bg-background" : "text-muted-foreground"
+            )}
           >
             {t("tripView")}
           </Button>
           <Button
-            variant={viewMode === "map" ? "default" : "outline"}
+            variant="ghost"
             size="sm"
             onClick={() => handleViewModeChange("map")}
+            className={cn(
+              "flex-1 rounded-sm px-3",
+              viewMode === "map" ? "bg-background shadow-sm hover:bg-background" : "text-muted-foreground"
+            )}
           >
             {t("mapView")}
           </Button>
         </div>
-        <div className="ml-auto flex items-center gap-3">
+        <div className="flex items-center justify-between gap-3 rounded-md border border-border bg-card px-3 py-2 sm:ml-auto sm:w-auto sm:min-w-[220px]">
           <span className="text-sm text-muted-foreground">{t("photosFromMobile")}</span>
           <button
             type="button"
@@ -307,33 +334,111 @@ export function GalleryContent({
         <>
           {/* Filters */}
           <div className="mb-8 rounded-lg border bg-card p-4">
-            <Collapsible open={showAllFilters} onOpenChange={setShowAllFilters}>
-              {/* Country Filter - Always visible */}
-              <div className="pb-3">
-                <div className="flex flex-wrap gap-1.5">
-                  <Button
-                    variant={!selectedCountry ? "default" : "outline"}
-                    size="sm"
-                    onClick={() => handleCountryChange(undefined)}
-                    className={cn(!selectedCountry ? "" : "border-border")}
-                  >
-                    {t("allCountries")}
-                  </Button>
-                  {availableCountries.map((country) => (
-                    <Button
-                      key={country}
-                      variant={selectedCountry === country ? "default" : "outline"}
-                      size="sm"
-                      onClick={() => handleCountryChange(country)}
-                      className={cn(selectedCountry === country ? "" : "border-border")}
+            <div className="flex flex-col gap-3 pb-3 md:flex-row md:items-end md:justify-between">
+                {/* Country Filter - dropdown multi-select */}
+                <div className="w-full md:max-w-md">
+                  <label className="mb-1.5 block text-xs font-medium text-muted-foreground">{t("country")}</label>
+                  <div className="relative inline-block w-full">
+                    <button
+                      type="button"
+                      onClick={() => setCountriesDropdownOpen((open) => !open)}
+                      className="flex w-full items-center justify-between rounded-md border border-border bg-background px-3 py-2 text-left text-sm"
                     >
-                      {tCountries(country)}
-                    </Button>
-                  ))}
-                </div>
-              </div>
+                      <span className="truncate">{countryFilterLabel}</span>
+                      <ChevronDown className={cn("h-4 w-4 shrink-0 transition-transform", countriesDropdownOpen && "rotate-180")} />
+                    </button>
 
-              <CollapsibleContent className="space-y-3">
+                    {countriesDropdownOpen && (
+                      <div className="absolute z-20 mt-1 w-full rounded-md border border-border bg-popover p-2 shadow-lg">
+                        <div className="mb-2 flex items-center justify-between gap-2 border-b border-border/50 pb-2">
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setSelectedCountries([])
+                              setSelectedRegion(undefined)
+                              updateCountryParam([])
+                            }}
+                            className="text-xs text-muted-foreground hover:text-foreground"
+                          >
+                            {t("allCountries")}
+                          </button>
+                          {selectedCountries.length > 0 && (
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setSelectedCountries([])
+                                setSelectedRegion(undefined)
+                                updateCountryParam([])
+                                setCountriesDropdownOpen(false)
+                              }}
+                              className="text-xs font-medium text-primary"
+                            >
+                              {t("clearFilters")}
+                            </button>
+                          )}
+                        </div>
+
+                        <div className="max-h-64 space-y-1 overflow-y-auto">
+                          {availableCountries.map((country) => {
+                            const checked = selectedCountries.includes(country)
+
+                            return (
+                              <label
+                                key={country}
+                                className={cn(
+                                  "flex cursor-pointer items-center gap-2 rounded-md px-2 py-1.5 text-sm hover:bg-accent",
+                                  checked && "bg-accent/40"
+                                )}
+                              >
+                                <input
+                                  type="checkbox"
+                                  checked={checked}
+                                  onChange={() => {
+                                    handleCountryToggle(country)
+                                  }}
+                                  className="h-4 w-4 rounded border-border text-primary"
+                                />
+                                <span>{tCountries(country)}</span>
+                              </label>
+                            )
+                          })}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                {/* Sort */}
+                <div>
+                  <label className="mb-1.5 block text-xs font-medium text-muted-foreground">{t("sortBy")}</label>
+                  <div className="inline-flex rounded-md bg-muted p-1">
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => setSortBy("date")}
+                      className={cn(
+                        "h-8 rounded-sm px-3",
+                        sortBy === "date" ? "bg-background shadow-sm hover:bg-background" : "text-muted-foreground"
+                      )}
+                    >
+                      {t("date")}
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => setSortBy("country")}
+                      className={cn(
+                        "h-8 rounded-sm px-3",
+                        sortBy === "country" ? "bg-background shadow-sm hover:bg-background" : "text-muted-foreground"
+                      )}
+                    >
+                      {t("country")}
+                    </Button>
+                  </div>
+                </div>
+            </div>
+
+            <div className="space-y-3">
                 {/* Region Filter - only show when country selected and has regions */}
                 {showRegionFilter && (
                   <div className="border-t border-border/50 pt-3">
@@ -362,73 +467,24 @@ export function GalleryContent({
                   </div>
                 )}
 
-                {/* Category Filter */}
-                <div className="border-t border-border/50 pt-3">
-                  <label className="mb-1.5 block text-xs font-medium text-muted-foreground">{t("category")}</label>
-                  <div className="flex flex-wrap gap-1.5">
-                    <Button
-                      variant={!selectedCategory ? "default" : "outline"}
-                      size="sm"
-                      onClick={() => setSelectedCategory(undefined)}
-                      className={cn(!selectedCategory ? "" : "border-border")}
-                    >
-                      {t("all")}
-                    </Button>
-                    {categories.map((category) => (
+                {selectedMobileTrip && (
+                  <div className="border-t border-border/50 pt-3">
+                    <label className="mb-1.5 block text-xs font-medium text-muted-foreground">
+                      {t("mobileTripFilter")}
+                    </label>
+                    <div className="flex flex-wrap gap-1.5">
                       <Button
-                        key={category}
-                        variant={selectedCategory === category ? "default" : "outline"}
+                        variant="default"
                         size="sm"
-                        onClick={() => setSelectedCategory(category)}
-                        className={cn(selectedCategory === category ? "" : "border-border")}
+                        onClick={() => setSelectedMobileTrip(undefined)}
+                        className="gap-2"
                       >
-                        {tCategories(category)}
+                        {selectedMobileTrip}
+                        <X className="h-4 w-4" />
                       </Button>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Sort */}
-                <div className="border-t border-border/50 pt-3">
-                  <label className="mb-1.5 block text-xs font-medium text-muted-foreground">{t("sortBy")}</label>
-                  <div className="flex gap-1.5">
-                    <Button
-                      variant={sortBy === "date" ? "default" : "outline"}
-                      size="sm"
-                      onClick={() => setSortBy("date")}
-                      className={cn(sortBy === "date" ? "" : "border-border")}
-                    >
-                      {t("date")}
-                    </Button>
-                    <Button
-                      variant={sortBy === "country" ? "default" : "outline"}
-                      size="sm"
-                      onClick={() => setSortBy("country")}
-                      className={cn(sortBy === "country" ? "" : "border-border")}
-                    >
-                      {t("country")}
-                    </Button>
-                  </div>
-
-                  {selectedMobileTrip && (
-                    <div className="border-t border-border/50 pt-3">
-                      <label className="mb-1.5 block text-xs font-medium text-muted-foreground">
-                        {t("mobileTripFilter")}
-                      </label>
-                      <div className="flex flex-wrap gap-1.5">
-                        <Button
-                          variant="default"
-                          size="sm"
-                          onClick={() => setSelectedMobileTrip(undefined)}
-                          className="gap-2"
-                        >
-                          {selectedMobileTrip}
-                          <X className="h-4 w-4" />
-                        </Button>
-                      </div>
                     </div>
-                  )}
-                </div>
+                  </div>
+                )}
 
                 {/* Clear Filters */}
                 {hasActiveFilters && (
@@ -444,19 +500,7 @@ export function GalleryContent({
                     </Button>
                   </div>
                 )}
-              </CollapsibleContent>
-
-              {/* Toggle at bottom */}
-              <CollapsibleTrigger asChild>
-                <Button variant="ghost" size="sm" className="mt-3 w-full justify-center gap-2 text-muted-foreground">
-                  {showAllFilters ? t("showLessFilters") : t("showAllFilters")}
-                  <ChevronDown className={cn(
-                    "h-4 w-4 transition-transform duration-200",
-                    showAllFilters && "rotate-180"
-                  )} />
-                </Button>
-              </CollapsibleTrigger>
-            </Collapsible>
+            </div>
           </div>
 
           {/* Results count */}

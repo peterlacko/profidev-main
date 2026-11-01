@@ -48,6 +48,7 @@
     "date": "Date",
     "all": "All",
     "allCountries": "All Countries",
+    "countriesSelected": "countries selected",
     "clearFilters": "Clear filters",
     "showAllFilters": "Show all filters",
     "showLessFilters": "Show less filters",

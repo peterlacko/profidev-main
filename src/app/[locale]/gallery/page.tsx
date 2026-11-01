@@ -2,7 +2,7 @@ import type { Metadata } from "next"
 import { Suspense } from "react"
 import { getTranslations, setRequestLocale } from "next-intl/server"
 import { GalleryContent } from "./gallery-content"
-import { getAllPhotosWithTrip, getAllCountries, getAllCategories, getRegionsByCountry, getAllTrips } from "@/lib/trips"
+import { getAllPhotosWithTrip, getAllCountries, getRegionsByCountry, getAllTrips } from "@/lib/trips"
 import type { Locale } from "@/i18n/routing"
 
 export async function generateMetadata({
@@ -29,7 +29,6 @@ export default async function GalleryPage({
   const t = await getTranslations("gallery")
   const photos = getAllPhotosWithTrip(locale as Locale)
   const countries = getAllCountries()
-  const categories = getAllCategories()
   const regionsByCountry = getRegionsByCountry()
   const trips = getAllTrips().sort((a, b) => {
     const dateA = new Date(a.date)
@@ -52,7 +51,6 @@ export default async function GalleryPage({
           <GalleryContent
             initialPhotos={photos}
             countries={countries}
-            categories={categories}
             regionsByCountry={regionsByCountry}
             trips={trips}
             locale={locale}

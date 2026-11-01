@@ -161,6 +161,7 @@ export function filterPhotos(
   photos: PhotoWithTrip[],
   filters: {
     country?: string
+    countries?: string[]
     region?: string
     category?: PhotoCategory
     sortBy?: "date" | "country"
@@ -168,7 +169,9 @@ export function filterPhotos(
 ): PhotoWithTrip[] {
   let filtered = [...photos]
 
-  if (filters.country) {
+  if (filters.countries && filters.countries.length > 0) {
+    filtered = filtered.filter((p) => filters.countries!.includes(p.country))
+  } else if (filters.country) {
     filtered = filtered.filter((p) => p.country === filters.country)
   }
 
