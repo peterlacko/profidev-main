@@ -163,6 +163,7 @@ export function filterPhotos(
     country?: string
     countries?: string[]
     region?: string
+    regions?: string[]
     category?: PhotoCategory
     sortBy?: "date" | "country"
   }
@@ -175,7 +176,9 @@ export function filterPhotos(
     filtered = filtered.filter((p) => p.country === filters.country)
   }
 
-  if (filters.region) {
+  if (filters.regions && filters.regions.length > 0) {
+    filtered = filtered.filter((p) => p.region && filters.regions!.includes(p.region))
+  } else if (filters.region) {
     filtered = filtered.filter((p) => p.region === filters.region)
   }
 

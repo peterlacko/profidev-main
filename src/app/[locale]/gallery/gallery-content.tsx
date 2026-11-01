@@ -88,11 +88,12 @@ export function GalleryContent({
   const [selectedCountries, setSelectedCountries] = useState<string[]>(() =>
     resolveCountriesFromQuery(searchParams.getAll("country"), countries)
   )
-  const [selectedRegion, setSelectedRegion] = useState<string | undefined>()
+  const [selectedRegions, setSelectedRegions] = useState<string[]>([])
   const [selectedMobileTrip, setSelectedMobileTrip] = useState<string | undefined>()
-  const [sortBy, setSortBy] = useState<"date" | "country">("date")
   const [countriesDropdownOpen, setCountriesDropdownOpen] = useState(false)
+  const [regionsDropdownOpen, setRegionsDropdownOpen] = useState(false)
   const countryDropdownRef = useRef<HTMLDivElement | null>(null)
+  const regionDropdownRef = useRef<HTMLDivElement | null>(null)
   const [includeMobilePhotos, setIncludeMobilePhotos] = useState(false)
   const [mobilePhotos, setMobilePhotos] = useState<PhotoWithTrip[]>([])
   const [mobilePhotosLoaded, setMobilePhotosLoaded] = useState(false)
@@ -127,7 +128,7 @@ export function GalleryContent({
   }, [includeMobilePhotos, mobilePhotosLoaded, mobilePhotosLoading, t])
 
   useEffect(() => {
-    if (!countriesDropdownOpen) return
+    if (!countriesDropdownOpen && !regionsDropdownOpen) return
 
     const handlePointerDown = (event: MouseEvent) => {
       const target = event.target
@@ -136,11 +137,14 @@ export function GalleryContent({
       if (countryDropdownRef.current && !countryDropdownRef.current.contains(target)) {
         setCountriesDropdownOpen(false)
       }
+      if (regionDropdownRef.current && !regionDropdownRef.current.contains(target)) {
+        setRegionsDropdownOpen(false)
+      }
     }
 
     document.addEventListener("pointerdown", handlePointerDown)
     return () => document.removeEventListener("pointerdown", handlePointerDown)
-  }, [countriesDropdownOpen])
+  }, [countriesDropdownOpen, regionsDropdownOpen])
 
   const allPhotos = useMemo(
     () => (includeMobilePhotos ? [...initialPhotos, ...mobilePhotos] : initialPhotos),
@@ -219,16 +223,31 @@ export function GalleryContent({
       ? selectedCountries.filter((selectedCountry) => selectedCountry !== country)
       : [...selectedCountries, country]
 
+    const nextAvailableRegions = new Set<string>()
+    nextCountries.forEach((selectedCountry) => {
+      const countryRegions = regionsByCountry[selectedCountry] || []
+      countryRegions.forEach((region) => nextAvailableRegions.add(region))
+    })
+
     setSelectedCountries(nextCountries)
-    setSelectedRegion(undefined)
+    setSelectedRegions((current) =>
+      current.filter((region) => nextAvailableRegions.has(region))
+    )
     updateCountryParam(nextCountries)
+  }
+
+  const handleRegionToggle = (region: string) => {
+    setSelectedRegions((current) =>
+      current.includes(region)
+        ? current.filter((selectedRegion) => selectedRegion !== region)
+        : [...current, region]
+    )
   }
 
   const filteredPhotos = useMemo(() => {
     let result = filterPhotos(allPhotos, {
       countries: selectedCountries,
-      region: selectedRegion,
-      sortBy,
+      regions: selectedRegions,
     })
 
     if (selectedMobileTrip) {
@@ -236,13 +255,50 @@ export function GalleryContent({
     }
 
     return result
-  }, [allPhotos, selectedCountries, selectedRegion, sortBy, selectedMobileTrip])
+  }, [allPhotos, selectedCountries, selectedRegions, selectedMobileTrip])
 
-  const hasActiveFilters = selectedCountries.length > 0 || selectedRegion || selectedMobileTrip
+  const groupedPhotosByCountry = useMemo(() => {
+    const grouped = new Map<string, PhotoWithTrip[]>()
+
+    for (const photo of filteredPhotos) {
+      const countryPhotos = grouped.get(photo.country)
+      if (countryPhotos) {
+        countryPhotos.push(photo)
+      } else {
+        grouped.set(photo.country, [photo])
+      }
+    }
+
+    const countries = Array.from(grouped.keys()).sort((countryA, countryB) => {
+      const oldestA = grouped
+        .get(countryA)!
+        .reduce((oldest, photo) => (photo.date < oldest ? photo.date : oldest), "9999-99-99")
+      const oldestB = grouped
+        .get(countryB)!
+        .reduce((oldest, photo) => (photo.date < oldest ? photo.date : oldest), "9999-99-99")
+      if (oldestA !== oldestB) return oldestA.localeCompare(oldestB)
+
+      return countryA.localeCompare(countryB)
+    })
+
+    return countries.map((country) => ({
+      country,
+      photos: [...(grouped.get(country) ?? [])].sort((photoA, photoB) => {
+        if (photoA.date !== photoB.date) return photoA.date.localeCompare(photoB.date)
+        if (photoA.tripTitle !== photoB.tripTitle) {
+          return photoA.tripTitle.localeCompare(photoB.tripTitle)
+        }
+        return photoA.filename.localeCompare(photoB.filename)
+      }),
+    }))
+  }, [filteredPhotos])
+
+  const hasActiveFilters =
+    selectedCountries.length > 0 || selectedRegions.length > 0 || selectedMobileTrip
 
   const clearFilters = () => {
     setSelectedCountries([])
-    setSelectedRegion(undefined)
+    setSelectedRegions([])
     setSelectedMobileTrip(undefined)
     updateCountryParam([])
   }
@@ -262,7 +318,7 @@ export function GalleryContent({
     setIncludeMobilePhotos(true)
     setSelectedMobileTrip(tripTitle)
     setSelectedCountries([])
-    setSelectedRegion(undefined)
+    setSelectedRegions([])
     updateCountryParam([])
     handleViewModeChange("filters")
   }
@@ -273,6 +329,13 @@ export function GalleryContent({
       : selectedCountries.length === 1
         ? tCountries(selectedCountries[0])
         : `${selectedCountries.length} ${t("countriesSelected")}`
+
+  const regionFilterLabel =
+    selectedRegions.length === 0
+      ? t("all")
+      : selectedRegions.length === 1
+        ? tRegions(selectedRegions[0])
+        : `${selectedRegions.length} ${t("regionsSelected")}`
 
   return (
     <div>
@@ -355,10 +418,13 @@ export function GalleryContent({
         <>
           {/* Filters */}
           <div className="mb-8 rounded-lg border bg-card p-4">
-            <div className="flex flex-col gap-3 pb-3 md:flex-row md:items-end md:justify-between">
+            <div className="flex flex-col gap-3 pb-3">
+              <div className="grid w-full gap-3 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_auto] md:items-end">
                 {/* Country Filter - dropdown multi-select */}
-                <div className="w-full md:max-w-md" ref={countryDropdownRef}>
-                  <label className="mb-1.5 block text-xs font-medium text-muted-foreground">{t("country")}</label>
+                <div className="w-full" ref={countryDropdownRef}>
+                  <label className="mb-1.5 block text-xs font-medium text-muted-foreground">
+                    {t("country")}
+                  </label>
                   <div className="relative inline-block w-full">
                     <button
                       type="button"
@@ -366,7 +432,12 @@ export function GalleryContent({
                       className="flex w-full items-center justify-between rounded-md border border-border bg-background px-3 py-2 text-left text-sm"
                     >
                       <span className="truncate">{countryFilterLabel}</span>
-                      <ChevronDown className={cn("h-4 w-4 shrink-0 transition-transform", countriesDropdownOpen && "rotate-180")} />
+                      <ChevronDown
+                        className={cn(
+                          "h-4 w-4 shrink-0 transition-transform",
+                          countriesDropdownOpen && "rotate-180"
+                        )}
+                      />
                     </button>
 
                     {countriesDropdownOpen && (
@@ -376,7 +447,7 @@ export function GalleryContent({
                             type="button"
                             onClick={() => {
                               setSelectedCountries([])
-                              setSelectedRegion(undefined)
+                              setSelectedRegions([])
                               updateCountryParam([])
                             }}
                             className="text-xs text-muted-foreground hover:text-foreground"
@@ -388,7 +459,7 @@ export function GalleryContent({
                               type="button"
                               onClick={() => {
                                 setSelectedCountries([])
-                                setSelectedRegion(undefined)
+                                setSelectedRegions([])
                                 updateCountryParam([])
                                 setCountriesDropdownOpen(false)
                               }}
@@ -429,65 +500,103 @@ export function GalleryContent({
                   </div>
                 </div>
 
-                {/* Sort */}
-                <div>
-                  <label className="mb-1.5 block text-xs font-medium text-muted-foreground">{t("sortBy")}</label>
-                  <div className="inline-flex rounded-md bg-muted p-1">
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => setSortBy("date")}
+                {/* Region Filter - dropdown multi-select */}
+                <div className="w-full" ref={regionDropdownRef}>
+                  <label className="mb-1.5 block text-xs font-medium text-muted-foreground">
+                    {t("region")}
+                  </label>
+                  <div className="relative inline-block w-full">
+                    <button
+                      type="button"
+                      onClick={() => setRegionsDropdownOpen((open) => !open)}
+                      disabled={!showRegionFilter}
                       className={cn(
-                        "h-8 cursor-pointer rounded-sm px-3",
-                        sortBy === "date" ? "bg-background shadow-sm hover:bg-background" : "text-muted-foreground"
+                        "flex w-full items-center justify-between rounded-md border border-border bg-background px-3 py-2 text-left text-sm",
+                        !showRegionFilter && "cursor-not-allowed opacity-60"
                       )}
                     >
-                      {t("date")}
-                    </Button>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => setSortBy("country")}
-                      className={cn(
-                        "h-8 cursor-pointer rounded-sm px-3",
-                        sortBy === "country" ? "bg-background shadow-sm hover:bg-background" : "text-muted-foreground"
-                      )}
-                    >
-                      {t("country")}
-                    </Button>
+                      <span className="truncate">{regionFilterLabel}</span>
+                      <ChevronDown
+                        className={cn(
+                          "h-4 w-4 shrink-0 transition-transform",
+                          regionsDropdownOpen && "rotate-180"
+                        )}
+                      />
+                    </button>
+
+                    {regionsDropdownOpen && showRegionFilter && (
+                      <div className="absolute z-20 mt-1 w-full rounded-md border border-border bg-popover p-2 shadow-lg">
+                        <div className="mb-2 flex items-center justify-between gap-2 border-b border-border/50 pb-2">
+                          <button
+                            type="button"
+                            onClick={() => setSelectedRegions([])}
+                            className="text-xs text-muted-foreground hover:text-foreground"
+                          >
+                            {t("all")}
+                          </button>
+                          {selectedRegions.length > 0 && (
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setSelectedRegions([])
+                                setRegionsDropdownOpen(false)
+                              }}
+                              className="text-xs font-medium text-primary"
+                            >
+                              {t("clearFilters")}
+                            </button>
+                          )}
+                        </div>
+
+                        <div className="max-h-64 space-y-1 overflow-y-auto">
+                          {availableRegions.map((region) => {
+                            const checked = selectedRegions.includes(region)
+
+                            return (
+                              <label
+                                key={region}
+                                className={cn(
+                                  "flex cursor-pointer items-center gap-2 rounded-md px-2 py-1.5 text-sm hover:bg-accent",
+                                  checked && "bg-accent/40"
+                                )}
+                              >
+                                <input
+                                  type="checkbox"
+                                  checked={checked}
+                                  onChange={() => {
+                                    handleRegionToggle(region)
+                                  }}
+                                  className="h-4 w-4 rounded border-border text-primary"
+                                />
+                                <span>{tRegions(region)}</span>
+                              </label>
+                            )
+                          })}
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </div>
+
+                <div className="w-full md:w-auto">
+                  <span className="mb-1.5 block text-xs font-medium text-muted-foreground">
+                    &nbsp;
+                  </span>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={clearFilters}
+                    disabled={!hasActiveFilters}
+                    className="w-full md:w-auto"
+                  >
+                    {t("clearFilters")}
+                  </Button>
+                </div>
+              </div>
+
             </div>
 
             <div className="space-y-3">
-                {/* Region Filter - only show when country selected and has regions */}
-                {showRegionFilter && (
-                  <div className="border-t border-border/50 pt-3">
-                    <label className="mb-1.5 block text-xs font-medium text-muted-foreground">{t("region")}</label>
-                    <div className="flex flex-wrap gap-1.5">
-                      <Button
-                        variant={!selectedRegion ? "default" : "outline"}
-                        size="sm"
-                        onClick={() => setSelectedRegion(undefined)}
-                        className={cn(!selectedRegion ? "" : "border-border")}
-                      >
-                        {t("all")}
-                      </Button>
-                      {availableRegions.map((region) => (
-                        <Button
-                          key={region}
-                          variant={selectedRegion === region ? "default" : "outline"}
-                          size="sm"
-                          onClick={() => setSelectedRegion(region)}
-                          className={cn(selectedRegion === region ? "" : "border-border")}
-                        >
-                          {tRegions(region)}
-                        </Button>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
                 {selectedMobileTrip && (
                   <div className="border-t border-border/50 pt-3">
                     <label className="mb-1.5 block text-xs font-medium text-muted-foreground">
@@ -507,20 +616,6 @@ export function GalleryContent({
                   </div>
                 )}
 
-                {/* Clear Filters */}
-                {hasActiveFilters && (
-                  <div className="border-t border-border/50 pt-3">
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={clearFilters}
-                      className="gap-2"
-                    >
-                      <X className="h-4 w-4" />
-                      {t("clearFilters")}
-                    </Button>
-                  </div>
-                )}
             </div>
           </div>
 
@@ -535,7 +630,16 @@ export function GalleryContent({
 
           {/* Photo Grid */}
           {filteredPhotos.length > 0 ? (
-            <PhotoGrid photos={filteredPhotos} columns={3} />
+            <div className="space-y-8">
+              {groupedPhotosByCountry.map(({ country, photos }) => (
+                <section key={country} className="space-y-3">
+                  <h2 className="text-lg font-semibold tracking-tight md:text-xl">
+                    {tCountries(country)}
+                  </h2>
+                  <PhotoGrid photos={photos} columns={3} />
+                </section>
+              ))}
+            </div>
           ) : (
             <div className="py-16 text-center">
               <p className="text-muted-foreground">{t("noPhotos")}</p>
