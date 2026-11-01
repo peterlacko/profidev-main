@@ -79,6 +79,7 @@ export async function POST(request: Request) {
 
     const trip = getStringValue(formData.get("trip")) || undefined
     const caption = getStringValue(formData.get("caption")) || undefined
+    const uploadBatchId = getStringValue(formData.get("uploadBatchId")) || undefined
 
     const inputBuffer = Buffer.from(await file.arrayBuffer())
     const settings = getMobileUploadSettings()
@@ -104,6 +105,7 @@ export async function POST(request: Request) {
       width: info.width,
       height: info.height,
       originalFilename: file.name,
+      uploadBatchId,
     })
 
     return NextResponse.json(uploaded, { status: 201 })

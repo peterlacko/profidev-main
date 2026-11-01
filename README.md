@@ -142,8 +142,11 @@ MOBILE_UPLOAD_TOKEN=
 ### Mobile upload flow
 
 - Upload page: `/[locale]/mobile-upload` (private via `MOBILE_UPLOAD_TOKEN`)
+- Token field supports show/hide; optional on-device biometric unlock can be enabled for reusing stored token
 - Public gallery: `/[locale]/gallery` with "Photos from mobile" switch enabled
 - Photos are resized to max `2560x1440`, converted to JPEG and uploaded under `mobile/published/...` in R2.
+- Batch safety: if one file in a batch fails, remaining files are not uploaded and already-uploaded files from that batch are rolled back automatically.
+- Reliability: transient upload failures are retried automatically with backoff; a failed batch can be resumed with one tap using the same selected files.
 
 ## Deployment
 

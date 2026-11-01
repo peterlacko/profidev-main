@@ -143,6 +143,7 @@ export const uploadMobilePhoto = async (input: {
   width: number
   height: number
   originalFilename: string
+  uploadBatchId?: string
 }): Promise<MobilePhoto> => {
   const uploadedAt = new Date().toISOString()
   const { id, key } = buildObjectKey(input.country, input.trip)
@@ -165,6 +166,11 @@ export const uploadMobilePhoto = async (input: {
   const encodedCaption = encodeMetadataValue(input.caption)
   if (encodedCaption) {
     metadata.caption = encodedCaption
+  }
+
+  const encodedUploadBatchId = encodeMetadataValue(input.uploadBatchId)
+  if (encodedUploadBatchId) {
+    metadata.uploadbatchid = encodedUploadBatchId
   }
 
   await client.send(
@@ -337,6 +343,58 @@ export const deleteMobileTrip = async (country: string, trip: string): Promise<n
 
   for (let index = 0; index < keys.length; index += 1000) {
     const chunk = keys.slice(index, index + 1000)
+    await client.send(
+      new DeleteObjectsCommand({
+        Bucket: bucket,
+        Delete: {
+          Objects: chunk.map((key) => ({ Key: key })),
+          Quiet: true,
+        },
+      })
+    )
+    deleted += chunk.length
+  }
+
+  return deleted
+}
+
+export const deleteMobilePhotosByUploadBatchId = async (
+  uploadBatchId: string
+): Promise<number> => {
+  const normalizedBatchId = uploadBatchId.trim()
+  if (!normalizedBatchId) {
+    throw new Error("Upload batch ID is required")
+  }
+
+  const encodedBatchId = encodeMetadataValue(normalizedBatchId)
+  if (!encodedBatchId) return 0
+
+  const prefix = `${MOBILE_PUBLISHED_PREFIX}/`
+  const candidateKeys = await listObjectKeysByPrefix(prefix)
+  if (candidateKeys.length === 0) return 0
+
+  const client = getR2Client()
+  const bucket = getBucketName()
+  const matchingKeys: string[] = []
+
+  for (const key of candidateKeys) {
+    const head = await client.send(
+      new HeadObjectCommand({
+        Bucket: bucket,
+        Key: key,
+      })
+    )
+
+    if (head.Metadata?.uploadbatchid === encodedBatchId) {
+      matchingKeys.push(key)
+    }
+  }
+
+  if (matchingKeys.length === 0) return 0
+
+  let deleted = 0
+  for (let index = 0; index < matchingKeys.length; index += 1000) {
+    const chunk = matchingKeys.slice(index, index + 1000)
     await client.send(
       new DeleteObjectsCommand({
         Bucket: bucket,

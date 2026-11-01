@@ -1,12 +1,21 @@
 "use client"
 
 import { useMemo, useState } from "react"
-import { AlertCircle, CheckCircle2, Loader2, Trash2, Upload } from "lucide-react"
+import {
+  AlertCircle,
+  CheckCircle2,
+  Eye,
+  EyeOff,
+  Fingerprint,
+  Loader2,
+  Trash2,
+  Upload,
+} from "lucide-react"
 import { useTranslations } from "next-intl"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 
-type UploadItemStatus = "pending" | "uploading" | "success" | "error"
+type UploadItemStatus = "pending" | "uploading" | "retrying" | "success" | "error"
 
 type UploadItem = {
   id: string
@@ -24,9 +33,20 @@ type MobileTripSummary = {
   lastUploadedAt: string
 }
 
+type UploadDraft = {
+  files: File[]
+  country: string
+  trip: string
+  caption: string
+}
+
 const CLIENT_MAX_WIDTH = 2560
 const CLIENT_MAX_HEIGHT = 1440
 const CLIENT_JPEG_QUALITY = 0.86
+const TOKEN_STORAGE_KEY = "mobile-upload-token"
+const BIOMETRIC_CREDENTIAL_ID_KEY = "mobile-upload-biometric-credential-id"
+const UPLOAD_RETRY_DELAYS_MS = [1200, 3000, 6000]
+const MAX_UPLOAD_ATTEMPTS = UPLOAD_RETRY_DELAYS_MS.length + 1
 
 const fileInputClasses = cn(
   "w-full rounded-md border bg-background px-4 py-2 text-sm",
@@ -106,14 +126,68 @@ const resizeForMobileUpload = async (file: File): Promise<File> => {
   }
 }
 
+const bytesToBase64Url = (bytes: Uint8Array): string => {
+  let binary = ""
+  for (const byte of bytes) binary += String.fromCharCode(byte)
+  return btoa(binary).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "")
+}
+
+const base64UrlToBytes = (value: string): Uint8Array => {
+  const base64 = value.replace(/-/g, "+").replace(/_/g, "/")
+  const padded = base64.padEnd(Math.ceil(base64.length / 4) * 4, "=")
+  const binary = atob(padded)
+  return Uint8Array.from(binary, (char) => char.charCodeAt(0))
+}
+
+const toArrayBuffer = (bytes: Uint8Array): ArrayBuffer => {
+  return bytes.buffer.slice(
+    bytes.byteOffset,
+    bytes.byteOffset + bytes.byteLength
+  ) as ArrayBuffer
+}
+
+const wait = async (milliseconds: number): Promise<void> => {
+  await new Promise((resolve) => setTimeout(resolve, milliseconds))
+}
+
+const shouldRetryUpload = (status: number): boolean => {
+  return status === 408 || status === 425 || status === 429 || status >= 500
+}
+
+const waitUntilOnline = async (): Promise<void> => {
+  if (navigator.onLine) return
+
+  await new Promise<void>((resolve) => {
+    const onOnline = () => {
+      window.removeEventListener("online", onOnline)
+      resolve()
+    }
+    window.addEventListener("online", onOnline)
+  })
+}
+
 export function UploadForm() {
   const t = useTranslations("mobileUpload")
   const [token, setToken] = useState("")
+  const [showToken, setShowToken] = useState(false)
+  const [biometricAvailable] = useState(() => {
+    if (typeof window === "undefined") return false
+    return (
+      typeof window.PublicKeyCredential !== "undefined" &&
+      typeof navigator.credentials !== "undefined"
+    )
+  })
+  const [biometricConfigured, setBiometricConfigured] = useState(() => {
+    if (typeof window === "undefined") return false
+    return Boolean(window.localStorage.getItem(BIOMETRIC_CREDENTIAL_ID_KEY))
+  })
+  const [isBiometricBusy, setIsBiometricBusy] = useState(false)
   const [country, setCountry] = useState("")
   const [trip, setTrip] = useState("")
   const [caption, setCaption] = useState("")
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [items, setItems] = useState<UploadItem[]>([])
+  const [failedDraft, setFailedDraft] = useState<UploadDraft | null>(null)
   const [globalError, setGlobalError] = useState<string | null>(null)
   const [mobileTrips, setMobileTrips] = useState<MobileTripSummary[]>([])
   const [tripsLoading, setTripsLoading] = useState(false)
@@ -150,6 +224,134 @@ export function UploadForm() {
           : item
       )
     )
+  }
+
+  const rollbackUploadBatch = async (uploadBatchId: string): Promise<number> => {
+    const response = await fetch("/api/mobile-photos/upload/rollback", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-mobile-upload-token": token.trim(),
+      },
+      body: JSON.stringify({ uploadBatchId }),
+    })
+
+    if (!response.ok) {
+      const message = await extractErrorMessage(
+        response,
+        t("errors.rollbackFailed")
+      )
+      throw new Error(message)
+    }
+
+    const data = (await response.json()) as { deletedCount?: number }
+    return data.deletedCount ?? 0
+  }
+
+  const enableBiometricUnlock = async () => {
+    if (!biometricAvailable) {
+      setGlobalError(t("errors.biometricsNotSupported"))
+      return
+    }
+
+    if (!token.trim()) {
+      setGlobalError(t("errors.tokenRequired"))
+      return
+    }
+
+    setGlobalError(null)
+    setIsBiometricBusy(true)
+    try {
+      const challenge = crypto.getRandomValues(new Uint8Array(32))
+      const userId = crypto.getRandomValues(new Uint8Array(32))
+
+      const credential = await navigator.credentials.create({
+        publicKey: {
+          challenge,
+          rp: {
+            name: "Travel Portfolio",
+          },
+          user: {
+            id: userId,
+            name: "mobile-upload-user",
+            displayName: "Mobile Upload User",
+          },
+          pubKeyCredParams: [
+            { type: "public-key", alg: -7 },
+            { type: "public-key", alg: -257 },
+          ],
+          timeout: 60_000,
+          attestation: "none",
+          authenticatorSelection: {
+            userVerification: "required",
+          },
+        },
+      })
+
+      if (!(credential instanceof PublicKeyCredential)) {
+        throw new Error(t("errors.biometricsSetupFailed"))
+      }
+
+      const credentialId = bytesToBase64Url(new Uint8Array(credential.rawId))
+      window.localStorage.setItem(TOKEN_STORAGE_KEY, token.trim())
+      window.localStorage.setItem(BIOMETRIC_CREDENTIAL_ID_KEY, credentialId)
+      setBiometricConfigured(true)
+    } catch (error) {
+      setGlobalError(
+        error instanceof Error
+          ? error.message
+          : t("errors.biometricsSetupFailed")
+      )
+    } finally {
+      setIsBiometricBusy(false)
+    }
+  }
+
+  const unlockTokenWithBiometrics = async () => {
+    if (!biometricAvailable) {
+      setGlobalError(t("errors.biometricsNotSupported"))
+      return
+    }
+
+    const credentialId = window.localStorage.getItem(BIOMETRIC_CREDENTIAL_ID_KEY)
+    const storedToken = window.localStorage.getItem(TOKEN_STORAGE_KEY)
+    if (!credentialId || !storedToken) {
+      setGlobalError(t("errors.biometricsNotConfigured"))
+      return
+    }
+
+    setGlobalError(null)
+    setIsBiometricBusy(true)
+    try {
+      const challenge = crypto.getRandomValues(new Uint8Array(32))
+      const assertion = await navigator.credentials.get({
+        publicKey: {
+          challenge,
+          allowCredentials: [
+            {
+              id: toArrayBuffer(base64UrlToBytes(credentialId)),
+              type: "public-key",
+            },
+          ],
+          userVerification: "required",
+          timeout: 60_000,
+        },
+      })
+
+      if (!assertion) {
+        throw new Error(t("errors.biometricsUnlockFailed"))
+      }
+
+      setToken(storedToken)
+    } catch (error) {
+      setGlobalError(
+        error instanceof Error
+          ? error.message
+          : t("errors.biometricsUnlockFailed")
+      )
+    } finally {
+      setIsBiometricBusy(false)
+    }
   }
 
   const loadMobileTrips = async () => {
@@ -236,6 +438,161 @@ export function UploadForm() {
     }
   }
 
+  const uploadPhotoWithRetry = async (input: {
+    file: File
+    uploadBatchId: string
+    countryValue: string
+    tripValue: string
+    captionValue: string
+    itemId: string
+  }): Promise<{ ok: true } | { ok: false; error: string }> => {
+    for (let attempt = 1; attempt <= MAX_UPLOAD_ATTEMPTS; attempt++) {
+      const payload = new FormData()
+      payload.set("file", input.file)
+      payload.set("country", input.countryValue)
+      payload.set("trip", input.tripValue)
+      payload.set("caption", input.captionValue)
+      payload.set("uploadBatchId", input.uploadBatchId)
+
+      try {
+        const response = await fetch("/api/mobile-photos/upload", {
+          method: "POST",
+          headers: {
+            "x-mobile-upload-token": token.trim(),
+          },
+          body: payload,
+        })
+
+        if (response.ok) {
+          return { ok: true }
+        }
+
+        const errorMessage = await extractErrorMessage(response, t("errors.uploadFailed"))
+        const canRetry = shouldRetryUpload(response.status)
+        if (!canRetry || attempt === MAX_UPLOAD_ATTEMPTS) {
+          if (attempt === 1) {
+            return { ok: false, error: errorMessage }
+          }
+          return {
+            ok: false,
+            error: t("errors.uploadFailedAfterRetries", {
+              reason: errorMessage,
+              attempts: attempt,
+            }),
+          }
+        }
+      } catch (error) {
+        if (attempt === MAX_UPLOAD_ATTEMPTS) {
+          const finalErrorMessage =
+            error instanceof Error ? error.message : t("errors.uploadFailed")
+          if (attempt === 1) {
+            return { ok: false, error: finalErrorMessage }
+          }
+          return {
+            ok: false,
+            error: t("errors.uploadFailedAfterRetries", {
+              reason: finalErrorMessage,
+              attempts: attempt,
+            }),
+          }
+        }
+      }
+
+      updateStatus(
+        input.itemId,
+        "retrying",
+        t("retryingAttempt", {
+          attempt: attempt + 1,
+          maxAttempts: MAX_UPLOAD_ATTEMPTS,
+        })
+      )
+      await waitUntilOnline()
+      await wait(UPLOAD_RETRY_DELAYS_MS[attempt - 1] ?? 1000)
+    }
+
+    return { ok: false, error: t("errors.uploadFailed") }
+  }
+
+  const performUploadBatch = async (draft: UploadDraft) => {
+    setGlobalError(null)
+    setFailedDraft(null)
+
+    const countryValue = draft.country.trim()
+    const tripValue = draft.trip.trim()
+    const captionValue = draft.caption.trim()
+    const files = draft.files
+
+    const nextItems = files.map((file) => createUploadItem(file))
+    setItems(nextItems)
+    setIsSubmitting(true)
+    const uploadBatchId = crypto.randomUUID()
+    let failedUploadMessage: string | null = null
+    let failedIndex = -1
+
+    try {
+      for (let index = 0; index < files.length; index++) {
+        const file = files[index]
+        const item = nextItems[index]
+        updateStatus(item.id, "uploading")
+
+        const preparedFile = await resizeForMobileUpload(file)
+        updateUploadBytes(item.id, preparedFile.size)
+        const uploadResult = await uploadPhotoWithRetry({
+          file: preparedFile,
+          uploadBatchId,
+          countryValue,
+          tripValue,
+          captionValue,
+          itemId: item.id,
+        })
+
+        if (!uploadResult.ok) {
+          updateStatus(item.id, "error", uploadResult.error)
+          failedUploadMessage = `${file.name}: ${uploadResult.error}`
+          failedIndex = index
+          break
+        }
+
+        updateStatus(item.id, "success")
+      }
+
+      if (failedUploadMessage !== null) {
+        setFailedDraft(draft)
+        for (let index = failedIndex + 1; index < files.length; index++) {
+          const item = nextItems[index]
+          updateStatus(item.id, "error", t("errors.uploadStopped"))
+        }
+
+        try {
+          const deletedCount = await rollbackUploadBatch(uploadBatchId)
+          setGlobalError(
+            t("errors.uploadStoppedAndRolledBack", {
+              reason: failedUploadMessage,
+              deletedCount,
+            })
+          )
+        } catch (rollbackError) {
+          const rollbackMessage =
+            rollbackError instanceof Error
+              ? rollbackError.message
+              : t("errors.rollbackFailed")
+
+          setGlobalError(
+            t("errors.uploadStoppedRollbackFailed", {
+              reason: failedUploadMessage,
+              rollbackError: rollbackMessage,
+            })
+          )
+        }
+        return
+      }
+
+      setFailedDraft(null)
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     setGlobalError(null)
@@ -257,53 +614,12 @@ export function UploadForm() {
       setGlobalError(t("errors.countryRequired"))
       return
     }
-
-    const nextItems = files.map((file) => createUploadItem(file))
-    setItems(nextItems)
-    setIsSubmitting(true)
-
-    for (let index = 0; index < files.length; index++) {
-      const file = files[index]
-      const item = nextItems[index]
-      updateStatus(item.id, "uploading")
-
-      const preparedFile = await resizeForMobileUpload(file)
-      updateUploadBytes(item.id, preparedFile.size)
-      const payload = new FormData()
-      payload.set("file", preparedFile)
-      payload.set("country", country.trim())
-      payload.set("trip", trip.trim())
-      payload.set("caption", caption.trim())
-
-      try {
-        const response = await fetch("/api/mobile-photos/upload", {
-          method: "POST",
-          headers: {
-            "x-mobile-upload-token": token.trim(),
-          },
-          body: payload,
-        })
-
-        if (!response.ok) {
-          const errorMessage = await extractErrorMessage(
-            response,
-            t("errors.uploadFailed")
-          )
-          updateStatus(item.id, "error", errorMessage)
-          continue
-        }
-
-        updateStatus(item.id, "success")
-      } catch (error) {
-        updateStatus(
-          item.id,
-          "error",
-          error instanceof Error ? error.message : t("errors.uploadFailed")
-        )
-      }
-    }
-
-    setIsSubmitting(false)
+    await performUploadBatch({
+      files,
+      country: country.trim(),
+      trip: trip.trim(),
+      caption: caption.trim(),
+    })
   }
 
   return (
@@ -312,16 +628,62 @@ export function UploadForm() {
         <label htmlFor="token" className="mb-2 block text-sm font-medium">
           {t("token")}
         </label>
-        <input
-          id="token"
-          name="token"
-          type="password"
-          autoComplete="off"
-          className={fileInputClasses}
-          placeholder={t("tokenPlaceholder")}
-          value={token}
-          onChange={(event) => setToken(event.target.value)}
-        />
+        <div className="space-y-2">
+          <div className="relative">
+            <input
+              id="token"
+              name="token"
+              type={showToken ? "text" : "password"}
+              autoComplete="off"
+              className={cn(fileInputClasses, "pr-10")}
+              placeholder={t("tokenPlaceholder")}
+              value={token}
+              onChange={(event) => setToken(event.target.value)}
+            />
+            <button
+              type="button"
+              onClick={() => setShowToken((current) => !current)}
+              className="absolute inset-y-0 right-0 flex items-center px-3 text-muted-foreground"
+              aria-label={showToken ? t("hideToken") : t("showToken")}
+            >
+              {showToken ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+            </button>
+          </div>
+
+          <div className="flex flex-wrap gap-2">
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              onClick={enableBiometricUnlock}
+              disabled={isBiometricBusy || !biometricAvailable}
+            >
+              {isBiometricBusy ? (
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              ) : (
+                <Fingerprint className="mr-2 h-4 w-4" />
+              )}
+              {t("enableBiometrics")}
+            </Button>
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              onClick={unlockTokenWithBiometrics}
+              disabled={isBiometricBusy || !biometricConfigured}
+            >
+              {isBiometricBusy ? (
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              ) : (
+                <Fingerprint className="mr-2 h-4 w-4" />
+              )}
+              {t("useBiometrics")}
+            </Button>
+          </div>
+          {!biometricAvailable && (
+            <p className="text-xs text-muted-foreground">{t("biometricsUnavailable")}</p>
+          )}
+        </div>
       </div>
 
       <div>
@@ -401,6 +763,17 @@ export function UploadForm() {
           </>
         )}
       </Button>
+      {failedDraft && (
+        <Button
+          type="button"
+          variant="outline"
+          className="w-full"
+          disabled={isSubmitting}
+          onClick={() => void performUploadBatch(failedDraft)}
+        >
+          {t("resumeFailedUpload")}
+        </Button>
+      )}
 
       {items.length > 0 && (
         <div className="space-y-2 rounded-md border p-3">
@@ -428,6 +801,12 @@ export function UploadForm() {
                     <>
                       <Loader2 className="h-3.5 w-3.5 animate-spin" />
                       {t("status.uploading")}
+                    </>
+                  )}
+                  {item.status === "retrying" && (
+                    <>
+                      <Loader2 className="h-3.5 w-3.5 animate-spin" />
+                      {t("status.retrying")} {item.error ? `(${item.error})` : ""}
                     </>
                   )}
                   {item.status === "pending" && t("status.pending")}
