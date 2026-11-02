@@ -264,11 +264,12 @@ export function GalleryContent({
     const grouped = new Map<string, PhotoWithTrip[]>()
 
     for (const photo of filteredPhotos) {
-      const countryPhotos = grouped.get(photo.country)
-      if (countryPhotos) {
-        countryPhotos.push(photo)
+      const groupKey = `${photo.country}::${photo.tripTitle}`
+      const countryTripPhotos = grouped.get(groupKey)
+      if (countryTripPhotos) {
+        countryTripPhotos.push(photo)
       } else {
-        grouped.set(photo.country, [photo])
+        grouped.set(groupKey, [photo])
       }
     }
 
@@ -277,29 +278,39 @@ export function GalleryContent({
       return Number.isNaN(parsed.getTime()) ? Number.MAX_SAFE_INTEGER : parsed.getTime()
     }
 
-    const countries = Array.from(grouped.keys()).sort((countryA, countryB) => {
-      const oldestA = grouped
-        .get(countryA)!
-        .reduce((oldest, photo) => Math.min(oldest, toDateTime(photo.date)), Number.MAX_SAFE_INTEGER)
-      const oldestB = grouped
-        .get(countryB)!
-        .reduce((oldest, photo) => Math.min(oldest, toDateTime(photo.date)), Number.MAX_SAFE_INTEGER)
+    const groups = Array.from(grouped.entries()).sort(([groupKeyA, photosA], [groupKeyB, photosB]) => {
+      const [countryA, tripTitleA] = groupKeyA.split("::")
+      const [countryB, tripTitleB] = groupKeyB.split("::")
+
+      const oldestA = photosA.reduce(
+        (oldest, photo) => Math.min(oldest, toDateTime(photo.date)),
+        Number.MAX_SAFE_INTEGER
+      )
+      const oldestB = photosB.reduce(
+        (oldest, photo) => Math.min(oldest, toDateTime(photo.date)),
+        Number.MAX_SAFE_INTEGER
+      )
 
       if (oldestA !== oldestB) return oldestA - oldestB
-      return countryA.localeCompare(countryB)
+      if (countryA !== countryB) return countryA.localeCompare(countryB)
+      return tripTitleA.localeCompare(tripTitleB)
     })
 
-    return countries.map((country) => ({
-      country,
-      photos: [...(grouped.get(country) ?? [])].sort((photoA, photoB) => {
-        const dateDelta = toDateTime(photoA.date) - toDateTime(photoB.date)
-        if (dateDelta !== 0) return dateDelta
-        if (photoA.tripTitle !== photoB.tripTitle) {
-          return photoA.tripTitle.localeCompare(photoB.tripTitle)
-        }
-        return photoA.filename.localeCompare(photoB.filename)
-      }),
-    }))
+    return groups.map(([groupKey, photos]) => {
+      const [country, tripTitle] = groupKey.split("::")
+      return {
+        country,
+        tripTitle,
+        photos: [...photos].sort((photoA, photoB) => {
+          const dateDelta = toDateTime(photoA.date) - toDateTime(photoB.date)
+          if (dateDelta !== 0) return dateDelta
+          if (photoA.tripTitle !== photoB.tripTitle) {
+            return photoA.tripTitle.localeCompare(photoB.tripTitle)
+          }
+          return photoA.filename.localeCompare(photoB.filename)
+        }),
+      }
+    })
   }, [filteredPhotos])
 
   const hasActiveFilters = selectedCountries.length > 0 || activeTrip || selectedMobileTrip
@@ -633,10 +644,10 @@ export function GalleryContent({
           {/* Photo Grid */}
           {filteredPhotos.length > 0 ? (
             <div className="space-y-8">
-              {groupedPhotosByCountry.map(({ country, photos }) => (
-                <section key={country} className="space-y-3">
+              {groupedPhotosByCountry.map(({ country, tripTitle, photos }) => (
+                <section key={`${country}::${tripTitle}`} className="space-y-3">
                   <h2 className="text-lg font-semibold tracking-tight md:text-xl">
-                    {tCountries(country)}
+                    {`${tCountries(country)} - ${tripTitle}`}
                   </h2>
                   <PhotoGrid photos={photos} columns={3} />
                 </section>

@@ -737,7 +737,7 @@ export function UploadForm() {
           id="photos"
           name="photos"
           type="file"
-          accept="image/jpeg,image/png,image/webp,image/heic,image/heif"
+          accept="image/*,.heic,.heif,.jpg,.jpeg,.png,.webp"
           multiple
           className={fileInputClasses}
         />
