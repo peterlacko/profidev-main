@@ -162,6 +162,15 @@ const sortFilesByDate = (files: File[]): File[] => {
   })
 }
 
+const moveFileInList = (files: File[], fromIndex: number, direction: -1 | 1): File[] => {
+  const next = [...files]
+  const targetIndex = fromIndex + direction
+  if (targetIndex < 0 || targetIndex >= next.length) return files
+
+  ;[next[fromIndex], next[targetIndex]] = [next[targetIndex], next[fromIndex]]
+  return next
+}
+
 const waitUntilOnline = async (): Promise<void> => {
   if (navigator.onLine) return
 
@@ -194,6 +203,7 @@ export function UploadForm() {
   const [trip, setTrip] = useState("")
   const [caption, setCaption] = useState("")
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [selectedFiles, setSelectedFiles] = useState<File[]>([])
   const [items, setItems] = useState<UploadItem[]>([])
   const [failedDraft, setFailedDraft] = useState<UploadDraft | null>(null)
   const [globalError, setGlobalError] = useState<string | null>(null)
@@ -528,7 +538,7 @@ export function UploadForm() {
     const countryValue = draft.country.trim()
     const tripValue = draft.trip.trim()
     const captionValue = draft.caption.trim()
-    const files = sortFilesByDate(draft.files)
+    const files = draft.files
 
     const nextItems = files.map((file) => createUploadItem(file))
     setItems(nextItems)
@@ -601,6 +611,11 @@ export function UploadForm() {
     }
   }
 
+  const handlePhotoSelection = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = Array.from(event.target.files ?? [])
+    setSelectedFiles(sortFilesByDate(files))
+  }
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     setGlobalError(null)
@@ -610,10 +625,7 @@ export function UploadForm() {
       return
     }
 
-    const formData = new FormData(event.currentTarget)
-    const files = sortFilesByDate(
-      formData.getAll("photos").filter((entry): entry is File => entry instanceof File)
-    )
+    const files = selectedFiles.length > 0 ? selectedFiles : []
 
     if (files.length === 0) {
       setGlobalError(t("errors.photoRequired"))
@@ -749,9 +761,57 @@ export function UploadForm() {
           type="file"
           accept="image/*,.heic,.heif,.jpg,.jpeg,.png,.webp"
           multiple
+          onChange={handlePhotoSelection}
           className={fileInputClasses}
         />
       </div>
+
+      {selectedFiles.length > 0 && (
+        <div className="space-y-2 rounded-md border p-3">
+          <p className="text-sm font-medium">Selected photos</p>
+          <ul className="space-y-2">
+            {selectedFiles.map((file, index) => (
+              <li key={`${file.name}-${file.lastModified}-${index}`} className="flex items-center gap-2 rounded-md bg-muted/40 p-2">
+                <span className="min-w-0 flex-1 truncate text-sm">{file.name}</span>
+                <div className="flex items-center gap-1">
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setSelectedFiles((current) => moveFileInList(current, index, -1))}
+                    disabled={index === 0}
+                    className="h-8 w-8 p-0"
+                    aria-label="Move photo earlier"
+                  >
+                    ↑
+                  </Button>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setSelectedFiles((current) => moveFileInList(current, index, 1))}
+                    disabled={index === selectedFiles.length - 1}
+                    className="h-8 w-8 p-0"
+                    aria-label="Move photo later"
+                  >
+                    ↓
+                  </Button>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setSelectedFiles((current) => current.filter((_, currentIndex) => currentIndex !== index))}
+                    className="h-8 w-8 p-0"
+                    aria-label="Remove photo"
+                  >
+                    ×
+                  </Button>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
 
       {globalError && (
         <div className="flex items-center gap-2 rounded-md bg-destructive/10 p-3 text-sm text-destructive">
