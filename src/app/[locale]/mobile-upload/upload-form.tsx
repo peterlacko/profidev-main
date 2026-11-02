@@ -1,6 +1,7 @@
 "use client"
 
-import { useMemo, useState } from "react"
+import Image from "next/image"
+import { useEffect, useMemo, useState, useSyncExternalStore } from "react"
 import {
   AlertCircle,
   CheckCircle2,
@@ -187,17 +188,21 @@ export function UploadForm() {
   const t = useTranslations("mobileUpload")
   const [token, setToken] = useState("")
   const [showToken, setShowToken] = useState(false)
-  const [biometricAvailable] = useState(() => {
-    if (typeof window === "undefined") return false
-    return (
+  const biometricAvailable = useSyncExternalStore(
+    () => () => {},
+    () =>
+      typeof window !== "undefined" &&
       typeof window.PublicKeyCredential !== "undefined" &&
-      typeof navigator.credentials !== "undefined"
-    )
-  })
-  const [biometricConfigured, setBiometricConfigured] = useState(() => {
-    if (typeof window === "undefined") return false
-    return Boolean(window.localStorage.getItem(BIOMETRIC_CREDENTIAL_ID_KEY))
-  })
+      typeof navigator.credentials !== "undefined",
+    () => false
+  )
+  const biometricConfigured = useSyncExternalStore(
+    () => () => {},
+    () =>
+      typeof window !== "undefined" &&
+      Boolean(window.localStorage.getItem(BIOMETRIC_CREDENTIAL_ID_KEY)),
+    () => false
+  )
   const [isBiometricBusy, setIsBiometricBusy] = useState(false)
   const [country, setCountry] = useState("")
   const [trip, setTrip] = useState("")
@@ -207,6 +212,23 @@ export function UploadForm() {
   const [items, setItems] = useState<UploadItem[]>([])
   const [failedDraft, setFailedDraft] = useState<UploadDraft | null>(null)
   const [globalError, setGlobalError] = useState<string | null>(null)
+
+  const selectedFilePreviewUrls = useMemo(() => {
+    const urls = new Map<string, string>()
+    for (const file of selectedFiles) {
+      const key = `${file.name}-${file.lastModified}-${file.size}-${file.type}`
+      urls.set(key, URL.createObjectURL(file))
+    }
+    return urls
+  }, [selectedFiles])
+
+  useEffect(() => {
+    return () => {
+      for (const previewUrl of selectedFilePreviewUrls.values()) {
+        URL.revokeObjectURL(previewUrl)
+      }
+    }
+  }, [selectedFilePreviewUrls])
   const [mobileTrips, setMobileTrips] = useState<MobileTripSummary[]>([])
   const [tripsLoading, setTripsLoading] = useState(false)
   const [tripsError, setTripsError] = useState<string | null>(null)
@@ -768,48 +790,78 @@ export function UploadForm() {
 
       {selectedFiles.length > 0 && (
         <div className="space-y-2 rounded-md border p-3">
-          <p className="text-sm font-medium">Selected photos</p>
-          <ul className="space-y-2">
-            {selectedFiles.map((file, index) => (
-              <li key={`${file.name}-${file.lastModified}-${index}`} className="flex items-center gap-2 rounded-md bg-muted/40 p-2">
-                <span className="min-w-0 flex-1 truncate text-sm">{file.name}</span>
-                <div className="flex items-center gap-1">
-                  <Button
-                    type="button"
-                    variant="outline"
-                    size="sm"
-                    onClick={() => setSelectedFiles((current) => moveFileInList(current, index, -1))}
-                    disabled={index === 0}
-                    className="h-8 w-8 p-0"
-                    aria-label="Move photo earlier"
-                  >
-                    ↑
-                  </Button>
-                  <Button
-                    type="button"
-                    variant="outline"
-                    size="sm"
-                    onClick={() => setSelectedFiles((current) => moveFileInList(current, index, 1))}
-                    disabled={index === selectedFiles.length - 1}
-                    className="h-8 w-8 p-0"
-                    aria-label="Move photo later"
-                  >
-                    ↓
-                  </Button>
-                  <Button
-                    type="button"
-                    variant="outline"
-                    size="sm"
-                    onClick={() => setSelectedFiles((current) => current.filter((_, currentIndex) => currentIndex !== index))}
-                    className="h-8 w-8 p-0"
-                    aria-label="Remove photo"
-                  >
-                    ×
-                  </Button>
+          <div className="flex items-center justify-between gap-2">
+            <p className="text-sm font-medium">Selected photos</p>
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              onClick={() => setSelectedFiles([])}
+              className="h-8 px-2 text-xs"
+            >
+              Clear all
+            </Button>
+          </div>
+          <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
+            {selectedFiles.map((file, index) => {
+              const previewKey = `${file.name}-${file.lastModified}-${file.size}-${file.type}`
+              const previewUrl = selectedFilePreviewUrls.get(previewKey)
+
+              return (
+                <div key={previewKey} className="relative overflow-hidden rounded-md border bg-muted/30">
+                  <div className="relative aspect-[4/3] overflow-hidden bg-muted">
+                    {previewUrl ? (
+                      <Image
+                        src={previewUrl}
+                        alt={file.name}
+                        width={400}
+                        height={300}
+                        unoptimized
+                        className="h-full w-full object-cover"
+                      />
+                    ) : null}
+                  </div>
+                  <div className="flex items-center justify-between gap-2 border-t bg-background/80 p-2">
+                    <span className="min-w-0 flex-1 truncate text-[11px]">{file.name}</span>
+                    <div className="flex items-center gap-1">
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="sm"
+                        onClick={() => setSelectedFiles((current) => moveFileInList(current, index, -1))}
+                        disabled={index === 0}
+                        className="h-7 w-7 p-0"
+                        aria-label="Move photo earlier"
+                      >
+                        ↑
+                      </Button>
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="sm"
+                        onClick={() => setSelectedFiles((current) => moveFileInList(current, index, 1))}
+                        disabled={index === selectedFiles.length - 1}
+                        className="h-7 w-7 p-0"
+                        aria-label="Move photo later"
+                      >
+                        ↓
+                      </Button>
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="sm"
+                        onClick={() => setSelectedFiles((current) => current.filter((_, currentIndex) => currentIndex !== index))}
+                        className="h-7 w-7 p-0"
+                        aria-label="Remove photo"
+                      >
+                        ×
+                      </Button>
+                    </div>
+                  </div>
                 </div>
-              </li>
-            ))}
-          </ul>
+              )
+            })}
+          </div>
         </div>
       )}
 
