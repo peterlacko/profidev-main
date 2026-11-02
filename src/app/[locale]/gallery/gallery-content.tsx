@@ -349,7 +349,7 @@ export function GalleryContent({
           {/* Filters */}
           <div className="mb-8 p-0">
             <div className="flex flex-col gap-2 pb-0">
-              <div className="grid w-full gap-2 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_auto] md:items-end">
+              <div className="grid w-full gap-2 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_auto_auto] md:items-end">
                 {/* Country Filter - dropdown multi-select */}
                 <div className="w-full" ref={countryDropdownRef}>
                   <label className="mb-1 block text-[10px] font-medium uppercase tracking-wide text-muted-foreground">
@@ -514,6 +514,17 @@ export function GalleryContent({
                   <span className="mb-1 block text-[10px] font-medium uppercase tracking-wide text-transparent">
                     &nbsp;
                   </span>
+                  <div className="flex h-[32px] items-center justify-end text-[11px] leading-none text-muted-foreground">
+                    {hasActiveFilters
+                      ? t("photosFiltered", { count: filteredPhotos.length })
+                      : t("photos", { count: filteredPhotos.length })}
+                  </div>
+                </div>
+
+                <div className="w-full md:w-auto">
+                  <span className="mb-1 block text-[10px] font-medium uppercase tracking-wide text-transparent">
+                    &nbsp;
+                  </span>
                   <Button
                     type="button"
                     variant="outline"
@@ -549,15 +560,6 @@ export function GalleryContent({
                 )}
 
             </div>
-          </div>
-
-          {/* Results count */}
-          <div className="mb-6 flex items-center justify-between">
-            <span className="text-sm text-muted-foreground">
-              {hasActiveFilters
-                ? t("photosFiltered", { count: filteredPhotos.length })
-                : t("photos", { count: filteredPhotos.length })}
-            </span>
           </div>
 
           {/* Photo Grid */}
