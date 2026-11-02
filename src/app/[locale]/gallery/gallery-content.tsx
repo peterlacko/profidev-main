@@ -347,7 +347,7 @@ export function GalleryContent({
       {viewMode === "filters" ? (
         <>
           {/* Filters */}
-          <div className="mb-8 p-0">
+          <div className="mb-4 p-0">
             <div className="flex flex-col gap-2 pb-0">
               <div className="grid w-full gap-2 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_auto_auto] md:items-end">
                 {/* Country Filter - dropdown multi-select */}
