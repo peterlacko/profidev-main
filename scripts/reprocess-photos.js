@@ -149,11 +149,14 @@ async function createWatermarkSvg(width, height) {
 }
 
 async function processImage(inputPath, outputPath) {
-  // Step 1: Resize image
-  let pipeline = sharp(inputPath).resize(CONFIG.maxWidth, CONFIG.maxHeight, {
-    fit: "inside",
-    withoutEnlargement: true,
-  })
+  // Step 1: Resize image and retain original metadata (EXIF/ICC/etc.)
+  let pipeline = sharp(inputPath)
+    .rotate()
+    .resize(CONFIG.maxWidth, CONFIG.maxHeight, {
+      fit: "inside",
+      withoutEnlargement: true,
+    })
+    .withMetadata()
 
   const resizedBuffer = await pipeline.toBuffer()
   const { width, height } = await sharp(resizedBuffer).metadata()
@@ -161,11 +164,13 @@ async function processImage(inputPath, outputPath) {
   // Step 2: Apply watermark (if enabled)
   if (!CONFIG.skipWatermark) {
     const watermarkSvg = await createWatermarkSvg(width, height)
-    pipeline = sharp(resizedBuffer).composite([
-      { input: watermarkSvg, gravity: "southeast" },
-    ])
-  } else {
     pipeline = sharp(resizedBuffer)
+      .composite([
+        { input: watermarkSvg, gravity: "southeast" },
+      ])
+      .withMetadata()
+  } else {
+    pipeline = sharp(resizedBuffer).withMetadata()
   }
 
   // Step 3: Save as JPEG

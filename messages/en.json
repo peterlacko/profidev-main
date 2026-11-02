@@ -50,6 +50,8 @@
     "allCountries": "All Countries",
     "countriesSelected": "countries selected",
     "clearFilters": "Clear filters",
+    "searchCountries": "Search countries",
+    "noResults": "No countries found",
     "showAllFilters": "Show all filters",
     "showLessFilters": "Show less filters",
     "photos": "{count} photos",

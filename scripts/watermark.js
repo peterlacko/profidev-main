@@ -59,10 +59,12 @@ async function processImage(inputPath, outputPath) {
   try {
     // Step 1: Resize image first and get actual dimensions
     const resizedBuffer = await sharp(inputPath)
+      .rotate()
       .resize(CONFIG.maxWidth, CONFIG.maxHeight, {
         fit: "inside",
         withoutEnlargement: true,
       })
+      .withMetadata()
       .toBuffer()
 
     // Get actual dimensions of resized image
@@ -79,6 +81,7 @@ async function processImage(inputPath, outputPath) {
           gravity: "southeast",
         },
       ])
+      .withMetadata()
       .jpeg({ quality: CONFIG.jpegQuality })
       .toFile(outputPath)
 

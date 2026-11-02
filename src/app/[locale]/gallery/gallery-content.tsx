@@ -101,6 +101,7 @@ export function GalleryContent({
   const [selectedTrip, setSelectedTrip] = useState<string | undefined>()
   const [selectedMobileTrip, setSelectedMobileTrip] = useState<string | undefined>()
   const [countriesDropdownOpen, setCountriesDropdownOpen] = useState(false)
+  const [countrySearch, setCountrySearch] = useState("")
   const [tripDropdownOpen, setTripDropdownOpen] = useState(false)
   const countryDropdownRef = useRef<HTMLDivElement | null>(null)
   const tripDropdownRef = useRef<HTMLDivElement | null>(null)
@@ -167,6 +168,16 @@ export function GalleryContent({
       tCountries(a).localeCompare(tCountries(b), undefined, { sensitivity: "base" })
     )
   }, [allPhotos, tCountries])
+
+  const filteredCountries = useMemo(() => {
+    const query = countrySearch.trim().toLowerCase()
+    if (!query) return availableCountries
+
+    return availableCountries.filter((country) => {
+      const translated = tCountries(country).toLowerCase()
+      return translated.includes(query) || country.toLowerCase().includes(query)
+    })
+  }, [availableCountries, countrySearch, tCountries])
 
   const allKnownCountries = useMemo(
     () => Array.from(new Set([...countries, ...availableCountries])).sort(),
@@ -261,22 +272,28 @@ export function GalleryContent({
       }
     }
 
+    const toDateTime = (value: string): number => {
+      const parsed = new Date(value)
+      return Number.isNaN(parsed.getTime()) ? Number.MAX_SAFE_INTEGER : parsed.getTime()
+    }
+
     const countries = Array.from(grouped.keys()).sort((countryA, countryB) => {
       const oldestA = grouped
         .get(countryA)!
-        .reduce((oldest, photo) => (photo.date < oldest ? photo.date : oldest), "9999-99-99")
+        .reduce((oldest, photo) => Math.min(oldest, toDateTime(photo.date)), Number.MAX_SAFE_INTEGER)
       const oldestB = grouped
         .get(countryB)!
-        .reduce((oldest, photo) => (photo.date < oldest ? photo.date : oldest), "9999-99-99")
-      if (oldestA !== oldestB) return oldestA.localeCompare(oldestB)
+        .reduce((oldest, photo) => Math.min(oldest, toDateTime(photo.date)), Number.MAX_SAFE_INTEGER)
 
+      if (oldestA !== oldestB) return oldestA - oldestB
       return countryA.localeCompare(countryB)
     })
 
     return countries.map((country) => ({
       country,
       photos: [...(grouped.get(country) ?? [])].sort((photoA, photoB) => {
-        if (photoA.date !== photoB.date) return photoA.date.localeCompare(photoB.date)
+        const dateDelta = toDateTime(photoA.date) - toDateTime(photoB.date)
+        if (dateDelta !== 0) return dateDelta
         if (photoA.tripTitle !== photoB.tripTitle) {
           return photoA.tripTitle.localeCompare(photoB.tripTitle)
         }
@@ -392,7 +409,10 @@ export function GalleryContent({
                   <div className="relative inline-block w-full">
                     <button
                       type="button"
-                      onClick={() => setCountriesDropdownOpen((open) => !open)}
+                      onClick={() => {
+                        setCountriesDropdownOpen((open) => !open)
+                        if (!countriesDropdownOpen) setCountrySearch("")
+                      }}
                       className="flex w-full items-center justify-between rounded-md border border-border bg-muted/60 px-2.5 py-1.5 text-left text-sm text-foreground"
                     >
                       <span className="truncate">{countryFilterLabel}</span>
@@ -406,11 +426,22 @@ export function GalleryContent({
 
                     {countriesDropdownOpen && (
                       <div className="absolute z-20 mt-1 w-full rounded-md border border-border bg-popover p-2 shadow-lg">
-                        <div className="mb-2 flex items-center justify-between gap-2 border-b border-border/50 pb-2">
+                        <div className="mb-2 border-b border-border/50 pb-2">
+                          <input
+                            type="text"
+                            value={countrySearch}
+                            onChange={(event) => setCountrySearch(event.target.value)}
+                            placeholder={t("searchCountries")}
+                            className="w-full rounded-md border border-border bg-background px-2.5 py-1.5 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring"
+                          />
+                        </div>
+
+                        <div className="mb-2 flex items-center justify-between gap-2">
                           <button
                             type="button"
                             onClick={() => {
                               updateCountryParam([])
+                              setCountrySearch("")
                             }}
                             className="text-xs text-muted-foreground hover:text-foreground"
                           >
@@ -421,6 +452,7 @@ export function GalleryContent({
                               type="button"
                               onClick={() => {
                                 updateCountryParam([])
+                                setCountrySearch("")
                                 setCountriesDropdownOpen(false)
                               }}
                               className="text-xs font-medium text-primary"
@@ -431,29 +463,33 @@ export function GalleryContent({
                         </div>
 
                         <div className="max-h-64 space-y-1 overflow-y-auto">
-                          {availableCountries.map((country) => {
-                            const checked = selectedCountries.includes(country)
+                          {filteredCountries.length === 0 ? (
+                            <p className="px-2 py-1.5 text-sm text-muted-foreground">{t("noResults")}</p>
+                          ) : (
+                            filteredCountries.map((country) => {
+                              const checked = selectedCountries.includes(country)
 
-                            return (
-                              <label
-                                key={country}
-                                className={cn(
-                                  "flex cursor-pointer items-center gap-2 rounded-md px-2 py-1.5 text-sm hover:bg-accent",
-                                  checked && "bg-accent/40"
-                                )}
-                              >
-                                <input
-                                  type="checkbox"
-                                  checked={checked}
-                                  onChange={() => {
-                                    handleCountryToggle(country)
-                                  }}
-                                  className="h-4 w-4 rounded border-border text-primary"
-                                />
-                                <span>{tCountries(country)}</span>
-                              </label>
-                            )
-                          })}
+                              return (
+                                <label
+                                  key={country}
+                                  className={cn(
+                                    "flex cursor-pointer items-center gap-2 rounded-md px-2 py-1.5 text-sm hover:bg-accent",
+                                    checked && "bg-accent/40"
+                                  )}
+                                >
+                                  <input
+                                    type="checkbox"
+                                    checked={checked}
+                                    onChange={() => {
+                                      handleCountryToggle(country)
+                                    }}
+                                    className="h-4 w-4 rounded border-border text-primary"
+                                  />
+                                  <span>{tCountries(country)}</span>
+                                </label>
+                              )
+                            })
+                          )}
                         </div>
                       </div>
                     )}

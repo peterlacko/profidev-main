@@ -50,6 +50,8 @@
     "allCountries": "Všetky krajiny",
     "countriesSelected": "krajín vybraných",
     "clearFilters": "Zrušiť filtre",
+    "searchCountries": "Hľadať krajinu",
+    "noResults": "Nenašli sa žiadne krajiny",
     "showAllFilters": "Zobraziť všetky filtre",
     "showLessFilters": "Skryť filtre",
     "photos": "{count} fotografií",

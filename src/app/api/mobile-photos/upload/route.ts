@@ -91,6 +91,7 @@ export async function POST(request: Request) {
         fit: "inside",
         withoutEnlargement: true,
       })
+      .withMetadata()
       .jpeg({
         quality: settings.jpegQuality,
         mozjpeg: true,
