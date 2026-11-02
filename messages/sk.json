@@ -48,6 +48,7 @@
     "date": "Dátum",
     "all": "Všetky",
     "allCountries": "Všetky krajiny",
+    "allTrips": "Všetky výlety",
     "countriesSelected": "krajín vybraných",
     "clearFilters": "Zrušiť filtre",
     "searchCountries": "Hľadať krajinu",
@@ -57,7 +58,7 @@
     "photos": "{count} fotografií",
     "photosFiltered": "{count} fotografií (filtrované)",
     "noPhotos": "Žiadne fotografie nezodpovedajú vybraným filtrom.",
-    "filterView": "Mriežka",
+    "filterView": "Grid",
     "mapView": "Mapa",
     "photosFromMobile": "Mobil",
     "mobileTrips": "Mobilné výlety",
@@ -478,6 +479,7 @@
     "Antalya": "Antália",
     "PatagoniaChillan": "Severná Patagónia - Chillan",
     "Cusco": "Cusco",
-    "Huaraz": "Huaráz"
+    "Huaraz": "Huaráz",
+    "Ladakh": "Ladakh"
   }
 }

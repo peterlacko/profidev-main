@@ -333,6 +333,15 @@ export function GalleryContent({
     updateCountryParam([])
   }
 
+  const toggleMobilePhotos = () => {
+    setIncludeMobilePhotos((prev) => {
+      if (prev) {
+        setSelectedMobileTrip(undefined)
+      }
+      return !prev
+    })
+  }
+
   const handleViewModeChange = (mode: "filters" | "map") => {
     const params = new URLSearchParams(searchParams.toString())
     if (mode === "filters") {
@@ -344,14 +353,18 @@ export function GalleryContent({
     router.replace(queryString ? `${pathname}?${queryString}` : pathname, { scroll: false })
   }
 
+  const allAvailableCountriesSelected =
+    availableCountries.length > 0 &&
+    availableCountries.every((country) => selectedCountries.includes(country))
+
   const countryFilterLabel =
-    selectedCountries.length === 0
+    selectedCountries.length === 0 || allAvailableCountriesSelected
       ? t("allCountries")
       : selectedCountries.length === 1
         ? tCountries(selectedCountries[0])
         : `${selectedCountries.length} ${t("countriesSelected")}`
 
-  const tripFilterLabel = activeTrip ? activeTrip : t("all")
+  const tripFilterLabel = activeTrip ? activeTrip : t("allTrips")
 
   return (
     <div>
@@ -383,20 +396,13 @@ export function GalleryContent({
             {t("mapView")}
           </button>
         </div>
-        <div className="flex h-10 items-center justify-between gap-2 rounded-md bg-muted px-2.5 py-0 sm:ml-auto sm:w-auto sm:min-w-[150px]">
+        <div className="hidden h-10 items-center justify-between gap-2 rounded-md bg-muted px-2.5 py-0 md:ml-auto md:flex md:w-auto md:min-w-[150px]">
           <span className="text-sm leading-none text-muted-foreground">{t("photosFromMobile")}</span>
           <button
             type="button"
             role="switch"
             aria-checked={includeMobilePhotos}
-            onClick={() =>
-              setIncludeMobilePhotos((prev) => {
-                if (prev) {
-                  setSelectedMobileTrip(undefined)
-                }
-                return !prev
-              })
-            }
+            onClick={toggleMobilePhotos}
             className={cn(
               "relative inline-flex h-4 w-7 items-center rounded-full border transition-colors",
               includeMobilePhotos ? "border-primary bg-primary" : "border-border bg-muted"
@@ -426,7 +432,7 @@ export function GalleryContent({
               <div className="grid w-full gap-2 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_auto_auto] md:items-end">
                 {/* Country Filter - dropdown multi-select */}
                 <div className="w-full" ref={countryDropdownRef}>
-                  <label className="mb-1 block text-[10px] font-medium uppercase tracking-wide text-muted-foreground">
+                  <label className="mb-1 hidden text-[10px] font-medium uppercase tracking-wide text-muted-foreground md:block">
                     {t("country")}
                   </label>
                   <div className="relative inline-block w-full">
@@ -436,7 +442,7 @@ export function GalleryContent({
                         setCountriesDropdownOpen((open) => !open)
                         if (!countriesDropdownOpen) setCountrySearch("")
                       }}
-                      className="flex w-full items-center justify-between rounded-md border border-border bg-muted/60 px-2.5 py-1.5 text-left text-sm text-foreground"
+                      className="flex w-full items-center justify-between rounded-md border border-border bg-muted/60 px-2.5 py-1 text-left text-sm text-foreground md:py-1.5"
                     >
                       <span className="truncate">{countryFilterLabel}</span>
                       <ChevronDown
@@ -520,7 +526,7 @@ export function GalleryContent({
                 </div>
 
                 <div className="w-full" ref={tripDropdownRef}>
-                  <label className="mb-1 block text-[10px] font-medium uppercase tracking-wide text-muted-foreground">
+                  <label className="mb-1 hidden text-[10px] font-medium uppercase tracking-wide text-muted-foreground md:block">
                     {t("trip")}
                   </label>
                   <div className="relative inline-block w-full">
@@ -529,7 +535,7 @@ export function GalleryContent({
                       onClick={() => setTripDropdownOpen((open) => !open)}
                       disabled={selectedCountries.length === 0}
                       className={cn(
-                        "flex w-full items-center justify-between rounded-md border border-border bg-muted/60 px-2.5 py-1.5 text-left text-sm text-foreground",
+                        "flex w-full items-center justify-between rounded-md border border-border bg-muted/60 px-2.5 py-1 text-left text-sm text-foreground md:py-1.5",
                         selectedCountries.length === 0 && "cursor-not-allowed opacity-60"
                       )}
                     >
@@ -601,7 +607,46 @@ export function GalleryContent({
                   </div>
                 </div>
 
-                <div className="w-full md:w-auto">
+                <div className="flex h-[32px] items-center justify-between gap-3 md:hidden">
+                  <button
+                    type="button"
+                    onClick={toggleMobilePhotos}
+                    role="switch"
+                    aria-checked={includeMobilePhotos}
+                    className="flex items-center gap-2 text-sm text-muted-foreground"
+                  >
+                    <span className="leading-none">{t("photosFromMobile")}</span>
+                    <span
+                      className={cn(
+                        "relative inline-flex h-4 w-7 items-center rounded-full border transition-colors",
+                        includeMobilePhotos ? "border-primary bg-primary" : "border-border bg-muted"
+                      )}
+                    >
+                      <span
+                        className={cn(
+                          "inline-block h-3 w-3 transform rounded-full bg-background transition-transform",
+                          includeMobilePhotos ? "translate-x-3" : "translate-x-0.5"
+                        )}
+                      />
+                    </span>
+                  </button>
+                  <div className="text-[11px] leading-none text-muted-foreground">
+                    {hasActiveFilters
+                      ? t("photosFiltered", { count: filteredPhotos.length })
+                      : t("photos", { count: filteredPhotos.length })}
+                  </div>
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    onClick={clearFilters}
+                    disabled={!hasActiveFilters}
+                    className="h-auto px-0 text-sm font-semibold text-foreground hover:bg-transparent disabled:text-muted-foreground"
+                  >
+                    {t("clearFilters")}
+                  </Button>
+                </div>
+
+                <div className="hidden w-full md:block md:w-auto">
                   <span className="mb-1 block text-[10px] font-medium uppercase tracking-wide text-transparent">
                     &nbsp;
                   </span>
@@ -612,7 +657,7 @@ export function GalleryContent({
                   </div>
                 </div>
 
-                <div className="w-full md:w-auto">
+                <div className="hidden w-full md:block md:w-auto">
                   <span className="mb-1 block text-[10px] font-medium uppercase tracking-wide text-transparent">
                     &nbsp;
                   </span>

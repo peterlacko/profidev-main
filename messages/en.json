@@ -48,6 +48,7 @@
     "date": "Date",
     "all": "All",
     "allCountries": "All Countries",
+    "allTrips": "All Trips",
     "countriesSelected": "countries selected",
     "clearFilters": "Clear filters",
     "searchCountries": "Search countries",
@@ -478,6 +479,7 @@
     "Antalya": "Antalya",
     "PatagoniaChillan": "North Patagonia - Chillan",
     "Cusco": "Cusco",
-    "Huaraz": "Huaraz"
+    "Huaraz": "Huaraz",
+    "Ladakh": "Ladakh"
   }
 }

@@ -1,6 +1,387 @@
 {
   "trips": [
     {
+      "id": "india-2022",
+      "title": {
+        "en": "India 2022",
+        "sk": "India 2022"
+      },
+      "country": "India",
+      "date": "2022-06",
+      "featured": false,
+      "categories": [
+        "landscape"
+      ],
+      "photos": [
+        {
+          "filename": "01_to_gaj_pass.jpg",
+          "caption": {
+            "en": "To Gaj Pass",
+            "sk": "Na Gaj Pass"
+          },
+          "categories": [
+            "landscape"
+          ]
+        },
+        {
+          "filename": "02_higher_above.jpg",
+          "caption": {
+            "en": "Higher Above",
+            "sk": "Vyššie"
+          },
+          "categories": [
+            "landscape"
+          ]
+        },
+        {
+          "filename": "03_not_a_glacier.jpg",
+          "caption": {
+            "en": "Not A Glacier",
+            "sk": "Nie je to ľadovec"
+          },
+          "categories": [
+            "landscape"
+          ]
+        },
+        {
+          "filename": "04_liza.jpg",
+          "caption": {
+            "en": "Liza",
+            "sk": "Jašťo"
+          },
+          "categories": [
+            "landscape"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "india-ladakh-2022",
+      "title": {
+        "en": "Ladakh 2022",
+        "sk": "Ladakh 2022"
+      },
+      "country": "India",
+      "date": "2022-07",
+      "featured": false,
+      "categories": [
+        "landscape",
+        "culture"
+      ],
+      "photos": [
+        {
+          "filename": "01_nun_kun.jpg",
+          "caption": {
+            "en": "Nun Kun",
+            "sk": "Nun Kun"
+          },
+          "categories": [
+            "landscape"
+          ]
+        },
+        {
+          "filename": "02_around_tso_moriri.jpg",
+          "caption": {
+            "en": "Around Tso Moriri",
+            "sk": "Okolo Tso Moriri"
+          },
+          "categories": [
+            "landscape"
+          ]
+        },
+        {
+          "filename": "03_around_tso_moriri_2.jpg",
+          "caption": {
+            "en": "Around Tso Moriri 2",
+            "sk": "Okolo Tso Moriri 2"
+          },
+          "categories": [
+            "landscape"
+          ]
+        },
+        {
+          "filename": "04_on_the_way_to_yalung_nyau_la.jpg",
+          "caption": {
+            "en": "On The Way To Yalung Nyau La",
+            "sk": "Cestou k Yalung Nyau La"
+          },
+          "categories": [
+            "landscape"
+          ]
+        },
+        {
+          "filename": "05_karzok.jpg",
+          "caption": {
+            "en": "Karzok",
+            "sk": "Karzok"
+          },
+          "categories": [
+            "landscape"
+          ]
+        },
+        {
+          "filename": "06_tanglanla_pass.jpg",
+          "caption": {
+            "en": "Tanglanla Pass",
+            "sk": "Sedlo Tanglanla"
+          },
+          "categories": [
+            "landscape"
+          ]
+        },
+        {
+          "filename": "07_hitchhiking_in_india.jpg",
+          "caption": {
+            "en": "Hitchhiking In India",
+            "sk": "Stopovanie v Indii"
+          },
+          "categories": [
+            "landscape"
+          ]
+        },
+        {
+          "filename": "08_work_must_go_on.jpg",
+          "caption": {
+            "en": "Work Must Go On",
+            "sk": "Práca musí pokračovať"
+          },
+          "categories": [
+            "landscape"
+          ]
+        },
+        {
+          "filename": "09_work_hard.jpg",
+          "caption": {
+            "en": "Work Hard",
+            "sk": "Pracuj tvrdo"
+          },
+          "categories": [
+            "landscape"
+          ]
+        },
+        {
+          "filename": "10_suru_or_dras.jpg",
+          "caption": {
+            "en": "Suru Or Dras?",
+            "sk": "Suru alebo Dras?"
+          },
+          "categories": [
+            "landscape"
+          ]
+        },
+        {
+          "filename": "11_valley_in_ladakh.jpg",
+          "caption": {
+            "en": "Valley In Ladakh",
+            "sk": "Údolie v Ladakhu"
+          },
+          "categories": [
+            "landscape"
+          ]
+        },
+        {
+          "filename": "12_Maitreya_Buddha at Likir Monastery.jpg",
+          "caption": {
+            "en": "Maitreya Buddha At Diskit Monastery",
+            "sk": "Maitreya Buddha v Kláštore Diskit"
+          },
+          "categories": [
+            "landscape"
+          ]
+        },
+        {
+          "filename": "13_samstanlig_monastery.jpg",
+          "caption": {
+            "en": "Samstanlig Monastery",
+            "sk": "Kláštor Samstanlig"
+          },
+          "categories": [
+            "landscape"
+          ]
+        },
+        {
+          "filename": "14_somewhere_high.jpg",
+          "caption": {
+            "en": "Somewhere High",
+            "sk": "Kdesi vysoko"
+          },
+          "categories": [
+            "landscape"
+          ]
+        },
+        {
+          "filename": "15_markha_trail_start.jpg",
+          "caption": {
+            "en": "Markha Trail Start",
+            "sk": "Začiatok hiku údolím Markha"
+          },
+          "categories": [
+            "landscape"
+          ]
+        },
+        {
+          "filename": "16_markha_goes_on.jpg",
+          "caption": {
+            "en": "Markha Goes On",
+            "sk": "Markha pokračuje"
+          },
+          "categories": [
+            "landscape"
+          ]
+        },
+        {
+          "filename": "17_storm_is_coming.jpg",
+          "caption": {
+            "en": "Storm Is Coming",
+            "sk": "Blíži sa búrka"
+          },
+          "categories": [
+            "landscape"
+          ]
+        },
+        {
+          "filename": "18_new_markha.jpg",
+          "caption": {
+            "en": "New Markha",
+            "sk": "Nová Markha"
+          },
+          "categories": [
+            "landscape"
+          ]
+        },
+        {
+          "filename": "19_still_markha.jpg",
+          "caption": {
+            "en": "Still Markha",
+            "sk": "Stále Markha"
+          },
+          "categories": [
+            "landscape"
+          ]
+        },
+        {
+          "filename": "20_markha_after_landslides.jpg",
+          "caption": {
+            "en": "Markha After Landslides",
+            "sk": "Markha po zosuvoch"
+          },
+          "categories": [
+            "landscape"
+          ]
+        },
+        {
+          "filename": "21_so_dry.jpg",
+          "caption": {
+            "en": "So Dry",
+            "sk": "Také suché"
+          },
+          "categories": [
+            "landscape"
+          ]
+        },
+        {
+          "filename": "22_with_locals.jpg",
+          "caption": {
+            "en": "With Locals",
+            "sk": "S miestnymi"
+          },
+          "categories": [
+            "culture"
+          ]
+        },
+        {
+          "filename": "23_markha_from_monastery.jpg",
+          "caption": {
+            "en": "Markha From Monastery",
+            "sk": "Markha z kláštora"
+          },
+          "categories": [
+            "landscape"
+          ]
+        },
+        {
+          "filename": "24_old_castle.jpg",
+          "caption": {
+            "en": "Old Castle",
+            "sk": "Starý hrad"
+          },
+          "categories": [
+            "landscape"
+          ]
+        },
+        {
+          "filename": "25_old_castle_2.jpg",
+          "caption": {
+            "en": "Old Castle 2",
+            "sk": "Starý hrad 2"
+          },
+          "categories": [
+            "landscape"
+          ]
+        },
+        {
+          "filename": "26_fields_in_markha.jpg",
+          "caption": {
+            "en": "Fields In Markha",
+            "sk": "Polia v Markhe"
+          },
+          "categories": [
+            "landscape"
+          ]
+        },
+        {
+          "filename": "27_edelweiss.jpg",
+          "caption": {
+            "en": "Edelweiss",
+            "sk": "Plesnivec alpínsky"
+          },
+          "categories": [
+            "landscape"
+          ]
+        },
+        {
+          "filename": "28_on_the_way_to_ganda_la.jpg",
+          "caption": {
+            "en": "On The Way To Ganda La",
+            "sk": "Cestou na Ganda La"
+          },
+          "categories": [
+            "landscape"
+          ]
+        },
+        {
+          "filename": "29_stok_kangri.jpg",
+          "caption": {
+            "en": "Stok Kangri",
+            "sk": "Stok Kangri"
+          },
+          "categories": [
+            "landscape"
+          ]
+        },
+        {
+          "filename": "30_yak_below_ganda_li.jpg",
+          "caption": {
+            "en": "Yak Below Ganda Li",
+            "sk": "Jak pod Ganda Li"
+          },
+          "categories": [
+            "landscape"
+          ]
+        },
+        {
+          "filename": "31_stok_kangri_detail.jpg",
+          "caption": {
+            "en": "Stok Kangri Detail",
+            "sk": "Detail Stok Kangri"
+          },
+          "categories": [
+            "landscape"
+          ]
+        }
+      ]
+    },
+    {
       "id": "nicaragua-2024",
       "title": {
         "en": "Nicaragua 2024",
@@ -31,7 +412,8 @@
             "sk": "Sopka Concepcion Na Ometepe"
           },
           "categories": [
-            "landscape", "mountains"
+            "landscape",
+            "mountains"
           ]
         },
         {
