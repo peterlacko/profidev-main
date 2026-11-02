@@ -84,7 +84,7 @@ export function GalleryContent({
   const [tripDropdownOpen, setTripDropdownOpen] = useState(false)
   const countryDropdownRef = useRef<HTMLDivElement | null>(null)
   const tripDropdownRef = useRef<HTMLDivElement | null>(null)
-  const [includeMobilePhotos, setIncludeMobilePhotos] = useState(false)
+  const [includeMobilePhotos, setIncludeMobilePhotos] = useState(true)
   const [mobilePhotos, setMobilePhotos] = useState<PhotoWithTrip[]>([])
   const [mobilePhotosLoaded, setMobilePhotosLoaded] = useState(false)
   const [mobilePhotosLoading, setMobilePhotosLoading] = useState(false)
@@ -147,9 +147,17 @@ export function GalleryContent({
   }, [allPhotos])
 
   const availableTrips = useMemo(() => {
-    const tripSet = new Set(allPhotos.map((photo) => photo.tripTitle).filter(Boolean))
+    if (selectedCountries.length === 0) return []
+
+    const tripSet = new Set(
+      allPhotos
+        .filter((photo) => selectedCountries.includes(photo.country))
+        .map((photo) => photo.tripTitle)
+        .filter(Boolean)
+    )
+
     return Array.from(tripSet).sort((a, b) => a.localeCompare(b))
-  }, [allPhotos])
+  }, [allPhotos, selectedCountries])
 
   const countryPhotoCounts = useMemo(() => {
     return allPhotos.reduce<Record<string, number>>((acc, photo) => {
@@ -175,17 +183,28 @@ export function GalleryContent({
       ? selectedCountries.filter((selectedCountry) => selectedCountry !== country)
       : [...selectedCountries, country]
 
+    if (selectedTrip && !nextCountries.some((selectedCountry) => {
+      const tripInCountry = allPhotos.some(
+        (photo) => photo.country === selectedCountry && photo.tripTitle === selectedTrip
+      )
+      return tripInCountry
+    })) {
+      setSelectedTrip(undefined)
+    }
+
     setSelectedCountries(nextCountries)
     updateCountryParam(nextCountries)
   }
+
+  const activeTrip = selectedTrip && availableTrips.includes(selectedTrip) ? selectedTrip : undefined
 
   const filteredPhotos = useMemo(() => {
     let result = filterPhotos(allPhotos, {
       countries: selectedCountries,
     })
 
-    if (selectedTrip) {
-      result = result.filter((photo) => photo.tripTitle === selectedTrip)
+    if (activeTrip) {
+      result = result.filter((photo) => photo.tripTitle === activeTrip)
     }
 
     if (selectedMobileTrip) {
@@ -193,7 +212,7 @@ export function GalleryContent({
     }
 
     return result
-  }, [allPhotos, selectedCountries, selectedTrip, selectedMobileTrip])
+  }, [allPhotos, selectedCountries, activeTrip, selectedMobileTrip])
 
   const groupedPhotosByCountry = useMemo(() => {
     const grouped = new Map<string, PhotoWithTrip[]>()
@@ -231,7 +250,7 @@ export function GalleryContent({
     }))
   }, [filteredPhotos])
 
-  const hasActiveFilters = selectedCountries.length > 0 || selectedTrip || selectedMobileTrip
+  const hasActiveFilters = selectedCountries.length > 0 || activeTrip || selectedMobileTrip
 
   const clearFilters = () => {
     setSelectedCountries([])
@@ -258,7 +277,7 @@ export function GalleryContent({
         ? tCountries(selectedCountries[0])
         : `${selectedCountries.length} ${t("countriesSelected")}`
 
-  const tripFilterLabel = selectedTrip ? selectedTrip : t("all")
+  const tripFilterLabel = activeTrip ? activeTrip : t("all")
 
   return (
     <div>
@@ -290,8 +309,8 @@ export function GalleryContent({
             {t("mapView")}
           </button>
         </div>
-        <div className="flex items-center justify-between gap-3 rounded-md border border-border bg-card px-3 py-2 sm:ml-auto sm:w-auto sm:min-w-[220px]">
-          <span className="text-sm text-muted-foreground">{t("photosFromMobile")}</span>
+        <div className="flex h-10 items-center justify-between gap-2 rounded-md bg-muted px-2.5 py-0 sm:ml-auto sm:w-auto sm:min-w-[150px]">
+          <span className="text-sm leading-none text-muted-foreground">{t("photosFromMobile")}</span>
           <button
             type="button"
             role="switch"
@@ -305,14 +324,14 @@ export function GalleryContent({
               })
             }
             className={cn(
-              "relative inline-flex h-6 w-11 items-center rounded-full border transition-colors",
+              "relative inline-flex h-4 w-7 items-center rounded-full border transition-colors",
               includeMobilePhotos ? "border-primary bg-primary" : "border-border bg-muted"
             )}
           >
             <span
               className={cn(
-                "inline-block h-4 w-4 transform rounded-full bg-background transition-transform",
-                includeMobilePhotos ? "translate-x-6" : "translate-x-1"
+                "inline-block h-3 w-3 transform rounded-full bg-background transition-transform",
+                includeMobilePhotos ? "translate-x-3" : "translate-x-0.5"
               )}
             />
           </button>
@@ -328,19 +347,19 @@ export function GalleryContent({
       {viewMode === "filters" ? (
         <>
           {/* Filters */}
-          <div className="mb-8 rounded-lg border bg-card p-4">
-            <div className="flex flex-col gap-3 pb-3">
-              <div className="grid w-full gap-3 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_auto] md:items-end">
+          <div className="mb-8 p-0">
+            <div className="flex flex-col gap-2 pb-0">
+              <div className="grid w-full gap-2 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_auto] md:items-end">
                 {/* Country Filter - dropdown multi-select */}
                 <div className="w-full" ref={countryDropdownRef}>
-                  <label className="mb-1.5 block text-xs font-medium text-muted-foreground">
+                  <label className="mb-1 block text-[10px] font-medium uppercase tracking-wide text-muted-foreground">
                     {t("country")}
                   </label>
                   <div className="relative inline-block w-full">
                     <button
                       type="button"
                       onClick={() => setCountriesDropdownOpen((open) => !open)}
-                      className="flex w-full items-center justify-between rounded-md border border-border bg-background px-3 py-2 text-left text-sm"
+                      className="flex w-full items-center justify-between rounded-md border border-border bg-muted/60 px-2.5 py-1.5 text-left text-sm text-foreground"
                     >
                       <span className="truncate">{countryFilterLabel}</span>
                       <ChevronDown
@@ -410,14 +429,18 @@ export function GalleryContent({
                 </div>
 
                 <div className="w-full" ref={tripDropdownRef}>
-                  <label className="mb-1.5 block text-xs font-medium text-muted-foreground">
+                  <label className="mb-1 block text-[10px] font-medium uppercase tracking-wide text-muted-foreground">
                     {t("trip")}
                   </label>
                   <div className="relative inline-block w-full">
                     <button
                       type="button"
                       onClick={() => setTripDropdownOpen((open) => !open)}
-                      className="flex w-full items-center justify-between rounded-md border border-border bg-background px-3 py-2 text-left text-sm"
+                      disabled={selectedCountries.length === 0}
+                      className={cn(
+                        "flex w-full items-center justify-between rounded-md border border-border bg-muted/60 px-2.5 py-1.5 text-left text-sm text-foreground",
+                        selectedCountries.length === 0 && "cursor-not-allowed opacity-60"
+                      )}
                     >
                       <span className="truncate">{tripFilterLabel}</span>
                       <ChevronDown
@@ -428,7 +451,7 @@ export function GalleryContent({
                       />
                     </button>
 
-                    {tripDropdownOpen && (
+                    {tripDropdownOpen && selectedCountries.length > 0 && (
                       <div className="absolute z-20 mt-1 w-full rounded-md border border-border bg-popover p-2 shadow-lg">
                         <div className="mb-2 flex items-center justify-between gap-2 border-b border-border/50 pb-2">
                           <button
@@ -441,7 +464,7 @@ export function GalleryContent({
                           >
                             {t("all")}
                           </button>
-                          {selectedTrip && (
+                          {activeTrip && (
                             <button
                               type="button"
                               onClick={() => {
@@ -456,27 +479,31 @@ export function GalleryContent({
                         </div>
 
                         <div className="max-h-64 space-y-1 overflow-y-auto">
-                          {availableTrips.map((trip) => {
-                            const active = selectedTrip === trip
+                          {availableTrips.length === 0 ? (
+                            <p className="px-2 py-1.5 text-sm text-muted-foreground">{t("all")}</p>
+                          ) : (
+                            availableTrips.map((trip) => {
+                              const active = activeTrip === trip
 
-                            return (
-                              <button
-                                key={trip}
-                                type="button"
-                                onClick={() => {
-                                  setSelectedTrip(active ? undefined : trip)
-                                  setTripDropdownOpen(false)
-                                }}
-                                className={cn(
-                                  "flex w-full items-center justify-between rounded-md px-2 py-1.5 text-left text-sm hover:bg-accent",
-                                  active && "bg-accent/40"
-                                )}
-                              >
-                                <span className="truncate">{trip}</span>
-                                {active && <span className="ml-2 text-primary">✓</span>}
-                              </button>
-                            )
-                          })}
+                              return (
+                                <button
+                                  key={trip}
+                                  type="button"
+                                  onClick={() => {
+                                    setSelectedTrip(active ? undefined : trip)
+                                    setTripDropdownOpen(false)
+                                  }}
+                                  className={cn(
+                                    "flex w-full items-center justify-between rounded-md px-2 py-1.5 text-left text-sm hover:bg-accent",
+                                    active && "bg-accent/40"
+                                  )}
+                                >
+                                  <span className="truncate">{trip}</span>
+                                  {active && <span className="ml-2 text-primary">✓</span>}
+                                </button>
+                              )
+                            })
+                          )}
                         </div>
                       </div>
                     )}
@@ -484,7 +511,7 @@ export function GalleryContent({
                 </div>
 
                 <div className="w-full md:w-auto">
-                  <span className="mb-1.5 block text-xs font-medium text-muted-foreground">
+                  <span className="mb-1 block text-[10px] font-medium uppercase tracking-wide text-transparent">
                     &nbsp;
                   </span>
                   <Button
@@ -492,7 +519,7 @@ export function GalleryContent({
                     variant="outline"
                     onClick={clearFilters}
                     disabled={!hasActiveFilters}
-                    className="w-full md:w-auto"
+                    className="h-[32px] w-full border border-border bg-muted/80 px-3 text-sm text-foreground shadow-none hover:bg-muted hover:text-foreground disabled:cursor-not-allowed disabled:border-border/60 disabled:bg-muted/50 disabled:text-muted-foreground md:w-auto"
                   >
                     {t("clearFilters")}
                   </Button>
