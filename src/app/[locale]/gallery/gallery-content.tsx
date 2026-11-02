@@ -32,13 +32,36 @@ type MobileApiPhoto = {
 const resolveCountriesFromQuery = (queryCountries: string[], countries: string[]): string[] => {
   if (queryCountries.length === 0) return []
 
-  const normalized = new Set(
-    queryCountries
-      .map((country) => country.toLowerCase())
-      .filter(Boolean)
-  )
+  const countryLookup = new Set(countries.map((country) => country.toLowerCase()))
+  const resolved: string[] = []
 
-  return countries.filter((country) => normalized.has(country.toLowerCase()))
+  for (const rawCountry of queryCountries) {
+    const trimmed = rawCountry.trim()
+    if (!trimmed) continue
+
+    const exactMatch = countries.find((country) => country.toLowerCase() === trimmed.toLowerCase())
+    if (exactMatch) {
+      if (!resolved.some((country) => country.toLowerCase() === exactMatch.toLowerCase())) {
+        resolved.push(exactMatch)
+      }
+      continue
+    }
+
+    if (!countryLookup.has(trimmed.toLowerCase())) {
+      const titleCase = trimmed
+        .replace(/[-_]+/g, " ")
+        .split(/\s+/)
+        .filter(Boolean)
+        .map((part) => part.charAt(0).toUpperCase() + part.slice(1).toLowerCase())
+        .join(" ")
+
+      if (titleCase && !resolved.some((country) => country.toLowerCase() === titleCase.toLowerCase())) {
+        resolved.push(titleCase)
+      }
+    }
+  }
+
+  return resolved
 }
 
 const toMobilePhotoWithTrip = (photo: MobileApiPhoto): PhotoWithTrip => ({
@@ -75,9 +98,6 @@ export function GalleryContent({
     return "filters"
   }
   const viewMode = resolveViewMode()
-  const [selectedCountries, setSelectedCountries] = useState<string[]>(() =>
-    resolveCountriesFromQuery(searchParams.getAll("country"), countries)
-  )
   const [selectedTrip, setSelectedTrip] = useState<string | undefined>()
   const [selectedMobileTrip, setSelectedMobileTrip] = useState<string | undefined>()
   const [countriesDropdownOpen, setCountriesDropdownOpen] = useState(false)
@@ -146,6 +166,16 @@ export function GalleryContent({
     return Array.from(countrySet).sort()
   }, [allPhotos])
 
+  const allKnownCountries = useMemo(
+    () => Array.from(new Set([...countries, ...availableCountries])).sort(),
+    [availableCountries, countries]
+  )
+
+  const selectedCountries = useMemo(
+    () => resolveCountriesFromQuery(searchParams.getAll("country"), allKnownCountries),
+    [allKnownCountries, searchParams]
+  )
+
   const availableTrips = useMemo(() => {
     if (selectedCountries.length === 0) return []
 
@@ -192,8 +222,11 @@ export function GalleryContent({
       setSelectedTrip(undefined)
     }
 
-    setSelectedCountries(nextCountries)
-    updateCountryParam(nextCountries)
+    const params = new URLSearchParams(searchParams.toString())
+    params.delete("country")
+    nextCountries.forEach((country) => params.append("country", country.toLowerCase()))
+    const queryString = params.toString()
+    router.replace(queryString ? `${pathname}?${queryString}` : pathname, { scroll: false })
   }
 
   const activeTrip = selectedTrip && availableTrips.includes(selectedTrip) ? selectedTrip : undefined
@@ -253,7 +286,6 @@ export function GalleryContent({
   const hasActiveFilters = selectedCountries.length > 0 || activeTrip || selectedMobileTrip
 
   const clearFilters = () => {
-    setSelectedCountries([])
     setSelectedTrip(undefined)
     setSelectedMobileTrip(undefined)
     updateCountryParam([])
@@ -376,7 +408,6 @@ export function GalleryContent({
                           <button
                             type="button"
                             onClick={() => {
-                              setSelectedCountries([])
                               updateCountryParam([])
                             }}
                             className="text-xs text-muted-foreground hover:text-foreground"
@@ -387,7 +418,6 @@ export function GalleryContent({
                             <button
                               type="button"
                               onClick={() => {
-                                setSelectedCountries([])
                                 updateCountryParam([])
                                 setCountriesDropdownOpen(false)
                               }}
