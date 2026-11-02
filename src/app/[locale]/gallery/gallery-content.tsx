@@ -3,13 +3,11 @@
 import { useEffect, useMemo, useRef, useState } from "react"
 import { useSearchParams } from "next/navigation"
 import { ChevronDown, X } from "lucide-react"
-import Image from "next/image"
 import { useTranslations } from "next-intl"
 import { useRouter, usePathname } from "@/i18n/navigation"
 import type { PhotoWithTrip, Trip } from "@/types"
-import { filterPhotos, getTripCoverSrc } from "@/lib/trips"
+import { filterPhotos } from "@/lib/trips"
 import { PhotoGrid } from "@/components/photos/photo-grid"
-import { TripCard } from "@/components/photos/trip-card"
 import { WorldMap } from "@/components/map/WorldMap"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
@@ -17,7 +15,6 @@ import { cn } from "@/lib/utils"
 interface GalleryContentProps {
   initialPhotos: PhotoWithTrip[]
   countries: string[]
-  regionsByCountry: Record<string, string[]>
   trips: Trip[]
   locale: string
 }
@@ -30,14 +27,6 @@ type MobileApiPhoto = {
   caption?: string
   uploadedAt: string
   src: string
-}
-
-type MobileTripGroup = {
-  key: string
-  tripTitle: string
-  country: string
-  count: number
-  coverSrc: string
 }
 
 const resolveCountriesFromQuery = (queryCountries: string[], countries: string[]): string[] => {
@@ -67,33 +56,34 @@ const toMobilePhotoWithTrip = (photo: MobileApiPhoto): PhotoWithTrip => ({
 export function GalleryContent({
   initialPhotos,
   countries,
-  regionsByCountry,
-  trips,
-  locale,
+  trips: _trips,
+  locale: _locale,
 }: GalleryContentProps) {
+  void _trips
+  void _locale
+
   const t = useTranslations("gallery")
   const tMap = useTranslations("map")
   const tCountries = useTranslations("countries")
-  const tRegions = useTranslations("regions")
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
 
-  const resolveViewMode = (): "filters" | "trips" | "map" => {
+  const resolveViewMode = (): "filters" | "map" => {
     const raw = searchParams.get("view")
-    if (raw === "trips" || raw === "map") return raw
+    if (raw === "map") return raw
     return "filters"
   }
   const viewMode = resolveViewMode()
   const [selectedCountries, setSelectedCountries] = useState<string[]>(() =>
     resolveCountriesFromQuery(searchParams.getAll("country"), countries)
   )
-  const [selectedRegions, setSelectedRegions] = useState<string[]>([])
+  const [selectedTrip, setSelectedTrip] = useState<string | undefined>()
   const [selectedMobileTrip, setSelectedMobileTrip] = useState<string | undefined>()
   const [countriesDropdownOpen, setCountriesDropdownOpen] = useState(false)
-  const [regionsDropdownOpen, setRegionsDropdownOpen] = useState(false)
+  const [tripDropdownOpen, setTripDropdownOpen] = useState(false)
   const countryDropdownRef = useRef<HTMLDivElement | null>(null)
-  const regionDropdownRef = useRef<HTMLDivElement | null>(null)
+  const tripDropdownRef = useRef<HTMLDivElement | null>(null)
   const [includeMobilePhotos, setIncludeMobilePhotos] = useState(false)
   const [mobilePhotos, setMobilePhotos] = useState<PhotoWithTrip[]>([])
   const [mobilePhotosLoaded, setMobilePhotosLoaded] = useState(false)
@@ -128,7 +118,7 @@ export function GalleryContent({
   }, [includeMobilePhotos, mobilePhotosLoaded, mobilePhotosLoading, t])
 
   useEffect(() => {
-    if (!countriesDropdownOpen && !regionsDropdownOpen) return
+    if (!countriesDropdownOpen && !tripDropdownOpen) return
 
     const handlePointerDown = (event: MouseEvent) => {
       const target = event.target
@@ -137,14 +127,14 @@ export function GalleryContent({
       if (countryDropdownRef.current && !countryDropdownRef.current.contains(target)) {
         setCountriesDropdownOpen(false)
       }
-      if (regionDropdownRef.current && !regionDropdownRef.current.contains(target)) {
-        setRegionsDropdownOpen(false)
+      if (tripDropdownRef.current && !tripDropdownRef.current.contains(target)) {
+        setTripDropdownOpen(false)
       }
     }
 
     document.addEventListener("pointerdown", handlePointerDown)
     return () => document.removeEventListener("pointerdown", handlePointerDown)
-  }, [countriesDropdownOpen, regionsDropdownOpen])
+  }, [countriesDropdownOpen, tripDropdownOpen])
 
   const allPhotos = useMemo(
     () => (includeMobilePhotos ? [...initialPhotos, ...mobilePhotos] : initialPhotos),
@@ -156,48 +146,10 @@ export function GalleryContent({
     return Array.from(countrySet).sort()
   }, [allPhotos])
 
-  const availableRegions = useMemo(() => {
-    if (selectedCountries.length === 0) return []
-
-    const regions = new Set<string>()
-    selectedCountries.forEach((country) => {
-      const countryRegions = regionsByCountry[country] || []
-      countryRegions.forEach((region) => regions.add(region))
-    })
-
-    return Array.from(regions).sort()
-  }, [selectedCountries, regionsByCountry])
-
-  const showRegionFilter = selectedCountries.length > 0 && availableRegions.length > 0
-
-  const mobileTripGroups = useMemo(() => {
-    if (!includeMobilePhotos) return []
-
-    const groups = new Map<string, MobileTripGroup>()
-    for (const photo of mobilePhotos) {
-      const tripTitle = photo.tripTitle.trim()
-      if (!tripTitle || tripTitle === "Mobile") continue
-
-      const key = `${tripTitle}::${photo.country}`
-      const existing = groups.get(key)
-      if (existing) {
-        existing.count += 1
-      } else {
-        groups.set(key, {
-          key,
-          tripTitle,
-          country: photo.country,
-          count: 1,
-          coverSrc: photo.src,
-        })
-      }
-    }
-
-    return Array.from(groups.values()).sort((a, b) => {
-      if (a.tripTitle !== b.tripTitle) return a.tripTitle.localeCompare(b.tripTitle)
-      return a.country.localeCompare(b.country)
-    })
-  }, [includeMobilePhotos, mobilePhotos])
+  const availableTrips = useMemo(() => {
+    const tripSet = new Set(allPhotos.map((photo) => photo.tripTitle).filter(Boolean))
+    return Array.from(tripSet).sort((a, b) => a.localeCompare(b))
+  }, [allPhotos])
 
   const countryPhotoCounts = useMemo(() => {
     return allPhotos.reduce<Record<string, number>>((acc, photo) => {
@@ -223,39 +175,25 @@ export function GalleryContent({
       ? selectedCountries.filter((selectedCountry) => selectedCountry !== country)
       : [...selectedCountries, country]
 
-    const nextAvailableRegions = new Set<string>()
-    nextCountries.forEach((selectedCountry) => {
-      const countryRegions = regionsByCountry[selectedCountry] || []
-      countryRegions.forEach((region) => nextAvailableRegions.add(region))
-    })
-
     setSelectedCountries(nextCountries)
-    setSelectedRegions((current) =>
-      current.filter((region) => nextAvailableRegions.has(region))
-    )
     updateCountryParam(nextCountries)
-  }
-
-  const handleRegionToggle = (region: string) => {
-    setSelectedRegions((current) =>
-      current.includes(region)
-        ? current.filter((selectedRegion) => selectedRegion !== region)
-        : [...current, region]
-    )
   }
 
   const filteredPhotos = useMemo(() => {
     let result = filterPhotos(allPhotos, {
       countries: selectedCountries,
-      regions: selectedRegions,
     })
+
+    if (selectedTrip) {
+      result = result.filter((photo) => photo.tripTitle === selectedTrip)
+    }
 
     if (selectedMobileTrip) {
       result = result.filter((photo) => photo.tripTitle === selectedMobileTrip)
     }
 
     return result
-  }, [allPhotos, selectedCountries, selectedRegions, selectedMobileTrip])
+  }, [allPhotos, selectedCountries, selectedTrip, selectedMobileTrip])
 
   const groupedPhotosByCountry = useMemo(() => {
     const grouped = new Map<string, PhotoWithTrip[]>()
@@ -293,17 +231,16 @@ export function GalleryContent({
     }))
   }, [filteredPhotos])
 
-  const hasActiveFilters =
-    selectedCountries.length > 0 || selectedRegions.length > 0 || selectedMobileTrip
+  const hasActiveFilters = selectedCountries.length > 0 || selectedTrip || selectedMobileTrip
 
   const clearFilters = () => {
     setSelectedCountries([])
-    setSelectedRegions([])
+    setSelectedTrip(undefined)
     setSelectedMobileTrip(undefined)
     updateCountryParam([])
   }
 
-  const handleViewModeChange = (mode: "filters" | "trips" | "map") => {
+  const handleViewModeChange = (mode: "filters" | "map") => {
     const params = new URLSearchParams(searchParams.toString())
     if (mode === "filters") {
       params.delete("view")
@@ -314,15 +251,6 @@ export function GalleryContent({
     router.replace(queryString ? `${pathname}?${queryString}` : pathname, { scroll: false })
   }
 
-  const handleMobileTripOpen = (tripTitle: string) => {
-    setIncludeMobilePhotos(true)
-    setSelectedMobileTrip(tripTitle)
-    setSelectedCountries([])
-    setSelectedRegions([])
-    updateCountryParam([])
-    handleViewModeChange("filters")
-  }
-
   const countryFilterLabel =
     selectedCountries.length === 0
       ? t("allCountries")
@@ -330,12 +258,7 @@ export function GalleryContent({
         ? tCountries(selectedCountries[0])
         : `${selectedCountries.length} ${t("countriesSelected")}`
 
-  const regionFilterLabel =
-    selectedRegions.length === 0
-      ? t("all")
-      : selectedRegions.length === 1
-        ? tRegions(selectedRegions[0])
-        : `${selectedRegions.length} ${t("regionsSelected")}`
+  const tripFilterLabel = selectedTrip ? selectedTrip : t("all")
 
   return (
     <div>
@@ -353,18 +276,6 @@ export function GalleryContent({
             )}
           >
             {t("filterView")}
-          </button>
-          <button
-            type="button"
-            onClick={() => handleViewModeChange("trips")}
-            className={cn(
-              "flex-1 cursor-pointer rounded-sm px-3 py-1.5 text-sm font-medium transition-colors",
-              viewMode === "trips"
-                ? "bg-background text-foreground shadow-sm"
-                : "text-muted-foreground hover:bg-muted/80 hover:text-foreground"
-            )}
-          >
-            {t("tripView")}
           </button>
           <button
             type="button"
@@ -447,7 +358,6 @@ export function GalleryContent({
                             type="button"
                             onClick={() => {
                               setSelectedCountries([])
-                              setSelectedRegions([])
                               updateCountryParam([])
                             }}
                             className="text-xs text-muted-foreground hover:text-foreground"
@@ -459,7 +369,6 @@ export function GalleryContent({
                               type="button"
                               onClick={() => {
                                 setSelectedCountries([])
-                                setSelectedRegions([])
                                 updateCountryParam([])
                                 setCountriesDropdownOpen(false)
                               }}
@@ -500,46 +409,44 @@ export function GalleryContent({
                   </div>
                 </div>
 
-                {/* Region Filter - dropdown multi-select */}
-                <div className="w-full" ref={regionDropdownRef}>
+                <div className="w-full" ref={tripDropdownRef}>
                   <label className="mb-1.5 block text-xs font-medium text-muted-foreground">
-                    {t("region")}
+                    {t("trip")}
                   </label>
                   <div className="relative inline-block w-full">
                     <button
                       type="button"
-                      onClick={() => setRegionsDropdownOpen((open) => !open)}
-                      disabled={!showRegionFilter}
-                      className={cn(
-                        "flex w-full items-center justify-between rounded-md border border-border bg-background px-3 py-2 text-left text-sm",
-                        !showRegionFilter && "cursor-not-allowed opacity-60"
-                      )}
+                      onClick={() => setTripDropdownOpen((open) => !open)}
+                      className="flex w-full items-center justify-between rounded-md border border-border bg-background px-3 py-2 text-left text-sm"
                     >
-                      <span className="truncate">{regionFilterLabel}</span>
+                      <span className="truncate">{tripFilterLabel}</span>
                       <ChevronDown
                         className={cn(
                           "h-4 w-4 shrink-0 transition-transform",
-                          regionsDropdownOpen && "rotate-180"
+                          tripDropdownOpen && "rotate-180"
                         )}
                       />
                     </button>
 
-                    {regionsDropdownOpen && showRegionFilter && (
+                    {tripDropdownOpen && (
                       <div className="absolute z-20 mt-1 w-full rounded-md border border-border bg-popover p-2 shadow-lg">
                         <div className="mb-2 flex items-center justify-between gap-2 border-b border-border/50 pb-2">
                           <button
                             type="button"
-                            onClick={() => setSelectedRegions([])}
+                            onClick={() => {
+                              setSelectedTrip(undefined)
+                              setTripDropdownOpen(false)
+                            }}
                             className="text-xs text-muted-foreground hover:text-foreground"
                           >
                             {t("all")}
                           </button>
-                          {selectedRegions.length > 0 && (
+                          {selectedTrip && (
                             <button
                               type="button"
                               onClick={() => {
-                                setSelectedRegions([])
-                                setRegionsDropdownOpen(false)
+                                setSelectedTrip(undefined)
+                                setTripDropdownOpen(false)
                               }}
                               className="text-xs font-medium text-primary"
                             >
@@ -549,27 +456,25 @@ export function GalleryContent({
                         </div>
 
                         <div className="max-h-64 space-y-1 overflow-y-auto">
-                          {availableRegions.map((region) => {
-                            const checked = selectedRegions.includes(region)
+                          {availableTrips.map((trip) => {
+                            const active = selectedTrip === trip
 
                             return (
-                              <label
-                                key={region}
+                              <button
+                                key={trip}
+                                type="button"
+                                onClick={() => {
+                                  setSelectedTrip(active ? undefined : trip)
+                                  setTripDropdownOpen(false)
+                                }}
                                 className={cn(
-                                  "flex cursor-pointer items-center gap-2 rounded-md px-2 py-1.5 text-sm hover:bg-accent",
-                                  checked && "bg-accent/40"
+                                  "flex w-full items-center justify-between rounded-md px-2 py-1.5 text-left text-sm hover:bg-accent",
+                                  active && "bg-accent/40"
                                 )}
                               >
-                                <input
-                                  type="checkbox"
-                                  checked={checked}
-                                  onChange={() => {
-                                    handleRegionToggle(region)
-                                  }}
-                                  className="h-4 w-4 rounded border-border text-primary"
-                                />
-                                <span>{tRegions(region)}</span>
-                              </label>
+                                <span className="truncate">{trip}</span>
+                                {active && <span className="ml-2 text-primary">✓</span>}
+                              </button>
                             )
                           })}
                         </div>
@@ -649,53 +554,6 @@ export function GalleryContent({
             </div>
           )}
         </>
-      ) : viewMode === "trips" ? (
-        /* Trips Grid */
-        <div className="space-y-8">
-          {includeMobilePhotos && mobileTripGroups.length > 0 && (
-            <section>
-              <h2 className="mb-4 text-lg font-semibold">{t("mobileTrips")}</h2>
-              <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-                {mobileTripGroups.map((trip) => (
-                  <button
-                    key={trip.key}
-                    onClick={() => handleMobileTripOpen(trip.tripTitle)}
-                    className="group relative aspect-[4/3] overflow-hidden rounded-lg bg-muted text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-                  >
-                    <Image
-                      src={trip.coverSrc}
-                      alt={trip.tripTitle}
-                      fill
-                      className="object-cover transition-transform duration-300 group-hover:scale-105"
-                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                    />
-                    <div className="absolute inset-0 bg-black/0 transition-colors duration-300 group-hover:bg-black/30" />
-                    <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-4">
-                      <p className="text-lg font-medium text-white">{trip.tripTitle}</p>
-                      <p className="text-sm text-white/70">
-                        {tCountries(trip.country)} · {t("photos", { count: trip.count })}
-                      </p>
-                    </div>
-                  </button>
-                ))}
-              </div>
-            </section>
-          )}
-
-          <section>
-            <h2 className="mb-4 text-lg font-semibold">{t("tripView")}</h2>
-            <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-              {trips.map(trip => (
-                <TripCard
-                  key={trip.id}
-                  trip={trip}
-                  coverSrc={trip.photos[0] ? getTripCoverSrc(trip.id, trip.photos[0].filename) : ""}
-                  locale={locale}
-                />
-              ))}
-            </div>
-          </section>
-        </div>
       ) : (
         <div className="space-y-6">
           <div className="text-center">
