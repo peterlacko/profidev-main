@@ -1,7 +1,7 @@
 "use client"
 
 import Image from "next/image"
-import { useEffect, useMemo, useState, useSyncExternalStore } from "react"
+import { useEffect, useMemo, useState } from "react"
 import {
   AlertCircle,
   CheckCircle2,
@@ -188,21 +188,8 @@ export function UploadForm() {
   const t = useTranslations("mobileUpload")
   const [token, setToken] = useState("")
   const [showToken, setShowToken] = useState(false)
-  const biometricAvailable = useSyncExternalStore(
-    () => () => {},
-    () =>
-      typeof window !== "undefined" &&
-      typeof window.PublicKeyCredential !== "undefined" &&
-      typeof navigator.credentials !== "undefined",
-    () => false
-  )
-  const biometricConfigured = useSyncExternalStore(
-    () => () => {},
-    () =>
-      typeof window !== "undefined" &&
-      Boolean(window.localStorage.getItem(BIOMETRIC_CREDENTIAL_ID_KEY)),
-    () => false
-  )
+  const [biometricAvailable, setBiometricAvailable] = useState(false)
+  const [biometricConfigured, setBiometricConfigured] = useState(false)
   const [isBiometricBusy, setIsBiometricBusy] = useState(false)
   const [country, setCountry] = useState("")
   const [trip, setTrip] = useState("")
@@ -212,6 +199,18 @@ export function UploadForm() {
   const [items, setItems] = useState<UploadItem[]>([])
   const [failedDraft, setFailedDraft] = useState<UploadDraft | null>(null)
   const [globalError, setGlobalError] = useState<string | null>(null)
+
+  useEffect(() => {
+    if (typeof window === "undefined") return
+
+    setBiometricAvailable(
+      typeof window.PublicKeyCredential !== "undefined" &&
+      typeof navigator.credentials !== "undefined"
+    )
+    setBiometricConfigured(
+      Boolean(window.localStorage.getItem(BIOMETRIC_CREDENTIAL_ID_KEY))
+    )
+  }, [])
 
   const selectedFilePreviewUrls = useMemo(() => {
     const urls = new Map<string, string>()
@@ -229,6 +228,7 @@ export function UploadForm() {
       }
     }
   }, [selectedFilePreviewUrls])
+
   const [mobileTrips, setMobileTrips] = useState<MobileTripSummary[]>([])
   const [tripsLoading, setTripsLoading] = useState(false)
   const [tripsError, setTripsError] = useState<string | null>(null)
