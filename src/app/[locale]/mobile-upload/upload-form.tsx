@@ -154,6 +154,14 @@ const shouldRetryUpload = (status: number): boolean => {
   return status === 408 || status === 425 || status === 429 || status >= 500
 }
 
+const sortFilesByDate = (files: File[]): File[] => {
+  return [...files].sort((a, b) => {
+    const dateDelta = a.lastModified - b.lastModified
+    if (dateDelta !== 0) return dateDelta
+    return a.name.localeCompare(b.name)
+  })
+}
+
 const waitUntilOnline = async (): Promise<void> => {
   if (navigator.onLine) return
 
@@ -520,7 +528,7 @@ export function UploadForm() {
     const countryValue = draft.country.trim()
     const tripValue = draft.trip.trim()
     const captionValue = draft.caption.trim()
-    const files = draft.files
+    const files = sortFilesByDate(draft.files)
 
     const nextItems = files.map((file) => createUploadItem(file))
     setItems(nextItems)
@@ -603,7 +611,9 @@ export function UploadForm() {
     }
 
     const formData = new FormData(event.currentTarget)
-    const files = formData.getAll("photos").filter((entry): entry is File => entry instanceof File)
+    const files = sortFilesByDate(
+      formData.getAll("photos").filter((entry): entry is File => entry instanceof File)
+    )
 
     if (files.length === 0) {
       setGlobalError(t("errors.photoRequired"))

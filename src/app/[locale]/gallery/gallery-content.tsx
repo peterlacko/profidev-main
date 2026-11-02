@@ -72,7 +72,7 @@ const toMobilePhotoWithTrip = (photo: MobileApiPhoto): PhotoWithTrip => ({
   tripId: photo.id,
   tripTitle: photo.trip || "Mobile",
   country: photo.country,
-  date: photo.uploadedAt.slice(0, 10),
+  date: photo.uploadedAt,
   src: photo.src,
 })
 
@@ -257,7 +257,19 @@ export function GalleryContent({
       result = result.filter((photo) => photo.tripTitle === selectedMobileTrip)
     }
 
-    return result
+    const toDateTime = (value: string): number => {
+      const parsed = new Date(value)
+      return Number.isNaN(parsed.getTime()) ? Number.MAX_SAFE_INTEGER : parsed.getTime()
+    }
+
+    return [...result].sort((photoA, photoB) => {
+      const dateDelta = toDateTime(photoA.date) - toDateTime(photoB.date)
+      if (dateDelta !== 0) return dateDelta
+      if (photoA.tripTitle !== photoB.tripTitle) {
+        return photoA.tripTitle.localeCompare(photoB.tripTitle)
+      }
+      return photoA.filename.localeCompare(photoB.filename)
+    })
   }, [allPhotos, selectedCountries, activeTrip, selectedMobileTrip])
 
   const groupedPhotosByCountry = useMemo(() => {

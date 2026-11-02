@@ -259,7 +259,9 @@ export const listMobilePhotos = async (): Promise<MobilePhoto[]> => {
     })
   )
 
-  return photos.sort((a, b) => b.uploadedAt.localeCompare(a.uploadedAt))
+  return photos.sort(
+    (a, b) => new Date(a.uploadedAt).getTime() - new Date(b.uploadedAt).getTime()
+  )
 }
 
 export const listMobileTripSummaries = async (): Promise<MobileTripSummary[]> => {
