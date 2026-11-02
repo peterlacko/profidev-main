@@ -26,7 +26,6 @@ export default async function GalleryPage({
   const { locale } = await params
   setRequestLocale(locale)
 
-  const t = await getTranslations("gallery")
   const photos = getAllPhotosWithTrip(locale as Locale)
   const countries = getAllCountries()
   const trips = getAllTrips().sort((a, b) => {
@@ -36,15 +35,8 @@ export default async function GalleryPage({
   })
 
   return (
-    <div className="py-12 md:py-16">
+    <div className="py-4 md:py-6">
       <div className="container mx-auto px-4">
-        {/* Header */}
-        <div className="mb-10">
-          <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
-            {t("title")}
-          </h1>
-        </div>
-
         {/* Gallery with filters */}
         <Suspense fallback={<div className="animate-pulse h-96 bg-muted rounded-lg" />}>
           <GalleryContent
