@@ -8,7 +8,6 @@ import {
 } from "next-intl/server"
 import { Analytics } from "@vercel/analytics/next"
 import { Geist, Geist_Mono } from "next/font/google"
-import Script from "next/script"
 import { routing } from "@/i18n/routing"
 import { LocaleDetector } from "@/components/locale-detector"
 import { Footer } from "@/components/layout/Footer"
@@ -100,9 +99,8 @@ export default async function LocaleLayout({
   return (
     <html lang={locale} suppressHydrationWarning>
       <head>
-        <Script
+        <script
           id="theme-init"
-          strategy="beforeInteractive"
           dangerouslySetInnerHTML={{
             __html: `(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(t!=='light'&&window.matchMedia('(prefers-color-scheme:dark)').matches)){document.documentElement.classList.add('dark')}}catch(e){}})()`,
           }}

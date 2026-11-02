@@ -163,8 +163,10 @@ export function GalleryContent({
 
   const availableCountries = useMemo(() => {
     const countrySet = new Set(allPhotos.map((photo) => photo.country))
-    return Array.from(countrySet).sort()
-  }, [allPhotos])
+    return Array.from(countrySet).sort((a, b) =>
+      tCountries(a).localeCompare(tCountries(b), undefined, { sensitivity: "base" })
+    )
+  }, [allPhotos, tCountries])
 
   const allKnownCountries = useMemo(
     () => Array.from(new Set([...countries, ...availableCountries])).sort(),
