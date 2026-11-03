@@ -369,7 +369,7 @@ export function GalleryContent({
   return (
     <div>
       {/* View Mode Toggle */}
-      <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-center">
+      <div className="mb-2 flex flex-col gap-2 sm:flex-row sm:items-center">
         <div className="flex w-full gap-2 rounded-md bg-muted p-1">
           <button
             type="button"
@@ -417,24 +417,14 @@ export function GalleryContent({
           </button>
         </div>
       </div>
-      {mobilePhotosLoading && (
-        <p className="mb-4 text-sm text-muted-foreground">{t("loadingMobilePhotos")}</p>
-      )}
-      {mobilePhotosError && (
-        <p className="mb-4 text-sm text-destructive">{mobilePhotosError}</p>
-      )}
-
       {viewMode === "filters" ? (
         <>
           {/* Filters */}
           <div className="mb-4 p-0">
-            <div className="flex flex-col gap-2 pb-0">
-              <div className="grid w-full gap-2 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_auto_auto] md:items-end">
+            <div className="flex flex-col gap-1 pb-0">
+              <div className="grid w-full gap-2 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_auto_auto] md:items-center">
                 {/* Country Filter - dropdown multi-select */}
                 <div className="w-full" ref={countryDropdownRef}>
-                  <label className="mb-1 hidden text-[10px] font-medium uppercase tracking-wide text-muted-foreground md:block">
-                    {t("country")}
-                  </label>
                   <div className="relative inline-block w-full">
                     <button
                       type="button"
@@ -442,7 +432,7 @@ export function GalleryContent({
                         setCountriesDropdownOpen((open) => !open)
                         if (!countriesDropdownOpen) setCountrySearch("")
                       }}
-                      className="flex w-full items-center justify-between rounded-md border border-border bg-muted/60 px-2.5 py-1 text-left text-sm text-foreground md:py-1.5"
+                      className="flex w-full items-center justify-between rounded-md border border-border bg-muted/60 px-2.5 py-0.5 text-left text-sm text-foreground md:py-1"
                     >
                       <span className="truncate">{countryFilterLabel}</span>
                       <ChevronDown
@@ -526,16 +516,13 @@ export function GalleryContent({
                 </div>
 
                 <div className="w-full" ref={tripDropdownRef}>
-                  <label className="mb-1 hidden text-[10px] font-medium uppercase tracking-wide text-muted-foreground md:block">
-                    {t("trip")}
-                  </label>
                   <div className="relative inline-block w-full">
                     <button
                       type="button"
                       onClick={() => setTripDropdownOpen((open) => !open)}
                       disabled={selectedCountries.length === 0}
                       className={cn(
-                        "flex w-full items-center justify-between rounded-md border border-border bg-muted/60 px-2.5 py-1 text-left text-sm text-foreground md:py-1.5",
+                        "flex w-full items-center justify-between rounded-md border border-border bg-muted/60 px-2.5 py-0.5 text-left text-sm text-foreground md:py-1",
                         selectedCountries.length === 0 && "cursor-not-allowed opacity-60"
                       )}
                     >
@@ -647,10 +634,7 @@ export function GalleryContent({
                 </div>
 
                 <div className="hidden w-full md:block md:w-auto">
-                  <span className="mb-1 block text-[10px] font-medium uppercase tracking-wide text-transparent">
-                    &nbsp;
-                  </span>
-                  <div className="flex h-[32px] items-center justify-end text-[11px] leading-none text-muted-foreground">
+                  <div className="flex h-[30px] items-center justify-end text-[11px] leading-none text-muted-foreground">
                     {hasActiveFilters
                       ? t("photosFiltered", { count: filteredPhotos.length })
                       : t("photos", { count: filteredPhotos.length })}
@@ -658,42 +642,47 @@ export function GalleryContent({
                 </div>
 
                 <div className="hidden w-full md:block md:w-auto">
-                  <span className="mb-1 block text-[10px] font-medium uppercase tracking-wide text-transparent">
-                    &nbsp;
-                  </span>
                   <Button
                     type="button"
                     variant="outline"
                     onClick={clearFilters}
                     disabled={!hasActiveFilters}
-                    className="h-[32px] w-full border border-border bg-muted/80 px-3 text-sm text-foreground shadow-none hover:bg-muted hover:text-foreground disabled:cursor-not-allowed disabled:border-border/60 disabled:bg-muted/50 disabled:text-muted-foreground md:w-auto"
+                    className="h-[30px] w-full border border-border bg-muted/80 px-3 text-sm text-foreground shadow-none hover:bg-muted hover:text-foreground disabled:cursor-not-allowed disabled:border-border/60 disabled:bg-muted/50 disabled:text-muted-foreground md:w-auto"
                   >
                     {t("clearFilters")}
                   </Button>
                 </div>
               </div>
 
+              {mobilePhotosLoading && (
+                <p className="mb-4 text-sm text-muted-foreground">{t("loadingMobilePhotos")}</p>
+              )}
+              {mobilePhotosError && (
+                <p className="mb-4 text-sm text-destructive">{mobilePhotosError}</p>
+              )}
+
+
             </div>
 
             <div className="space-y-3">
-                {selectedMobileTrip && (
-                  <div className="border-t border-border/50 pt-3">
-                    <label className="mb-1.5 block text-xs font-medium text-muted-foreground">
-                      {t("mobileTripFilter")}
-                    </label>
-                    <div className="flex flex-wrap gap-1.5">
-                      <Button
-                        variant="default"
-                        size="sm"
-                        onClick={() => setSelectedMobileTrip(undefined)}
-                        className="gap-2"
-                      >
-                        {selectedMobileTrip}
-                        <X className="h-4 w-4" />
-                      </Button>
-                    </div>
+              {selectedMobileTrip && (
+                <div className="border-t border-border/50 pt-3">
+                  <label className="mb-1.5 block text-xs font-medium text-muted-foreground">
+                    {t("mobileTripFilter")}
+                  </label>
+                  <div className="flex flex-wrap gap-1.5">
+                    <Button
+                      variant="default"
+                      size="sm"
+                      onClick={() => setSelectedMobileTrip(undefined)}
+                      className="gap-2"
+                    >
+                      {selectedMobileTrip}
+                      <X className="h-4 w-4" />
+                    </Button>
                   </div>
-                )}
+                </div>
+              )}
 
             </div>
           </div>
