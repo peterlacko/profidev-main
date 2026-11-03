@@ -151,3 +151,8 @@ MOBILE_UPLOAD_TOKEN=
 ## Deployment
 
 Deployed on Vercel. Push to main branch triggers automatic deployment.
+
+### Bot protection for image optimization
+
+- `robots.txt` disallows `/_next/image` to discourage compliant crawlers from triggering Vercel image transformations.
+- Edge proxy blocks obvious bot/scraper user agents on `/_next/image` with HTTP `403`.
