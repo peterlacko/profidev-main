@@ -16,6 +16,8 @@ const GEO_URL = "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json"
 const COUNTRY_ALIASES: Record<string, string> = {
   costarica: "Costarica",
   turkiye: "Turkey",
+  unitedstatesofamerica: "USA",
+  unitedstates: "USA",
 }
 
 const normalizeCountryKey = (value: string): string =>
