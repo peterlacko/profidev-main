@@ -156,3 +156,8 @@ Deployed on Vercel. Push to main branch triggers automatic deployment.
 
 - `robots.txt` disallows `/_next/image` to discourage compliant crawlers from triggering Vercel image transformations.
 - Edge proxy blocks obvious bot/scraper user agents on `/_next/image` with HTTP `403`.
+
+### Low-transform mode for gallery images
+
+- Gallery images (`PhotoGrid`, `TripCard`, `Lightbox`) use `next/image` with `unoptimized` to avoid `/_next/image` transformations for high-volume photo traffic.
+- Next image formats are limited to WebP and image variant sizes are bounded in [`next.config.ts`](./next.config.ts) to reduce transformation variants for non-gallery images that remain optimized.
